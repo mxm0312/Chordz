@@ -8,8 +8,8 @@
 import Foundation
 
 
-// MARK: Класс аккорда
-class Chord {
+// MARK: структура аккорда
+struct Chord {
     var name: String?
     var index: Int?
     
@@ -19,8 +19,8 @@ class Chord {
     }
 }
 
-// MARK: Класс песни
-class Song {
+// MARK: структура песни
+struct Song {
     var text: String?
     var chords: [Chord]?
     
@@ -30,8 +30,8 @@ class Song {
     }
 }
 
-// MARK: Класс пользователя
-class User {
+// MARK: структура пользователя
+struct User {
     var nick: String?
     var songs: [String]? // массив идентификаторов песен
     
