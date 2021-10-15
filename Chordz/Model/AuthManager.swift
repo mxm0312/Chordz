@@ -18,15 +18,15 @@ protocol AuthManagerProtocol {
     
 }
 
-class FirebaseAuthManager: AuthManagerProtocol {
-    
-    func createUser(email: String, password: String) -> Bool {
-        <#code#>
-    }
-    
-    func signIn(email: String, password: String) -> Bool {
-        <#code#>
-    }
-    
-}
+//class FirebaseAuthManager: AuthManagerProtocol {
+//    
+//    func createUser(email: String, password: String) -> Bool {
+//        <#code#>
+//    }
+//    
+//    func signIn(email: String, password: String) -> Bool {
+//        <#code#>
+//    }
+//    
+//}
 

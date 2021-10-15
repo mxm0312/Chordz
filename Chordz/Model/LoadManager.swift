@@ -28,26 +28,26 @@ protocol LoadManagerProtocol {
 }
 
 
-class FirebaseLoadManager: LoadManagerProtocol {
-    
-    func loadUser(uid: String) -> User {
-        <#code#>
-    }
-    
-    func loadUser(nick: String) -> User {
-        <#code#>
-    }
-    
-    func loadSongs(name: String) -> [Song] {
-        <#code#>
-    }
-    
-    func loadSongs(artist: String) -> [Song] {
-        <#code#>
-    }
-    
-    func loadSongs(uid: String) -> [Song] {
-        <#code#>
-    }
-    
-}
+//class FirebaseLoadManager: LoadManagerProtocol {
+//    
+//    func loadUser(uid: String) -> User {
+//        <#code#>
+//    }
+//    
+//    func loadUser(nick: String) -> User {
+//        <#code#>
+//    }
+//    
+//    func loadSongs(name: String) -> [Song] {
+//        <#code#>
+//    }
+//    
+//    func loadSongs(artist: String) -> [Song] {
+//        <#code#>
+//    }
+//    
+//    func loadSongs(uid: String) -> [Song] {
+//        <#code#>
+//    }
+//    
+//}
