@@ -31,13 +31,15 @@ class InitialViewController: UIViewController {
         setLabels()
         apearAnimation()
     }
-    
+
     @IBAction func signUp(_ sender: Any) {
         
     }
     
     @IBAction func signIn(_ sender: Any) {
-        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "login")
+        vc!.modalPresentationStyle = .fullScreen
+        self.present(vc!, animated: false, completion: nil)
     }
     
 }
