@@ -14,8 +14,13 @@
 		5E162D3C2707242D00BF44B8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E162D3A2707242D00BF44B8 /* Main.storyboard */; };
 		5E162D3E2707242E00BF44B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E162D3D2707242E00BF44B8 /* Assets.xcassets */; };
 		5E162D412707242E00BF44B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E162D3F2707242E00BF44B8 /* LaunchScreen.storyboard */; };
+		5E3200A92721F1470081BED6 /* RobotoCondensed-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E3200A32721F1460081BED6 /* RobotoCondensed-Bold.ttf */; };
+		5E3200AA2721F1470081BED6 /* RobotoCondensed-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E3200A42721F1470081BED6 /* RobotoCondensed-Light.ttf */; };
+		5E3200AB2721F1470081BED6 /* RobotoCondensed-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E3200A52721F1470081BED6 /* RobotoCondensed-LightItalic.ttf */; };
+		5E3200AC2721F1470081BED6 /* RobotoCondensed-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E3200A62721F1470081BED6 /* RobotoCondensed-Italic.ttf */; };
+		5E3200AD2721F1470081BED6 /* RobotoCondensed-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E3200A72721F1470081BED6 /* RobotoCondensed-BoldItalic.ttf */; };
+		5E3200AE2721F1470081BED6 /* RobotoCondensed-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E3200A82721F1470081BED6 /* RobotoCondensed-Regular.ttf */; };
 		5E8F748D2710C98400B6E85F /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8F748C2710C98400B6E85F /* Models.swift */; };
-		5EB085EB271F56B400C2C9AD /* Semaphore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB085EA271F56B400C2C9AD /* Semaphore.swift */; };
 		5EBA9CB7271F1FFC0033F94E /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBA9CB6271F1FFC0033F94E /* InitialViewController.swift */; };
 		5EBF990127177019005B1B77 /* LoadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBF990027177019005B1B77 /* LoadManager.swift */; };
 		5EBF990427177490005B1B77 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBF990327177490005B1B77 /* AuthManager.swift */; };
@@ -37,8 +42,13 @@
 		5E162D3D2707242E00BF44B8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5E162D402707242E00BF44B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5E162D422707242E00BF44B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5E3200A32721F1460081BED6 /* RobotoCondensed-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RobotoCondensed-Bold.ttf"; path = "Roboto_Condensed/RobotoCondensed-Bold.ttf"; sourceTree = SOURCE_ROOT; };
+		5E3200A42721F1470081BED6 /* RobotoCondensed-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RobotoCondensed-Light.ttf"; path = "Roboto_Condensed/RobotoCondensed-Light.ttf"; sourceTree = SOURCE_ROOT; };
+		5E3200A52721F1470081BED6 /* RobotoCondensed-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RobotoCondensed-LightItalic.ttf"; path = "Roboto_Condensed/RobotoCondensed-LightItalic.ttf"; sourceTree = SOURCE_ROOT; };
+		5E3200A62721F1470081BED6 /* RobotoCondensed-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RobotoCondensed-Italic.ttf"; path = "Roboto_Condensed/RobotoCondensed-Italic.ttf"; sourceTree = SOURCE_ROOT; };
+		5E3200A72721F1470081BED6 /* RobotoCondensed-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RobotoCondensed-BoldItalic.ttf"; path = "Roboto_Condensed/RobotoCondensed-BoldItalic.ttf"; sourceTree = SOURCE_ROOT; };
+		5E3200A82721F1470081BED6 /* RobotoCondensed-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RobotoCondensed-Regular.ttf"; path = "Roboto_Condensed/RobotoCondensed-Regular.ttf"; sourceTree = SOURCE_ROOT; };
 		5E8F748C2710C98400B6E85F /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
-		5EB085EA271F56B400C2C9AD /* Semaphore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Semaphore.swift; sourceTree = "<group>"; };
 		5EBA9CB6271F1FFC0033F94E /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		5EBF990027177019005B1B77 /* LoadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadManager.swift; sourceTree = "<group>"; };
 		5EBF990327177490005B1B77 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
@@ -95,10 +105,24 @@
 				5E162D3A2707242D00BF44B8 /* Main.storyboard */,
 				5E162D3D2707242E00BF44B8 /* Assets.xcassets */,
 				5E162D3F2707242E00BF44B8 /* LaunchScreen.storyboard */,
+				5E395DD92721ADBE00229563 /* Fonts */,
 				5E147423271A1DCE00735920 /* GoogleService-Info.plist */,
 				5E162D422707242E00BF44B8 /* Info.plist */,
 			);
 			path = Chordz;
+			sourceTree = "<group>";
+		};
+		5E395DD92721ADBE00229563 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				5E3200A32721F1460081BED6 /* RobotoCondensed-Bold.ttf */,
+				5E3200A72721F1470081BED6 /* RobotoCondensed-BoldItalic.ttf */,
+				5E3200A62721F1470081BED6 /* RobotoCondensed-Italic.ttf */,
+				5E3200A42721F1470081BED6 /* RobotoCondensed-Light.ttf */,
+				5E3200A52721F1470081BED6 /* RobotoCondensed-LightItalic.ttf */,
+				5E3200A82721F1470081BED6 /* RobotoCondensed-Regular.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		5E8F74882710C92000B6E85F /* Model */ = {
@@ -107,7 +131,6 @@
 				5E8F748C2710C98400B6E85F /* Models.swift */,
 				5EBF990027177019005B1B77 /* LoadManager.swift */,
 				5EBF990327177490005B1B77 /* AuthManager.swift */,
-				5EB085EA271F56B400C2C9AD /* Semaphore.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -207,8 +230,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				5E162D412707242E00BF44B8 /* LaunchScreen.storyboard in Resources */,
+				5E3200AC2721F1470081BED6 /* RobotoCondensed-Italic.ttf in Resources */,
+				5E3200AD2721F1470081BED6 /* RobotoCondensed-BoldItalic.ttf in Resources */,
+				5E3200A92721F1470081BED6 /* RobotoCondensed-Bold.ttf in Resources */,
 				5E147424271A1DCE00735920 /* GoogleService-Info.plist in Resources */,
 				5E162D3E2707242E00BF44B8 /* Assets.xcassets in Resources */,
+				5E3200AA2721F1470081BED6 /* RobotoCondensed-Light.ttf in Resources */,
+				5E3200AB2721F1470081BED6 /* RobotoCondensed-LightItalic.ttf in Resources */,
+				5E3200AE2721F1470081BED6 /* RobotoCondensed-Regular.ttf in Resources */,
 				5E162D3C2707242D00BF44B8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -267,7 +296,6 @@
 				5EBF990427177490005B1B77 /* AuthManager.swift in Sources */,
 				5EBA9CB7271F1FFC0033F94E /* InitialViewController.swift in Sources */,
 				5E8F748D2710C98400B6E85F /* Models.swift in Sources */,
-				5EB085EB271F56B400C2C9AD /* Semaphore.swift in Sources */,
 				5EBF990127177019005B1B77 /* LoadManager.swift in Sources */,
 				5E162D352707242D00BF44B8 /* AppDelegate.swift in Sources */,
 				5EBF99392717890A005B1B77 /* SongCell.swift in Sources */,
@@ -422,6 +450,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DGYH6T768Y;
 				INFOPLIST_FILE = Chordz/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -442,6 +471,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DGYH6T768Y;
 				INFOPLIST_FILE = Chordz/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
