@@ -12,18 +12,94 @@ import UIKit
 
 class InitialViewController: UIViewController {
     
+
+    var logoImage: UIImageView = {
+        let image = UIImageView()
+        image.frame = CGRect(x: 100, y: 100, width: 45, height: 45)
+        image.image = UIImage(named: "logo")
+        return image
+    }()
     
-    var logoImage = UIImageView()
+    var chordzLabel: UILabel = {
+        let label = UILabel()
+        label.frame = CGRect(x: 0, y: 0, width: 132, height: 49)
+        label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+        label.font = UIFont(name: "RobotoCondensed-Bold", size: 40)
+        label.text = "Chord"
+        return label
+    }()
+    var createLabel: UILabel = {
+        let label = UILabel()
+        label.frame = CGRect(x: 0, y: 0, width: 169, height: 75)
+        label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+        label.font = UIFont(name: "RobotoCondensed-Bold", size: 64)
+        label.text = "Create"
+        return label
+    }()
+    var amazeLabel: UILabel = {
+        let label = UILabel()
+        label.frame = CGRect(x: 0, y: 0, width: 174, height: 75)
+        label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+        label.font = UIFont(name: "RobotoCondensed-Bold", size: 64)
+        label.text = "Amaze"
+        return label
+    }()
+    var empowerLabel: UILabel = {
+        let label = UILabel()
+        label.frame = CGRect(x: 0, y: 0, width: 235, height: 75)
+        label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+        label.font = UIFont(name: "RobotoCondensed-Bold", size: 64)
+        label.text = "Empower"
+        return label
+    }()
+    
+    var redView: UIView = {
+        let coloredView = UIView()
+        coloredView.frame = CGRect(x: 0, y: 0, width: 49, height: 66)
+        coloredView.layer.backgroundColor = UIColor(red: 0.898, green: 0.227, blue: 0.349, alpha: 1).cgColor
+        coloredView.layer.cornerRadius = 12
+        return coloredView
+    }()
+    
+    var blueView: UIView = {
+        let coloredView = UIView()
+        coloredView.backgroundColor = .white
+        coloredView.layer.backgroundColor = UIColor(red: 0, green: 0.591, blue: 0.721, alpha: 1).cgColor
+        coloredView.layer.cornerRadius = 12
+        return coloredView
+    }()
+    
+    var greenView: UIView = {
+        let coloredView = UIView()
+        coloredView.frame = CGRect(x: 0, y: 0, width: 96, height: 66)
+        coloredView.layer.backgroundColor = UIColor(red: 0.184, green: 0.658, blue: 0.231, alpha: 1).cgColor
+        coloredView.layer.cornerRadius = 12
+        return coloredView
+    }()
+    
+    var signUp: UIButton = {
+        let button = UIButton()
+        button.frame = CGRect.zero
+        button.setTitle("Sign up", for: .normal)
+        button.titleLabel?.font = UIFont(name: "RobotoCondensed-Bold", size: 24)
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.addTarget(self,action:#selector(signUpButton),
+                         for:.touchUpInside)
+        return button
+    }()
+    
+    var signIn: UIButton = {
+        let button = UIButton()
+        button.frame = CGRect.zero
+        button.setTitle("Sign up", for: .normal)
+        button.titleLabel?.font = UIFont(name: "RobotoCondensed-Regular", size: 24)
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.addTarget(self,action:#selector(signInButton),
+                         for:.touchUpInside)
+        return button
+    }()
+    
     var handImage = UIImageView()
-    var chordzLabel = UILabel()
-    var createLabel = UILabel()
-    var amazeLabel = UILabel()
-    var empowerLabel = UILabel()
-    var redView = UIView()
-    var blueView = UIView()
-    var greenView = UIView()
-    var signUp = UIButton()
-    var signIn = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +109,6 @@ class InitialViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         setLabels()
         apearAnimation()
-       
     }
    
 
@@ -50,10 +125,6 @@ class InitialViewController: UIViewController {
     func setUI() {
         
         // redView
-        
-        redView.frame = CGRect(x: 0, y: 0, width: 49, height: 66)
-        redView.layer.backgroundColor = UIColor(red: 0.898, green: 0.227, blue: 0.349, alpha: 1).cgColor
-        redView.layer.cornerRadius = 12
 
         var parent = self.view!
         parent.addSubview(redView)
@@ -64,11 +135,6 @@ class InitialViewController: UIViewController {
         redView.topAnchor.constraint(equalTo: parent.topAnchor, constant: 251).isActive = true
         
         // BlueView
-       
-        blueView.backgroundColor = .white
-
-        blueView.layer.backgroundColor = UIColor(red: 0, green: 0.591, blue: 0.721, alpha: 1).cgColor
-        blueView.layer.cornerRadius = 12
 
         parent.addSubview(blueView)
         blueView.translatesAutoresizingMaskIntoConstraints = false
@@ -78,12 +144,6 @@ class InitialViewController: UIViewController {
         blueView.topAnchor.constraint(equalTo: parent.topAnchor, constant: 346).isActive = true
         
         // GreenView
-        
-        greenView.frame = CGRect(x: 0, y: 0, width: 96, height: 66)
-        greenView.backgroundColor = .white
-
-        greenView.layer.backgroundColor = UIColor(red: 0.184, green: 0.658, blue: 0.231, alpha: 1).cgColor
-        greenView.layer.cornerRadius = 12
 
         parent.addSubview(greenView)
         greenView.translatesAutoresizingMaskIntoConstraints = false
@@ -94,12 +154,6 @@ class InitialViewController: UIViewController {
 
         // CreateLabel
         
-        createLabel.frame = CGRect(x: 0, y: 0, width: 169, height: 75)
-
-        createLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        createLabel.font = UIFont(name: "RobotoCondensed-Bold", size: 64)
-
-        createLabel.text = "Create"
         parent.addSubview(createLabel)
         createLabel.translatesAutoresizingMaskIntoConstraints = false
         createLabel.widthAnchor.constraint(equalToConstant: 169).isActive = true
@@ -109,10 +163,6 @@ class InitialViewController: UIViewController {
         
         // AmazeLabel
         
-        amazeLabel.frame = CGRect(x: 0, y: 0, width: 174, height: 75)
-        amazeLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        amazeLabel.font = UIFont(name: "RobotoCondensed-Bold", size: 64)
-        amazeLabel.text = "Amaze"
         parent.addSubview(amazeLabel)
         amazeLabel.translatesAutoresizingMaskIntoConstraints = false
         amazeLabel.widthAnchor.constraint(equalToConstant: 174).isActive = true
@@ -122,11 +172,6 @@ class InitialViewController: UIViewController {
         
         // EmpowerLabel
         
-        empowerLabel.frame = CGRect(x: 0, y: 0, width: 235, height: 75)
-        
-        empowerLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        empowerLabel.font = UIFont(name: "RobotoCondensed-Bold", size: 64)
-        empowerLabel.text = "Empower"
         parent.addSubview(empowerLabel)
         empowerLabel.translatesAutoresizingMaskIntoConstraints = false
         empowerLabel.widthAnchor.constraint(equalToConstant: 235).isActive = true
@@ -136,43 +181,21 @@ class InitialViewController: UIViewController {
         
         // logoImage
         
-        logoImage.frame = CGRect(x: 100, y: 100, width: 45, height: 45)
         view.addSubview(logoImage)
         logoImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 24).isActive = true
         logoImage.heightAnchor.constraint(equalToConstant: 45).isActive = true
         logoImage.widthAnchor.constraint(equalToConstant: 45).isActive = true
         logoImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32).isActive = true
-        logoImage.image = UIImage(named: "logo")
         logoImage.translatesAutoresizingMaskIntoConstraints = false
         
         // ChordzLabel
         
-        chordzLabel.frame = CGRect(x: 0, y: 0, width: 132, height: 49)
-        chordzLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        chordzLabel.font = UIFont(name: "RobotoCondensed-Bold", size: 40)
-        chordzLabel.text = "Chord"
         parent.addSubview(chordzLabel)
         chordzLabel.leadingAnchor.constraint(equalTo: logoImage.trailingAnchor, constant: 5).isActive = true
         chordzLabel.centerYAnchor.constraint(equalTo: logoImage.centerYAnchor).isActive = true
         chordzLabel.translatesAutoresizingMaskIntoConstraints = false
         
         // StackView with two buttons
-        
-        signUp.frame = CGRect.zero
-        signUp.setTitle("Sign up", for: .normal)
-        signUp.titleLabel?.font = UIFont(name: "RobotoCondensed-Bold", size: 24)
-        signUp.setTitleColor(UIColor.black, for: .normal)
-        signUp.addTarget(self,action:#selector(signUpButton),
-                         for:.touchUpInside)
-        
-        
-        signIn.frame = CGRect.zero
-        signIn.setTitle("Sign up", for: .normal)
-        signIn.titleLabel?.font = UIFont(name: "RobotoCondensed-Regular", size: 24)
-        signIn.setTitleColor(UIColor.black, for: .normal)
-        signIn.addTarget(self,action:#selector(signInButton),
-                         for:.touchUpInside)
-        
         
         let stackView = UIStackView()
         stackView.frame = CGRect(x: 0, y: 0, width: 0, height: 45)
@@ -198,7 +221,7 @@ class InitialViewController: UIViewController {
         
         // Текст
         
-        var descriptionText = UILabel()
+        let descriptionText = UILabel()
         descriptionText.frame = CGRect(x: 0, y: 0, width: 358, height: 84)
         descriptionText.backgroundColor = .white
 
@@ -206,7 +229,7 @@ class InitialViewController: UIViewController {
         descriptionText.font = UIFont(name: "RobotoCondensed-Regular", size: 22)
         descriptionText.numberOfLines = 0
         descriptionText.lineBreakMode = .byWordWrapping
-        var paragraphStyle = NSMutableParagraphStyle()
+        let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = 1.04
 
 
@@ -220,6 +243,7 @@ class InitialViewController: UIViewController {
        
     }
     
+    // MARK: Кнопка зарегестрироваться
     @objc func signUpButton(sender:UIButton) {
         UIView.animate(withDuration: 0.1, animations: {
             sender.alpha = 0.5
@@ -232,6 +256,7 @@ class InitialViewController: UIViewController {
         })
     }
     
+    // MARK: Кнопка войти
     @objc func signInButton(sender:UIButton) {
         UIView.animate(withDuration: 0.1, animations: {
             sender.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)

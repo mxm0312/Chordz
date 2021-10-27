@@ -10,23 +10,74 @@ import UIKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
-    var loginField = UITextField()
-    var passwordField = UITextField()
-    var signinButton = UIButton()
-    var logoImage = UIImageView()
-    var chordzLabel = UILabel()
-    var signUp = UIButton()
-    var signIn = UIButton()
+    var loginField: UITextField = {
+        let field = UITextField()
+        field.layer.cornerRadius = 10
+        field.placeholder = "email"
+        field.textContentType = .emailAddress
+        field.borderStyle = .none
+        field.textAlignment = .center
+        field.textContentType = .emailAddress
+        field.tintColor = .black
+        field.backgroundColor = UIColor(red: 0.769, green: 0.769, blue: 0.769, alpha: 0.2)
+        return field
+    }()
     
-    var screenHeight: Int?
-    var screenWidth: Int?
+    var passwordField: UITextField = {
+        let field = UITextField()
+        field.layer.cornerRadius = 10
+        field.font = UIFont(name: "RobotoCondensed-Regular", size: 22)
+        field.isSecureTextEntry = true
+        field.placeholder = "password"
+        field.textAlignment = .center
+        field.tintColor = .black
+        field.borderStyle = .none
+        return field
+    }()
+    
+    var logoImage: UIImageView = {
+        let image = UIImageView()
+        image.frame = CGRect(x: 100, y: 100, width: 45, height: 45)
+        image.image = UIImage(named: "logo")
+        return image
+    }()
+    
+    var chordzLabel: UILabel = {
+        let label = UILabel()
+        label.frame = CGRect(x: 0, y: 0, width: 132, height: 49)
+        label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+        label.font = UIFont(name: "RobotoCondensed-Bold", size: 40)
+        label.text = "Chord"
+        return label
+    }()
+    
+    var signUp: UIButton = {
+        let button = UIButton()
+        button.frame = CGRect.zero
+        button.setTitle("Sign up", for: .normal)
+        button.titleLabel?.font = UIFont(name: "RobotoCondensed-Bold", size: 24)
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.addTarget(self,action:#selector(signUpButton),
+                         for:.touchUpInside)
+        return button
+    }()
+    
+    var signIn: UIButton = {
+        let button = UIButton()
+        button.frame = CGRect.zero
+        button.setTitle("Sign up", for: .normal)
+        button.titleLabel?.font = UIFont(name: "RobotoCondensed-Regular", size: 24)
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.addTarget(self,action:#selector(signInButton),
+                         for:.touchUpInside)
+        return button
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         loginField.delegate = self
         passwordField.delegate = self
-        screenHeight = Int(view.frame.height)
-        screenWidth = Int(view.frame.width)
         setUI()
     }
     
@@ -34,23 +85,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     func setUI() {
         
         self.view.backgroundColor = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 1)
+        
         // logoImage
         
-        logoImage.frame = CGRect(x: 100, y: 100, width: 45, height: 45)
         view.addSubview(logoImage)
         logoImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 24).isActive = true
         logoImage.heightAnchor.constraint(equalToConstant: 45).isActive = true
         logoImage.widthAnchor.constraint(equalToConstant: 45).isActive = true
         logoImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32).isActive = true
-        logoImage.image = UIImage(named: "logo")
         logoImage.translatesAutoresizingMaskIntoConstraints = false
         
         // ChordzLabel
         
-        chordzLabel.frame = CGRect(x: 0, y: 0, width: 132, height: 49)
-        chordzLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        chordzLabel.font = UIFont(name: "RobotoCondensed-Bold", size: 40)
-        chordzLabel.text = "Chord"
         view.addSubview(chordzLabel)
         chordzLabel.leadingAnchor.constraint(equalTo: logoImage.trailingAnchor, constant: 5).isActive = true
         chordzLabel.centerYAnchor.constraint(equalTo: logoImage.centerYAnchor).isActive = true
@@ -71,22 +117,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         box.translatesAutoresizingMaskIntoConstraints = false
         
         // StackView with two buttons
-        
-        signUp.frame = CGRect.zero
-        signUp.setTitle("Sign up", for: .normal)
-        signUp.titleLabel?.font = UIFont(name: "RobotoCondensed-Bold", size: 24)
-        signUp.setTitleColor(UIColor.black, for: .normal)
-        signUp.addTarget(self,action:#selector(signUpButton),
-                         for:.touchUpInside)
-        
-        
-        signIn.frame = CGRect.zero
-        signIn.setTitle("Sign up", for: .normal)
-        signIn.titleLabel?.font = UIFont(name: "RobotoCondensed-Regular", size: 24)
-        signIn.setTitleColor(UIColor.black, for: .normal)
-        signIn.addTarget(self,action:#selector(signInButton),
-                         for:.touchUpInside)
-        
         
         let stackView = UIStackView()
         stackView.frame = CGRect(x: 0, y: 0, width: 0, height: 45)
@@ -120,14 +150,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         emailLabel.translatesAutoresizingMaskIntoConstraints = false
         
         // emailField
-        loginField.layer.cornerRadius = 10
-        loginField.placeholder = "email"
-        loginField.textContentType = .emailAddress
-        loginField.borderStyle = .none
-        loginField.textAlignment = .center
-        loginField.textContentType = .emailAddress
-        loginField.tintColor = .black
-        loginField.backgroundColor = UIColor(red: 0.769, green: 0.769, blue: 0.769, alpha: 0.2)
+        
         box.addSubview(loginField)
         view.addConstraint(NSLayoutConstraint(item: loginField, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 0.85, constant: 0))
         loginField.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 8).isActive = true
@@ -150,6 +173,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         
         // password Label
+        
         let passwordLabel = UILabel()
         passwordLabel.font =  UIFont(name: "RobotoCondensed-Regular", size: 22)
         passwordLabel.text = "Info about correct password"
@@ -158,15 +182,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passwordLabel.centerYAnchor.constraint(equalTo: passwordIcon.centerYAnchor).isActive = true
         passwordLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        
         // password field
-        passwordField.layer.cornerRadius = 10
-        passwordField.font = UIFont(name: "RobotoCondensed-Regular", size: 22)
-        passwordField.isSecureTextEntry = true
-        passwordField.placeholder = "password"
-        passwordField.textAlignment = .center
-        passwordField.tintColor = .black
-        passwordField.borderStyle = .none
+
         passwordField.backgroundColor = UIColor(red: 0.769, green: 0.769, blue: 0.769, alpha: 0.2)
         box.addSubview(passwordField)
         view.addConstraint(NSLayoutConstraint(item: passwordField, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 0.85, constant: 0))
