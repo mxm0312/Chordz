@@ -15,19 +15,11 @@ class InitialViewController: UIViewController {
 
     var logoImage: UIImageView = {
         let image = UIImageView()
-        image.frame = CGRect(x: 100, y: 100, width: 45, height: 45)
+        image.frame = CGRect(x: 0, y: 0, width: 200, height: 73)
         image.image = UIImage(named: "logo")
         return image
     }()
     
-    var chordzLabel: UILabel = {
-        let label = UILabel()
-        label.frame = CGRect(x: 0, y: 0, width: 132, height: 49)
-        label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        label.font = UIFont(name: "RobotoCondensed-Bold", size: 40)
-        label.text = "Chord"
-        return label
-    }()
     var createLabel: UILabel = {
         let label = UILabel()
         label.frame = CGRect(x: 0, y: 0, width: 169, height: 75)
@@ -91,7 +83,7 @@ class InitialViewController: UIViewController {
     var signIn: UIButton = {
         let button = UIButton()
         button.frame = CGRect.zero
-        button.setTitle("Sign up", for: .normal)
+        button.setTitle("Sign in", for: .normal)
         button.titleLabel?.font = UIFont(name: "RobotoCondensed-Regular", size: 24)
         button.setTitleColor(UIColor.black, for: .normal)
         button.addTarget(self,action:#selector(signInButton),
@@ -123,6 +115,15 @@ class InitialViewController: UIViewController {
     }
     
     func setUI() {
+        
+        // logo
+        view.addSubview(logoImage)
+        logoImage.heightAnchor.constraint(equalToConstant: 73).isActive = true
+        logoImage.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        logoImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
+        logoImage.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 32).isActive = true
+        logoImage.translatesAutoresizingMaskIntoConstraints = false
+       
         
         // redView
 
@@ -179,21 +180,7 @@ class InitialViewController: UIViewController {
         empowerLabel.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 31).isActive = true
         empowerLabel.topAnchor.constraint(equalTo: parent.topAnchor, constant: 434).isActive = true
         
-        // logoImage
         
-        view.addSubview(logoImage)
-        logoImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 24).isActive = true
-        logoImage.heightAnchor.constraint(equalToConstant: 45).isActive = true
-        logoImage.widthAnchor.constraint(equalToConstant: 45).isActive = true
-        logoImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32).isActive = true
-        logoImage.translatesAutoresizingMaskIntoConstraints = false
-        
-        // ChordzLabel
-        
-        parent.addSubview(chordzLabel)
-        chordzLabel.leadingAnchor.constraint(equalTo: logoImage.trailingAnchor, constant: 5).isActive = true
-        chordzLabel.centerYAnchor.constraint(equalTo: logoImage.centerYAnchor).isActive = true
-        chordzLabel.translatesAutoresizingMaskIntoConstraints = false
         
         // StackView with two buttons
         
@@ -252,8 +239,13 @@ class InitialViewController: UIViewController {
             UIView.animate(withDuration: 0.2, animations: {
                 sender.alpha = 1
                 sender.transform = CGAffineTransform(scaleX: 1, y: 1)
+            },completion: { _ in
+                let view = LoginViewController()
+                view.modalPresentationStyle = .fullScreen
+                self.present(view, animated: true, completion: nil)
             })
         })
+        
     }
     
     // MARK: Кнопка войти

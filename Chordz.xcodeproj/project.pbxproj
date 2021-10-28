@@ -20,12 +20,13 @@
 		5E3200AC2721F1470081BED6 /* RobotoCondensed-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E3200A62721F1470081BED6 /* RobotoCondensed-Italic.ttf */; };
 		5E3200AD2721F1470081BED6 /* RobotoCondensed-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E3200A72721F1470081BED6 /* RobotoCondensed-BoldItalic.ttf */; };
 		5E3200AE2721F1470081BED6 /* RobotoCondensed-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E3200A82721F1470081BED6 /* RobotoCondensed-Regular.ttf */; };
-		5E8F748D2710C98400B6E85F /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8F748C2710C98400B6E85F /* Models.swift */; };
+		5E8F748D2710C98400B6E85F /* Structures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8F748C2710C98400B6E85F /* Structures.swift */; };
 		5EBA9CB7271F1FFC0033F94E /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBA9CB6271F1FFC0033F94E /* InitialViewController.swift */; };
 		5EBF990127177019005B1B77 /* LoadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBF990027177019005B1B77 /* LoadManager.swift */; };
 		5EBF990427177490005B1B77 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBF990327177490005B1B77 /* AuthManager.swift */; };
 		5EBF99392717890A005B1B77 /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBF99382717890A005B1B77 /* SongCell.swift */; };
 		5EBF993D27178958005B1B77 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBF993C27178958005B1B77 /* UserCell.swift */; };
+		5EF79941272B296600E6FF92 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF79940272B296600E6FF92 /* Model.swift */; };
 		A379CBBE71032BE6D76A10EF /* Pods_Chordz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BBE152375C5CA734D69F583 /* Pods_Chordz.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,12 +49,13 @@
 		5E3200A62721F1470081BED6 /* RobotoCondensed-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RobotoCondensed-Italic.ttf"; path = "Roboto_Condensed/RobotoCondensed-Italic.ttf"; sourceTree = SOURCE_ROOT; };
 		5E3200A72721F1470081BED6 /* RobotoCondensed-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RobotoCondensed-BoldItalic.ttf"; path = "Roboto_Condensed/RobotoCondensed-BoldItalic.ttf"; sourceTree = SOURCE_ROOT; };
 		5E3200A82721F1470081BED6 /* RobotoCondensed-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RobotoCondensed-Regular.ttf"; path = "Roboto_Condensed/RobotoCondensed-Regular.ttf"; sourceTree = SOURCE_ROOT; };
-		5E8F748C2710C98400B6E85F /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		5E8F748C2710C98400B6E85F /* Structures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structures.swift; sourceTree = "<group>"; };
 		5EBA9CB6271F1FFC0033F94E /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		5EBF990027177019005B1B77 /* LoadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadManager.swift; sourceTree = "<group>"; };
 		5EBF990327177490005B1B77 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		5EBF99382717890A005B1B77 /* SongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
 		5EBF993C27178958005B1B77 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
+		5EF79940272B296600E6FF92 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,9 +130,10 @@
 		5E8F74882710C92000B6E85F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				5E8F748C2710C98400B6E85F /* Models.swift */,
-				5EBF990027177019005B1B77 /* LoadManager.swift */,
+				5EF79940272B296600E6FF92 /* Model.swift */,
+				5E8F748C2710C98400B6E85F /* Structures.swift */,
 				5EBF990327177490005B1B77 /* AuthManager.swift */,
+				5EBF990027177019005B1B77 /* LoadManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -295,7 +298,8 @@
 				5E162D392707242D00BF44B8 /* LoginViewController.swift in Sources */,
 				5EBF990427177490005B1B77 /* AuthManager.swift in Sources */,
 				5EBA9CB7271F1FFC0033F94E /* InitialViewController.swift in Sources */,
-				5E8F748D2710C98400B6E85F /* Models.swift in Sources */,
+				5E8F748D2710C98400B6E85F /* Structures.swift in Sources */,
+				5EF79941272B296600E6FF92 /* Model.swift in Sources */,
 				5EBF990127177019005B1B77 /* LoadManager.swift in Sources */,
 				5E162D352707242D00BF44B8 /* AppDelegate.swift in Sources */,
 				5EBF99392717890A005B1B77 /* SongCell.swift in Sources */,

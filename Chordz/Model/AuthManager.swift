@@ -36,7 +36,6 @@ class FirebaseAuthManager: AuthManagerProtocol {
     }
     
     func signIn(email: String, password: String, completionHandler: @escaping (Any?) -> Void) {
-        
         Auth.auth().signIn(withEmail: email, password: password, completion: { (data, error) in
             completionHandler(error)
         })
@@ -44,7 +43,6 @@ class FirebaseAuthManager: AuthManagerProtocol {
     }
     
     func resetPassword(email: String, completionHandler: @escaping (Any?) -> Void) {
-        
         Auth.auth().sendPasswordReset(withEmail: email, completion: { (error) in
             completionHandler(error)
         })

@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Снимок экрана 2021-10-21 в 19.58.56.png",
+      "filename" : "logo.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "logo2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "logo3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

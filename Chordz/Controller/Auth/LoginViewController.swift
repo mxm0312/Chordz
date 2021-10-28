@@ -42,14 +42,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         return image
     }()
     
-    var chordzLabel: UILabel = {
-        let label = UILabel()
-        label.frame = CGRect(x: 0, y: 0, width: 132, height: 49)
-        label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        label.font = UIFont(name: "RobotoCondensed-Bold", size: 40)
-        label.text = "Chord"
-        return label
-    }()
     
     var signUp: UIButton = {
         let button = UIButton()
@@ -73,6 +65,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         return button
     }()
     
+    let model = Model()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,28 +80,20 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         self.view.backgroundColor = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 1)
         
-        // logoImage
-        
+       // logo
         view.addSubview(logoImage)
-        logoImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 24).isActive = true
-        logoImage.heightAnchor.constraint(equalToConstant: 45).isActive = true
-        logoImage.widthAnchor.constraint(equalToConstant: 45).isActive = true
-        logoImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32).isActive = true
+        logoImage.heightAnchor.constraint(equalToConstant: 73).isActive = true
+        logoImage.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        logoImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
+        logoImage.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 32).isActive = true
         logoImage.translatesAutoresizingMaskIntoConstraints = false
-        
-        // ChordzLabel
-        
-        view.addSubview(chordzLabel)
-        chordzLabel.leadingAnchor.constraint(equalTo: logoImage.trailingAnchor, constant: 5).isActive = true
-        chordzLabel.centerYAnchor.constraint(equalTo: logoImage.centerYAnchor).isActive = true
-        chordzLabel.translatesAutoresizingMaskIntoConstraints = false
-        
+       
         // contentView
         
         let box = UIView()
         box.frame = CGRect.zero
         view.addSubview(box)
-        box.topAnchor.constraint(equalTo: chordzLabel.bottomAnchor, constant: 8).isActive = true
+        box.topAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: 8).isActive = true
         box.layer.cornerRadius = 15
         box.backgroundColor = .white
         box.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
@@ -167,7 +153,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         box.addSubview(passwordIcon)
         passwordIcon.heightAnchor.constraint(equalToConstant: 20).isActive = true
         passwordIcon.widthAnchor.constraint(equalToConstant: 18).isActive = true
-        passwordIcon.topAnchor.constraint(equalTo: loginField.bottomAnchor, constant: 38).isActive = true
+        passwordIcon.topAnchor.constraint(equalTo: loginField.bottomAnchor, constant: 18).isActive = true
         passwordIcon.leftAnchor.constraint(equalTo: box.leftAnchor, constant: 32).isActive = true
         passwordIcon.translatesAutoresizingMaskIntoConstraints = false
         
@@ -236,7 +222,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @objc func submitButton(_ sender: Any) {
         if (loginField.text != "" && passwordField.text != "") {
-            FirebaseAuthManager.shared.signIn(email: loginField.text!, password: passwordField.text!, completionHandler: { err in
+            model.signIn(email: loginField.text!, password: passwordField.text!, complition: { err in
                
                 if err == nil {
                     print("Success")
