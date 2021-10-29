@@ -138,6 +138,12 @@ class SignUpViewController: UIViewController {
         button.titleLabel?.font = .systemFont(ofSize: 25)
         return button
     }()
+    
+    private let justView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black
+        return view
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -145,6 +151,7 @@ class SignUpViewController: UIViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(signupTopButton)
         scrollView.addSubview(signinTopButton)
+        scrollView.addSubview(justView)
         scrollView.addSubview(logo)
         scrollView.addSubview(usernameLabel)
         scrollView.addSubview(usernameField)
@@ -168,6 +175,7 @@ class SignUpViewController: UIViewController {
         logo.frame = CGRect(x: 30, y: 60, width: 150, height: 60)
         signupTopButton.frame = CGRect(x: scrollView.width/2-115, y: logo.bottom+35, width: 95, height: 35)
         signinTopButton.frame = CGRect(x: scrollView.width/2+20, y: logo.bottom+35, width: 95, height: 35)
+        justView.frame = CGRect(x: scrollView.width/2-2, y: logo.bottom+35, width: 4, height: 35)
         
         usernameIcon.frame = CGRect(x: 30, y: signupTopButton.bottom+35, width: 20, height: 20)
         usernameLabel.frame = CGRect(x: usernameIcon.right+10, y: signupTopButton.bottom+35, width: scrollView.width-60, height: 20)
@@ -182,8 +190,6 @@ class SignUpViewController: UIViewController {
         passwordField.frame = CGRect(x: 30, y: passwordLabel.bottom+7, width: scrollView.width-60, height: 45)
         password2Field.frame = CGRect(x: 30, y: passwordField.bottom+7, width: scrollView.width-60, height: 45)
         
-        //fixme y
-        //какая-то лажа при повороте экрана, наверное, надо как-то к низу safeArea привязываться, если это возможно
         signupButton.frame = CGRect(x: 30, y: scrollView.bottom - 100, width: scrollView.width-60, height: 60)
     }
 }
