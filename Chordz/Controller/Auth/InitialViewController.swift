@@ -99,6 +99,7 @@ class InitialViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
         setLabels()
         apearAnimation()
     }
@@ -109,9 +110,11 @@ class InitialViewController: UIViewController {
     }
     
     @IBAction func signIn(_ sender: Any) {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "login")
-        vc!.modalPresentationStyle = .fullScreen
-        self.present(vc!, animated: false, completion: nil)
+        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "login") else {
+            return
+        }
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: false, completion: nil)
     }
     
     func setUI() {

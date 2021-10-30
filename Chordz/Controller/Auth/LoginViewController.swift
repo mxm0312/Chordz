@@ -10,6 +10,8 @@ import UIKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
+    let model = Model()
+    
     var loginField: UITextField = {
         let field = UITextField()
         field.layer.cornerRadius = 10
@@ -65,14 +67,69 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         return button
     }()
     
-    let model = Model()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         loginField.delegate = self
         passwordField.delegate = self
         setUI()
+    }
+    
+    
+    @objc func submitButton(_ sender: Any) {
+        if (loginField.text != "" && passwordField.text != "") {
+            model.signIn(email: loginField.text!, password: passwordField.text!, complition: { err in
+               
+                if err == nil {
+                    print("Success")
+                    // Переход на главный экран
+                } else {
+                    let alert = UIAlertController(title: "Oops", message: "Checkout ur email or password", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+                    alert.addAction(action)
+                    self.present(alert, animated: true, completion: nil)
+                }
+            })
+        } else {
+            let alert = UIAlertController(title: "Oops", message: "You haven't filled out the data", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            alert.addAction(action)
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        loginField.resignFirstResponder()
+        passwordField.resignFirstResponder()
+        return true
+    }
+    
+    @objc func signUpButton(sender:UIButton) {
+        UIView.animate(withDuration: 0.1, animations: {
+            sender.alpha = 0.5
+            sender.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.2, animations: {
+                sender.alpha = 1
+                sender.transform = CGAffineTransform(scaleX: 1, y: 1)
+            })
+        })
+    }
+    
+    @objc func signInButton(sender:UIButton) {
+        UIView.animate(withDuration: 0.1, animations: {
+            sender.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+            sender.alpha = 0.5
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.2, animations: {
+                sender.transform = CGAffineTransform(scaleX: 1, y: 1)
+                sender.alpha = 1
+            })
+        })
+    }
+    
+    @objc func reset(sender:UIButton) {
+        
     }
     
     
@@ -218,62 +275,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         confirmButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
         confirmButton.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    @objc func submitButton(_ sender: Any) {
-        if (loginField.text != "" && passwordField.text != "") {
-            model.signIn(email: loginField.text!, password: passwordField.text!, complition: { err in
-               
-                if err == nil {
-                    print("Success")
-                    // Переход на главный экран
-                } else {
-                    let alert = UIAlertController(title: "Oops", message: "Checkout ur email or password", preferredStyle: .alert)
-                    let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
-                    alert.addAction(action)
-                    self.present(alert, animated: true, completion: nil)
-                }
-            })
-        } else {
-            let alert = UIAlertController(title: "Oops", message: "You haven't filled out the data", preferredStyle: .alert)
-            let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
-            alert.addAction(action)
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        loginField.resignFirstResponder()
-        passwordField.resignFirstResponder()
-        return true
-    }
-    
-    @objc func signUpButton(sender:UIButton) {
-        UIView.animate(withDuration: 0.1, animations: {
-            sender.alpha = 0.5
-            sender.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
-        }, completion: { _ in
-            UIView.animate(withDuration: 0.2, animations: {
-                sender.alpha = 1
-                sender.transform = CGAffineTransform(scaleX: 1, y: 1)
-            })
-        })
-    }
-    
-    @objc func signInButton(sender:UIButton) {
-        UIView.animate(withDuration: 0.1, animations: {
-            sender.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
-            sender.alpha = 0.5
-        }, completion: { _ in
-            UIView.animate(withDuration: 0.2, animations: {
-                sender.transform = CGAffineTransform(scaleX: 1, y: 1)
-                sender.alpha = 1
-            })
-        })
-    }
-    
-    @objc func reset(sender:UIButton) {
-        
     }
     
 }

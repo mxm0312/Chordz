@@ -14,6 +14,7 @@ protocol ModelProtocol {
     func resetPassword(email: String, password: String, complition: @escaping (Any?) -> Void)
 }
 
+
 class Model: ModelProtocol {
     
     let authManager: AuthManagerProtocol = FirebaseAuthManager.shared
