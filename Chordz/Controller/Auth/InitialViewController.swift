@@ -105,19 +105,16 @@ class InitialViewController: UIViewController {
     }
    
 
-    @IBAction func signUp(_ sender: Any) {
-        
-    }
-    
-    @IBAction func signIn(_ sender: Any) {
-        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "login") else {
-            return
-        }
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: false, completion: nil)
-    }
     
     func setUI() {
+        
+        let parent = self.view!
+        parent.addSubview(redView)
+        parent.sendSubviewToBack(redView)
+        parent.addSubview(blueView)
+        parent.sendSubviewToBack(blueView)
+        parent.addSubview(greenView)
+        parent.sendSubviewToBack(greenView)
         
         // logo
         view.addSubview(logoImage)
@@ -126,35 +123,6 @@ class InitialViewController: UIViewController {
         logoImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
         logoImage.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 32).isActive = true
         logoImage.translatesAutoresizingMaskIntoConstraints = false
-       
-        
-        // redView
-
-        var parent = self.view!
-        parent.addSubview(redView)
-        redView.translatesAutoresizingMaskIntoConstraints = false
-        redView.widthAnchor.constraint(equalToConstant: 49).isActive = true
-        redView.heightAnchor.constraint(equalToConstant: 66).isActive = true
-        redView.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 24).isActive = true
-        redView.topAnchor.constraint(equalTo: parent.topAnchor, constant: 251).isActive = true
-        
-        // BlueView
-
-        parent.addSubview(blueView)
-        blueView.translatesAutoresizingMaskIntoConstraints = false
-        blueView.widthAnchor.constraint(equalToConstant: 96).isActive = true
-        blueView.heightAnchor.constraint(equalToConstant: 66).isActive = true
-        blueView.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 24).isActive = true
-        blueView.topAnchor.constraint(equalTo: parent.topAnchor, constant: 346).isActive = true
-        
-        // GreenView
-
-        parent.addSubview(greenView)
-        greenView.translatesAutoresizingMaskIntoConstraints = false
-        greenView.widthAnchor.constraint(equalToConstant: 96).isActive = true
-        greenView.heightAnchor.constraint(equalToConstant: 66).isActive = true
-        greenView.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 24).isActive = true
-        greenView.topAnchor.constraint(equalTo: parent.topAnchor, constant: 438).isActive = true
 
         // CreateLabel
         
@@ -162,8 +130,8 @@ class InitialViewController: UIViewController {
         createLabel.translatesAutoresizingMaskIntoConstraints = false
         createLabel.widthAnchor.constraint(equalToConstant: 169).isActive = true
         createLabel.heightAnchor.constraint(equalToConstant: 75).isActive = true
-        createLabel.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 31).isActive = true
-        createLabel.topAnchor.constraint(equalTo: parent.topAnchor, constant: 248).isActive = true
+        createLabel.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 28).isActive = true
+        view.addConstraint(NSLayoutConstraint(item: createLabel, attribute: .centerY, relatedBy: .equal, toItem: redView, attribute: .centerY, multiplier: 1, constant: 0))
         
         // AmazeLabel
         
@@ -172,7 +140,7 @@ class InitialViewController: UIViewController {
         amazeLabel.widthAnchor.constraint(equalToConstant: 174).isActive = true
         amazeLabel.heightAnchor.constraint(equalToConstant: 75).isActive = true
         amazeLabel.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 31).isActive = true
-        amazeLabel.topAnchor.constraint(equalTo: parent.topAnchor, constant: 341).isActive = true
+        view.addConstraint(NSLayoutConstraint(item: amazeLabel, attribute: .centerY, relatedBy: .equal, toItem: blueView, attribute: .centerY, multiplier: 1, constant: 0))
         
         // EmpowerLabel
         
@@ -181,9 +149,32 @@ class InitialViewController: UIViewController {
         empowerLabel.widthAnchor.constraint(equalToConstant: 235).isActive = true
         empowerLabel.heightAnchor.constraint(equalToConstant: 75).isActive = true
         empowerLabel.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 31).isActive = true
-        empowerLabel.topAnchor.constraint(equalTo: parent.topAnchor, constant: 434).isActive = true
+        view.addConstraint(NSLayoutConstraint(item: empowerLabel, attribute: .centerY, relatedBy: .equal, toItem: greenView, attribute: .centerY, multiplier: 1, constant: 0))
+        
+        // redView
+        
+        redView.translatesAutoresizingMaskIntoConstraints = false
+        redView.widthAnchor.constraint(equalTo: createLabel.widthAnchor, multiplier: 0.25).isActive = true
+        redView.heightAnchor.constraint(equalToConstant: 66).isActive = true
+        redView.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 24).isActive = true
+        self.view.addConstraint(NSLayoutConstraint(item: redView, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 0.6, constant: 0))
         
         
+        // BlueView
+        
+        blueView.translatesAutoresizingMaskIntoConstraints = false
+        blueView.widthAnchor.constraint(equalTo: amazeLabel.widthAnchor, multiplier: 0.53).isActive = true
+        blueView.heightAnchor.constraint(equalToConstant: 66).isActive = true
+        blueView.topAnchor.constraint(equalTo: redView.bottomAnchor, constant: 45).isActive = true
+        blueView.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 24).isActive = true
+        
+        // GreenView
+        
+        greenView.translatesAutoresizingMaskIntoConstraints = false
+        greenView.widthAnchor.constraint(equalTo: empowerLabel.widthAnchor, multiplier: 0.37).isActive = true
+        greenView.heightAnchor.constraint(equalToConstant: 66).isActive = true
+        greenView.topAnchor.constraint(equalTo: blueView.bottomAnchor, constant: 45).isActive = true
+        greenView.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 24).isActive = true
         
         // StackView with two buttons
         
@@ -242,10 +233,6 @@ class InitialViewController: UIViewController {
             UIView.animate(withDuration: 0.2, animations: {
                 sender.alpha = 1
                 sender.transform = CGAffineTransform(scaleX: 1, y: 1)
-            },completion: { _ in
-                let view = LoginViewController()
-                view.modalPresentationStyle = .fullScreen
-                self.present(view, animated: true, completion: nil)
             })
         })
         
@@ -260,6 +247,10 @@ class InitialViewController: UIViewController {
             UIView.animate(withDuration: 0.2, animations: {
                 sender.transform = CGAffineTransform(scaleX: 1, y: 1)
                 sender.alpha = 1
+            },completion: { _ in
+                let view = LoginViewController()
+                view.modalPresentationStyle = .fullScreen
+                self.present(view, animated: true, completion: nil)
             })
         })
     }

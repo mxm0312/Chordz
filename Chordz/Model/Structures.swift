@@ -12,22 +12,19 @@ import Foundation
 struct Chord {
     var name: String?
     var index: Int?
-    
-    init(name: String, index: Int) {
-        self.name = name
-        self.index = index
-    }
 }
 
 // MARK: структура песни
 struct Song {
+    var nick: String?
+    var name: String?
+    var album: String?
+    var tags: [String]?
+    var image: String?
+    var likes: Int?
+    var comments: [Comment]?
     var text: String?
     var chords: [Chord]?
-    
-    init(text: String, chords: [Chord]) {
-        self.text = text
-        self.chords = chords
-    }
 }
 
 // MARK: структура пользователя
@@ -39,4 +36,9 @@ struct User {
         self.nick = nick
         self.songs = songs
     }
+}
+
+struct Comment {
+    var nick: String?
+    var text: String?
 }
