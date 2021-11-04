@@ -11,43 +11,20 @@ import Foundation
 protocol LoadManagerProtocol {
     
     /* Загрузка пользователя по uid */
-    func loadUser(uid: String) -> User
+    func loadUser(uid: String, complitionHandler: @escaping (User?) -> Void)
     
     /* Загрузка пользователя по niсk */
-    func loadUser(nick: String) -> User
+    func loadUser(nick: String, complitionHandler: @escaping (User?) -> Void)
     
     /* Загрузка всех песен с таким названием */
-    func loadSongs(name: String) -> [Song]
+    func loadSongs(name: String, complitionHandler: @escaping ([Song]?) -> Void)
     
     /* Загрузка всех песен с таким исполнителем */
-    func loadSongs(artist: String) -> [Song]
+    func loadSongs(artist: String, complitionHandler: @escaping ([Song]?) -> Void)
     
     /* Загрузка всех песен конкретного пользователя */
-    func loadSongs(uid: String) -> [Song]
+    func loadSongs(uid: String, complitionHandler: @escaping ([Song]?) -> Void)
 
 }
 
 
-//class FirebaseLoadManager: LoadManagerProtocol {
-//    
-//    func loadUser(uid: String) -> User {
-//        <#code#>
-//    }
-//    
-//    func loadUser(nick: String) -> User {
-//        <#code#>
-//    }
-//    
-//    func loadSongs(name: String) -> [Song] {
-//        <#code#>
-//    }
-//    
-//    func loadSongs(artist: String) -> [Song] {
-//        <#code#>
-//    }
-//    
-//    func loadSongs(uid: String) -> [Song] {
-//        <#code#>
-//    }
-//    
-//}
