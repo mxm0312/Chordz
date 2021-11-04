@@ -2,34 +2,20 @@
 //  Extensions.swift
 //  Chordz
 //
-//  Created by Алена Захарова on 23.10.2021.
+//  Created by Алена Захарова on 04.11.2021.
 //
 
-import Foundation
 import UIKit
 
-extension UIView {
-    public var width: CGFloat {
-        return self.frame.size.width
-    }
-    
-    public var height: CGFloat {
-        return self.frame.size.height
-    }
-    
-    public var top: CGFloat {
-        return self.frame.origin.y
-    }
-    
-    public var bottom: CGFloat {
-        return self.frame.size.height + self.frame.origin.y
-    }
-    
-    public var left: CGFloat {
-        return self.frame.origin.x
-    }
-    
-    public var right: CGFloat {
-        return self.frame.size.width + self.frame.origin.x
-    }
+extension UIImage {
+    static let logoIcon = UIImage(named: "logo")
+    static let usernameIcon = UIImage(named: "username-icon")
+    static let emailIcon = UIImage(named: "email-icon")
+    static let passwordIcon = UIImage(named: "password-icon")
+    static let infoIcon = UIImage(named: "warning-icon")
+}
+
+extension UIColor {
+    static let buttonColor = UIColor(named: "button-color")
+    static let textFieldBgColor = UIColor(named: "text-field-bg-color")
 }

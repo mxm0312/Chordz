@@ -21,7 +21,7 @@
 		5EBF99392717890A005B1B77 /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBF99382717890A005B1B77 /* SongCell.swift */; };
 		5EBF993D27178958005B1B77 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBF993C27178958005B1B77 /* UserCell.swift */; };
 		6D7E76E4272424B0004C5AD5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6D7E76E3272424B0004C5AD5 /* GoogleService-Info.plist */; };
-		6D7E76E627243462004C5AD5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7E76E527243462004C5AD5 /* Extensions.swift */; };
+		6D7E76F02733E02E004C5AD5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7E76EF2733E02E004C5AD5 /* Extensions.swift */; };
 		6DE321C62723F7C400B95809 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE321C52723F7C400B95809 /* SignUpViewController.swift */; };
 		A379CBBE71032BE6D76A10EF /* Pods_Chordz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BBE152375C5CA734D69F583 /* Pods_Chordz.framework */; };
 /* End PBXBuildFile section */
@@ -46,7 +46,7 @@
 		5EBF99382717890A005B1B77 /* SongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
 		5EBF993C27178958005B1B77 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		6D7E76E3272424B0004C5AD5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		6D7E76E527243462004C5AD5 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		6D7E76EF2733E02E004C5AD5 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		6DE321C52723F7C400B95809 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -101,7 +101,7 @@
 				5E162D3F2707242E00BF44B8 /* LaunchScreen.storyboard */,
 				6D7E76E3272424B0004C5AD5 /* GoogleService-Info.plist */,
 				5E162D422707242E00BF44B8 /* Info.plist */,
-				6D7E76E527243462004C5AD5 /* Extensions.swift */,
+				6D7E76EF2733E02E004C5AD5 /* Extensions.swift */,
 			);
 			path = Chordz;
 			sourceTree = "<group>";
@@ -275,7 +275,7 @@
 				5EBA9CB7271F1FFC0033F94E /* InitialViewController.swift in Sources */,
 				5E8F748D2710C98400B6E85F /* Models.swift in Sources */,
 				5EB085EB271F56B400C2C9AD /* Semaphore.swift in Sources */,
-				6D7E76E627243462004C5AD5 /* Extensions.swift in Sources */,
+				6D7E76F02733E02E004C5AD5 /* Extensions.swift in Sources */,
 				5EBF990127177019005B1B77 /* LoadManager.swift in Sources */,
 				5E162D352707242D00BF44B8 /* AppDelegate.swift in Sources */,
 				5EBF99392717890A005B1B77 /* SongCell.swift in Sources */,

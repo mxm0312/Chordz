@@ -9,22 +9,16 @@ import UIKit
 
 class SignUpViewController: UIViewController {
     
-    private let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.clipsToBounds = true
-        return scrollView
-    }()
-    
     private let logo: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "logo")
+        imageView.image = .logoIcon
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
     private let usernameIcon: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "username-icon")
+        imageView.image = .usernameIcon
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -44,13 +38,13 @@ class SignUpViewController: UIViewController {
         field.placeholder = "username"
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 0))
         field.leftViewMode = .always
-        field.backgroundColor = UIColor(named: "text-field-bg-color")
+        field.backgroundColor = .textFieldBgColor
         return field
     }()
     
     private let emailIcon: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "email-icon")
+        imageView.image = .emailIcon
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -70,13 +64,13 @@ class SignUpViewController: UIViewController {
         field.placeholder = "email"
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 0))
         field.leftViewMode = .always
-        field.backgroundColor = UIColor(named: "text-field-bg-color")
+        field.backgroundColor = .textFieldBgColor
         return field
     }()
     
     private let passwordIcon: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "password-icon")
+        imageView.image = .passwordIcon
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -96,7 +90,7 @@ class SignUpViewController: UIViewController {
         field.placeholder = "password"
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 0))
         field.leftViewMode = .always
-        field.backgroundColor = UIColor(named: "text-field-bg-color")
+        field.backgroundColor = .textFieldBgColor
         return field
     }()
     
@@ -109,7 +103,7 @@ class SignUpViewController: UIViewController {
         field.placeholder = "password again"
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 0))
         field.leftViewMode = .always
-        field.backgroundColor = UIColor(named: "text-field-bg-color")
+        field.backgroundColor = .textFieldBgColor
         return field
     }()
     
@@ -118,7 +112,7 @@ class SignUpViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.setTitle("Sign Up", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = UIColor(named: "button-color")
+        button.backgroundColor = .buttonColor
         button.titleLabel?.font = .systemFont(ofSize: 25, weight: .bold)
         return button
     }()
@@ -144,52 +138,182 @@ class SignUpViewController: UIViewController {
         view.backgroundColor = .black
         return view
     }()
-
+    
+    private let infoIcon: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = .infoIcon
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
+    private let infoLabel: UILabel = {
+        let label = UILabel()
+        label.text = "by signing up you agree with our policy"
+        label.textColor = .gray
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.addSubview(scrollView)
-        scrollView.addSubview(signupTopButton)
-        scrollView.addSubview(signinTopButton)
-        scrollView.addSubview(justView)
-        scrollView.addSubview(logo)
-        scrollView.addSubview(usernameLabel)
-        scrollView.addSubview(usernameField)
-        scrollView.addSubview(emailLabel)
-        scrollView.addSubview(emailField)
-        scrollView.addSubview(passwordLabel)
-        scrollView.addSubview(passwordField)
-        scrollView.addSubview(password2Field)
-        scrollView.addSubview(signupButton)
-        scrollView.addSubview(usernameIcon)
-        scrollView.addSubview(emailIcon)
-        scrollView.addSubview(passwordIcon)
+        setUI()
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        scrollView.frame = view.bounds
-        //fixme y
-        //чота я пока не поняла, как по-человечески расположить
-        //и еще под лого не белый фон, а светло-серый
-        logo.frame = CGRect(x: 30, y: 60, width: 150, height: 60)
-        signupTopButton.frame = CGRect(x: scrollView.width/2-115, y: logo.bottom+35, width: 95, height: 35)
-        signinTopButton.frame = CGRect(x: scrollView.width/2+20, y: logo.bottom+35, width: 95, height: 35)
-        justView.frame = CGRect(x: scrollView.width/2-2, y: logo.bottom+35, width: 4, height: 35)
+    func setUI() {
+        self.view.backgroundColor = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 1)
         
-        usernameIcon.frame = CGRect(x: 30, y: signupTopButton.bottom+35, width: 20, height: 20)
-        usernameLabel.frame = CGRect(x: usernameIcon.right+10, y: signupTopButton.bottom+35, width: scrollView.width-60, height: 20)
-        usernameField.frame = CGRect(x: 30, y: usernameLabel.bottom+7, width: scrollView.width-60, height: 45)
+        view.addSubview(logo)
+        logo.heightAnchor.constraint(equalToConstant: 73).isActive = true
+        logo.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        logo.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
+        logo.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 32).isActive = true
+        logo.translatesAutoresizingMaskIntoConstraints = false
         
-        emailIcon.frame = CGRect(x: 30, y: usernameField.bottom+20, width: 20, height: 20)
-        emailLabel.frame = CGRect(x: emailIcon.right+10, y: usernameField.bottom+20, width: scrollView.width-60, height: 20)
-        emailField.frame = CGRect(x: 30, y: emailLabel.bottom+7, width: scrollView.width-60, height: 45)
+        let box = UIView()
+        box.frame = CGRect.zero
+        view.addSubview(box)
+        box.topAnchor.constraint(equalTo: logo.bottomAnchor, constant: 8).isActive = true
+        box.layer.cornerRadius = 15
+        box.backgroundColor = .white
+        box.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
+        box.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+        box.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+        box.translatesAutoresizingMaskIntoConstraints = false
         
-        passwordIcon.frame = CGRect(x: 30, y: emailField.bottom+20, width: 20, height: 20)
-        passwordLabel.frame = CGRect(x: passwordIcon.right+10, y: emailField.bottom+20, width: scrollView.width-60, height: 20)
-        passwordField.frame = CGRect(x: 30, y: passwordLabel.bottom+7, width: scrollView.width-60, height: 45)
-        password2Field.frame = CGRect(x: 30, y: passwordField.bottom+7, width: scrollView.width-60, height: 45)
+        let stackView = UIStackView()
+        stackView.frame = CGRect(x: 0, y: 0, width: 0, height: 45)
+        stackView.spacing = 20
+        stackView.addArrangedSubview(signupTopButton)
+        justView.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        justView.widthAnchor.constraint(equalToConstant: 4).isActive = true
+        stackView.addArrangedSubview(justView)
+        stackView.addArrangedSubview(signinTopButton)
+        box.addSubview(stackView)
+        stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        stackView.topAnchor.constraint(equalTo: box.topAnchor, constant: 32).isActive = true
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         
-        signupButton.frame = CGRect(x: 30, y: scrollView.bottom - 100, width: scrollView.width-60, height: 60)
+        //username
+        
+        box.addSubview(usernameIcon)
+        usernameIcon.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        usernameIcon.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        usernameIcon.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 38).isActive = true
+        usernameIcon.leftAnchor.constraint(equalTo: box.leftAnchor, constant: 32).isActive = true
+        usernameIcon.translatesAutoresizingMaskIntoConstraints = false
+        
+        box.addSubview(usernameLabel)
+        usernameLabel.leftAnchor.constraint(equalTo: usernameIcon.rightAnchor, constant: 10).isActive = true
+        usernameLabel.centerYAnchor.constraint(equalTo: usernameIcon.centerYAnchor).isActive = true
+        usernameLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        box.addSubview(usernameField)
+        view.addConstraint(NSLayoutConstraint(item: usernameField,
+                                              attribute: .width,
+                                              relatedBy: .equal,
+                                              toItem: view,
+                                              attribute: .width,
+                                              multiplier: 0.85,
+                                              constant: 0))
+        usernameField.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 8).isActive = true
+        usernameField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        usernameField.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        usernameField.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        //email
+        
+        box.addSubview(emailIcon)
+        emailIcon.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        emailIcon.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        emailIcon.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: 38).isActive = true
+        emailIcon.leftAnchor.constraint(equalTo: box.leftAnchor, constant: 32).isActive = true
+        emailIcon.translatesAutoresizingMaskIntoConstraints = false
+        
+        box.addSubview(emailLabel)
+        emailLabel.leftAnchor.constraint(equalTo: emailIcon.rightAnchor, constant: 10).isActive = true
+        emailLabel.centerYAnchor.constraint(equalTo: emailIcon.centerYAnchor).isActive = true
+        emailLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        box.addSubview(emailField)
+        view.addConstraint(NSLayoutConstraint(item: emailField,
+                                              attribute: .width,
+                                              relatedBy: .equal,
+                                              toItem: view,
+                                              attribute: .width,
+                                              multiplier: 0.85,
+                                              constant: 0))
+        emailField.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 8).isActive = true
+        emailField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        emailField.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        emailField.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        //password
+        
+        box.addSubview(passwordIcon)
+        passwordIcon.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        passwordIcon.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        passwordIcon.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: 38).isActive = true
+        passwordIcon.leftAnchor.constraint(equalTo: box.leftAnchor, constant: 32).isActive = true
+        passwordIcon.translatesAutoresizingMaskIntoConstraints = false
+        
+        box.addSubview(passwordLabel)
+        passwordLabel.leftAnchor.constraint(equalTo: passwordIcon.rightAnchor, constant: 10).isActive = true
+        passwordLabel.centerYAnchor.constraint(equalTo: passwordIcon.centerYAnchor).isActive = true
+        passwordLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        box.addSubview(passwordField)
+        view.addConstraint(NSLayoutConstraint(item: passwordField,
+                                              attribute: .width,
+                                              relatedBy: .equal,
+                                              toItem: view,
+                                              attribute: .width,
+                                              multiplier: 0.85,
+                                              constant: 0))
+        passwordField.topAnchor.constraint(equalTo: passwordLabel.bottomAnchor, constant: 8).isActive = true
+        passwordField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        passwordField.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        passwordField.translatesAutoresizingMaskIntoConstraints = false
+        
+        box.addSubview(password2Field)
+        view.addConstraint(NSLayoutConstraint(item: password2Field,
+                                              attribute: .width,
+                                              relatedBy: .equal,
+                                              toItem: view,
+                                              attribute: .width,
+                                              multiplier: 0.85,
+                                              constant: 0))
+        password2Field.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 8).isActive = true
+        password2Field.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        password2Field.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        password2Field.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        //signup button
+        
+        box.addSubview(signupButton)
+        signupButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
+        view.addConstraint(NSLayoutConstraint(item: signupButton,
+                                              attribute: .width,
+                                              relatedBy: .equal,
+                                              toItem: view,
+                                              attribute: .width,
+                                              multiplier: 0.85,
+                                              constant: 0))
+        signupButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        signupButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        signupButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        box.addSubview(infoIcon)
+        infoIcon.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        infoIcon.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        infoIcon.bottomAnchor.constraint(equalTo: signupButton.topAnchor, constant: -8).isActive = true
+        infoIcon.leftAnchor.constraint(equalTo: box.leftAnchor, constant: 32).isActive = true
+        infoIcon.translatesAutoresizingMaskIntoConstraints = false
+        
+        box.addSubview(infoLabel)
+        infoLabel.leftAnchor.constraint(equalTo: infoIcon.rightAnchor, constant: 10).isActive = true
+        infoLabel.centerYAnchor.constraint(equalTo: infoIcon.centerYAnchor).isActive = true
+        infoLabel.translatesAutoresizingMaskIntoConstraints = false
     }
 }
