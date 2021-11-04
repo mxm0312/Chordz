@@ -73,7 +73,7 @@ class InitialViewController: UIViewController {
         let button = UIButton()
         button.frame = CGRect.zero
         button.setTitle("Sign up", for: .normal)
-        button.titleLabel?.font = UIFont(name: "RobotoCondensed-Bold", size: 24)
+        button.titleLabel?.font = UIFont(name: "RobotoCondensed-Regular", size: 24)
         button.setTitleColor(UIColor.black, for: .normal)
         button.addTarget(self,action:#selector(signUpButton),
                          for:.touchUpInside)
@@ -106,7 +106,11 @@ class InitialViewController: UIViewController {
    
 
     @IBAction func signUp(_ sender: Any) {
-        
+        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "signup") else {
+            return
+        }
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: false, completion: nil)
     }
     
     @IBAction func signIn(_ sender: Any) {
@@ -243,7 +247,7 @@ class InitialViewController: UIViewController {
                 sender.alpha = 1
                 sender.transform = CGAffineTransform(scaleX: 1, y: 1)
             },completion: { _ in
-                let view = LoginViewController()
+                let view = SignUpViewController()
                 view.modalPresentationStyle = .fullScreen
                 self.present(view, animated: true, completion: nil)
             })
@@ -257,10 +261,9 @@ class InitialViewController: UIViewController {
             sender.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
             sender.alpha = 0.5
         }, completion: { _ in
-            UIView.animate(withDuration: 0.2, animations: {
-                sender.transform = CGAffineTransform(scaleX: 1, y: 1)
-                sender.alpha = 1
-            })
+            let view = LoginViewController()
+            view.modalPresentationStyle = .fullScreen
+            self.present(view, animated: true, completion: nil)
         })
     }
 }

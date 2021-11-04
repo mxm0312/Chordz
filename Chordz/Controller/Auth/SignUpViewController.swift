@@ -122,6 +122,7 @@ class SignUpViewController: UIViewController {
         button.setTitle("Sign up", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 25, weight: .bold)
+        button.addTarget(self,action:#selector(signUpButton),for:.touchUpInside)
         return button
     }()
     
@@ -130,6 +131,7 @@ class SignUpViewController: UIViewController {
         button.setTitle("Sign in", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 25)
+        button.addTarget(self,action:#selector(signInButton),for:.touchUpInside)
         return button
     }()
     
@@ -315,5 +317,36 @@ class SignUpViewController: UIViewController {
         infoLabel.leftAnchor.constraint(equalTo: infoIcon.rightAnchor, constant: 10).isActive = true
         infoLabel.centerYAnchor.constraint(equalTo: infoIcon.centerYAnchor).isActive = true
         infoLabel.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    // MARK: Кнопка зарегестрироваться
+    @objc func signUpButton(sender:UIButton) {
+        UIView.animate(withDuration: 0.1, animations: {
+            sender.alpha = 0.5
+            sender.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.2, animations: {
+                sender.alpha = 1
+                sender.transform = CGAffineTransform(scaleX: 1, y: 1)
+            },completion: { _ in
+                UIView.animate(withDuration: 0.2, animations: {
+                    sender.transform = CGAffineTransform(scaleX: 1, y: 1)
+                    sender.alpha = 1
+                })
+            })
+        })
+        
+    }
+    
+    // MARK: Кнопка войти
+    @objc func signInButton(sender:UIButton) {
+        UIView.animate(withDuration: 0.1, animations: {
+            sender.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+            sender.alpha = 0.5
+        }, completion: { _ in
+            let view = LoginViewController()
+            view.modalPresentationStyle = .fullScreen
+            self.present(view, animated: true, completion: nil)
+        })
     }
 }
