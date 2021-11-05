@@ -160,6 +160,10 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        usernameField.delegate = self
+        emailField.delegate = self
+        passwordField.delegate = self
+        password2Field.delegate = self
         setUI()
     }
     
