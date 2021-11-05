@@ -9,6 +9,8 @@ import UIKit
 
 class SignUpViewController: UIViewController {
     
+    let model = Model()
+    
     private let logo: UIImageView = {
         let imageView = UIImageView()
         imageView.image = .logoIcon
@@ -114,6 +116,7 @@ class SignUpViewController: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .buttonColor
         button.titleLabel?.font = .systemFont(ofSize: 25, weight: .bold)
+        button.addTarget(self,action: #selector(signupButtonTapped),for: .touchUpInside)
         return button
     }()
     
@@ -193,6 +196,7 @@ class SignUpViewController: UIViewController {
         stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         stackView.topAnchor.constraint(equalTo: box.topAnchor, constant: 32).isActive = true
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        
         
         //username
         
@@ -335,7 +339,6 @@ class SignUpViewController: UIViewController {
                 })
             })
         })
-        
     }
     
     // MARK: Кнопка войти
@@ -348,5 +351,62 @@ class SignUpViewController: UIViewController {
             view.modalPresentationStyle = .fullScreen
             self.present(view, animated: true, completion: nil)
         })
+    }
+    
+    @objc private func signupButtonTapped() {
+        usernameField.resignFirstResponder()
+        emailField.resignFirstResponder()
+        passwordField.resignFirstResponder()
+        password2Field.resignFirstResponder()
+        
+        guard let username = usernameField.text,
+              let email = emailField.text,
+              let password = passwordField.text,
+              let password2 = password2Field.text,
+              !username.isEmpty,
+              !email.isEmpty,
+              !password.isEmpty,
+              !password2.isEmpty,
+              password.count >= 6,
+              password == password2
+        else {
+            let alert = UIAlertController(title: "Ooops!",
+                                          message: "Please enter all the necessary information",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+            present(alert, animated: true)
+            return
+        }
+        
+        model.signUp(email: emailField.text!, password: passwordField.text!, complition: { err in
+            if err == nil {
+                print("Success!")
+                // todo: переход на главный экран
+            } else {
+                // fixme: пофиксить текст ошибки
+                let alert = UIAlertController(title: "Oops", message: "Something went wrong" + err.debugDescription, preferredStyle: .alert)
+                let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+                alert.addAction(action)
+                self.present(alert, animated: true, completion: nil)
+            }
+        })
+    }
+}
+
+extension SignUpViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == usernameField {
+            emailField.becomeFirstResponder()
+        }
+        else if textField == emailField {
+            passwordField.becomeFirstResponder()
+        }
+        else if textField == passwordField {
+            password2Field.becomeFirstResponder()
+        }
+        else if textField == password2Field {
+            signupButtonTapped()
+        }
+        return true
     }
 }
