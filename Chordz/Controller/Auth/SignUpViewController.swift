@@ -41,6 +41,7 @@ class SignUpViewController: UIViewController {
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 0))
         field.leftViewMode = .always
         field.backgroundColor = .textFieldBgColor
+        field.returnKeyType = .continue
         return field
     }()
     
@@ -67,6 +68,7 @@ class SignUpViewController: UIViewController {
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 0))
         field.leftViewMode = .always
         field.backgroundColor = .textFieldBgColor
+        field.returnKeyType = .continue
         return field
     }()
     
@@ -93,6 +95,8 @@ class SignUpViewController: UIViewController {
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 0))
         field.leftViewMode = .always
         field.backgroundColor = .textFieldBgColor
+        field.isSecureTextEntry = true
+        field.returnKeyType = .continue
         return field
     }()
     
@@ -106,6 +110,8 @@ class SignUpViewController: UIViewController {
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 0))
         field.leftViewMode = .always
         field.backgroundColor = .textFieldBgColor
+        field.isSecureTextEntry = true
+        field.returnKeyType = .done
         return field
     }()
     
