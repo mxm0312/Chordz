@@ -49,7 +49,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let button = UIButton()
         button.frame = CGRect.zero
         button.setTitle("Sign up", for: .normal)
-        button.titleLabel?.font = UIFont(name: "RobotoCondensed-Bold", size: 24)
+        button.titleLabel?.font = UIFont(name: "RobotoCondensed-Regular", size: 24)
         button.setTitleColor(UIColor.black, for: .normal)
         button.addTarget(self,action:#selector(signUpButton),
                          for:.touchUpInside)
@@ -59,8 +59,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     var signIn: UIButton = {
         let button = UIButton()
         button.frame = CGRect.zero
-        button.setTitle("Sign up", for: .normal)
-        button.titleLabel?.font = UIFont(name: "RobotoCondensed-Regular", size: 24)
+        button.setTitle("Sign in", for: .normal)
+        button.titleLabel?.font = UIFont(name: "RobotoCondensed-Bold", size: 24)
         button.setTitleColor(UIColor.black, for: .normal)
         button.addTarget(self,action:#selector(signInButton),
                          for:.touchUpInside)
@@ -109,10 +109,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             sender.alpha = 0.5
             sender.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
         }, completion: { _ in
-            UIView.animate(withDuration: 0.2, animations: {
-                sender.alpha = 1
-                sender.transform = CGAffineTransform(scaleX: 1, y: 1)
-            })
+            let view = SignUpViewController()
+            view.modalPresentationStyle = .fullScreen
+            self.present(view, animated: true, completion: nil)
         })
     }
     
