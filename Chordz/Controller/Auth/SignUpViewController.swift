@@ -195,7 +195,7 @@ class SignUpViewController: UIViewController {
         box.translatesAutoresizingMaskIntoConstraints = false
         
         let stackView = UIStackView()
-        stackView.frame = CGRect(x: 0, y: 0, width: 0, height: 45)
+        stackView.heightAnchor.constraint(equalToConstant: 45).isActive = true
         stackView.spacing = 20
         stackView.addArrangedSubview(signupTopButton)
         justView.heightAnchor.constraint(equalToConstant: 30).isActive = true
@@ -206,7 +206,6 @@ class SignUpViewController: UIViewController {
         stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         stackView.topAnchor.constraint(equalTo: box.topAnchor, constant: 32).isActive = true
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        
         
         //username
         
