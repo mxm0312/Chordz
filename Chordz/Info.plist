@@ -22,8 +22,10 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Montserrat-Black.ttf</string>
+		<string>Montserrat-Bold.ttf</string>
+		<string>Montserrat-Regular.ttf</string>
 		<string>RobotoCondensed-Bold.ttf</string>
-		<string>RobotoCondensed-Regular.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
