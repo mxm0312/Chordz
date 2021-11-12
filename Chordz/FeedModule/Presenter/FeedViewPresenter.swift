@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol FeedViewPresenterProtocol {
+protocol FeedViewPresenterProtocol: AnyObject {
     func loadContent(complitionHandler: @escaping ([Song]) -> Void)
 }
 

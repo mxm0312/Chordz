@@ -8,10 +8,14 @@
 import Foundation
 
 
-// MARK: структура пользователя
+/// структура пользователя
 struct User {
+    /// Ник пользователя
     var nick: String?
-    var songs: [String]? // массив идентификаторов песен
+    /// Массив из id песен пользователя
+    var songs: [String]?
+    /// Ники тех, на кого подписан пользователь
     var followingUsers: [String]?
+    /// Тэги на которые подписан пользователь
     var followingTags: [String]?
 }

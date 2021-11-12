@@ -24,24 +24,20 @@ class InitialViewController: UIViewController {
         let label = UILabel()
         label.frame = CGRect(x: 0, y: 0, width: 169, height: 75)
         label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        //label.font = UIFont(name: "Montserrat-Bold", size: 64)
-        //label.text = "Create"
         return label
     }()
+    
     var amazeLabel: UILabel = {
         let label = UILabel()
         label.frame = CGRect(x: 0, y: 0, width: 174, height: 75)
         label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        //label.font = UIFont(name: "RobotoCondensed-Bold", size: 64)
-        //label.text = "Amaze"
         return label
     }()
+    
     var empowerLabel: UILabel = {
         let label = UILabel()
         label.frame = CGRect(x: 0, y: 0, width: 235, height: 75)
         label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        //label.font = UIFont(name: "Montserrat-Bold", size: 64)
-        //label.text = "Empower"
         return label
     }()
     
@@ -70,8 +66,7 @@ class InitialViewController: UIViewController {
     }()
     
     var signUp: UIButton = {
-        let button = UIButton()
-        button.frame = CGRect.zero
+        let button = UIButton(frame: .zero)
         button.setTitle("Sign up", for: .normal)
         button.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 24)
         button.setTitleColor(UIColor.black, for: .normal)
@@ -81,8 +76,7 @@ class InitialViewController: UIViewController {
     }()
     
     var signIn: UIButton = {
-        let button = UIButton()
-        button.frame = CGRect.zero
+        let button = UIButton(frame: .zero)
         button.setTitle("Sign in", for: .normal)
         button.titleLabel?.font = UIFont(name: "Montserrat-Regular", size: 24)
         button.setTitleColor(UIColor.black, for: .normal)
@@ -107,7 +101,7 @@ class InitialViewController: UIViewController {
     
     func setUI() {
         
-        let parent = self.view!
+        guard let parent = self.view else { return }
         parent.addSubview(redView)
         parent.sendSubviewToBack(redView)
         parent.addSubview(blueView)
@@ -127,7 +121,6 @@ class InitialViewController: UIViewController {
         
         parent.addSubview(createLabel)
         createLabel.translatesAutoresizingMaskIntoConstraints = false
-       // createLabel.widthAnchor.constraint(equalToConstant: 169).isActive = true
         createLabel.heightAnchor.constraint(equalToConstant: 75).isActive = true
         createLabel.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 28).isActive = true
         view.addConstraint(NSLayoutConstraint(item: createLabel, attribute: .centerY, relatedBy: .equal, toItem: redView, attribute: .centerY, multiplier: 1, constant: 0))
@@ -136,7 +129,6 @@ class InitialViewController: UIViewController {
         
         parent.addSubview(amazeLabel)
         amazeLabel.translatesAutoresizingMaskIntoConstraints = false
-        //amazeLabel.widthAnchor.constraint(equalToConstant: 174).isActive = true
         amazeLabel.heightAnchor.constraint(equalToConstant: 75).isActive = true
         amazeLabel.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 31).isActive = true
         view.addConstraint(NSLayoutConstraint(item: amazeLabel, attribute: .centerY, relatedBy: .equal, toItem: blueView, attribute: .centerY, multiplier: 1, constant: 0))
@@ -145,7 +137,6 @@ class InitialViewController: UIViewController {
         
         parent.addSubview(empowerLabel)
         empowerLabel.translatesAutoresizingMaskIntoConstraints = false
-        //empowerLabel.widthAnchor.constraint(equalToConstant: 235).isActive = true
         empowerLabel.heightAnchor.constraint(equalToConstant: 75).isActive = true
         empowerLabel.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 31).isActive = true
         view.addConstraint(NSLayoutConstraint(item: empowerLabel, attribute: .centerY, relatedBy: .equal, toItem: greenView, attribute: .centerY, multiplier: 1, constant: 0))

@@ -7,8 +7,9 @@
 
 import Foundation
 
-protocol LoginViewPresenterProtocol {
+protocol LoginViewPresenterProtocol: AnyObject {
     func logInButtonTapped(enteredEmail: String, enteredPassword: String)
+    init(view: LoginViewController, service: NetworkServiceProtocol)
 }
 
 class LoginViewPresenter: LoginViewPresenterProtocol {
@@ -16,7 +17,7 @@ class LoginViewPresenter: LoginViewPresenterProtocol {
     var view: LoginViewController?
     var service: NetworkServiceProtocol?
     
-    init(view: LoginViewController, service: NetworkServiceProtocol) {
+    required init(view: LoginViewController, service: NetworkServiceProtocol) {
         self.view = view
         self.service = service
     }
