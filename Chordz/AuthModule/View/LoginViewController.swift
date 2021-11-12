@@ -10,7 +10,7 @@ import UIKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
-    let model = Model()
+    var presenter: LoginViewPresenterProtocol?
     
     var loginField: UITextField = {
         let field = UITextField()
@@ -28,7 +28,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     var passwordField: UITextField = {
         let field = UITextField()
         field.layer.cornerRadius = 10
-        field.font = UIFont(name: "RobotoCondensed-Regular", size: 22)
+        field.font = UIFont(name: "Montserrat-Regular", size: 22)
         field.isSecureTextEntry = true
         field.placeholder = "password"
         field.textAlignment = .center
@@ -49,7 +49,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let button = UIButton()
         button.frame = CGRect.zero
         button.setTitle("Sign up", for: .normal)
-        button.titleLabel?.font = UIFont(name: "RobotoCondensed-Regular", size: 24)
+        button.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 24)
         button.setTitleColor(UIColor.black, for: .normal)
         button.addTarget(self,action:#selector(signUpButton),
                          for:.touchUpInside)
@@ -59,8 +59,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     var signIn: UIButton = {
         let button = UIButton()
         button.frame = CGRect.zero
-        button.setTitle("Sign in", for: .normal)
-        button.titleLabel?.font = UIFont(name: "RobotoCondensed-Bold", size: 24)
+        button.setTitle("Sign up", for: .normal)
+        button.titleLabel?.font = UIFont(name: "Montserrat-Regular", size: 24)
         button.setTitleColor(UIColor.black, for: .normal)
         button.addTarget(self,action:#selector(signInButton),
                          for:.touchUpInside)
@@ -70,6 +70,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        presenter = LoginViewPresenter(view: self, service: FirebaseNetworkService.shared)
+        
         loginField.delegate = self
         passwordField.delegate = self
         setUI()
@@ -78,24 +81,26 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @objc func submitButton(_ sender: Any) {
         if (loginField.text != "" && passwordField.text != "") {
-            model.signIn(email: loginField.text!, password: passwordField.text!, complition: { err in
-               
-                if err == nil {
-                    print("Success")
-                    // Переход на главный экран
-                } else {
-                    let alert = UIAlertController(title: "Oops", message: "Checkout ur email or password", preferredStyle: .alert)
-                    let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
-                    alert.addAction(action)
-                    self.present(alert, animated: true, completion: nil)
-                }
-            })
+            presenter?.logInButtonTapped(enteredEmail: loginField.text!, enteredPassword: passwordField.text!)
         } else {
             let alert = UIAlertController(title: "Oops", message: "You haven't filled out the data", preferredStyle: .alert)
             let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
             alert.addAction(action)
             self.present(alert, animated: true, completion: nil)
         }
+    }
+    
+    func showFeedView() {
+        let view = FeedViewController()
+        view.modalPresentationStyle = .fullScreen
+        self.present(view, animated: true, completion: nil)
+    }
+    
+    func signInProblem() {
+        let alert = UIAlertController(title: "Oops", message: "Checkout ur email or password", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -109,9 +114,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             sender.alpha = 0.5
             sender.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
         }, completion: { _ in
-            let view = SignUpViewController()
-            view.modalPresentationStyle = .fullScreen
-            self.present(view, animated: true, completion: nil)
+            UIView.animate(withDuration: 0.2, animations: {
+                sender.alpha = 1
+                sender.transform = CGAffineTransform(scaleX: 1, y: 1)
+            })
         })
     }
     
@@ -134,7 +140,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     func setUI() {
         
-        self.view.backgroundColor = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 1)
+        self.view.backgroundColor = UIColor(red: 0.97, green: 0.97, blue: 0.97, alpha: 1)
+        
         
        // logo
         view.addSubview(logoImage)
@@ -184,7 +191,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         // email Label
         let emailLabel = UILabel()
-        emailLabel.font =  UIFont(name: "RobotoCondensed-Regular", size: 22)
+        emailLabel.font =  UIFont(name: "Montserrat-Regular", size: 22)
         emailLabel.text = "Info about correct email"
         box.addSubview(emailLabel)
         emailLabel.leftAnchor.constraint(equalTo: emailImage.rightAnchor, constant: 10).isActive = true
@@ -196,7 +203,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         box.addSubview(loginField)
         view.addConstraint(NSLayoutConstraint(item: loginField, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 0.85, constant: 0))
         loginField.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 8).isActive = true
-        loginField.font = UIFont(name: "RobotoCondensed-Regular", size: 22)
+        loginField.font = UIFont(name: "Montserrat-Regular", size: 22)
         loginField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         loginField.heightAnchor.constraint(equalToConstant: 45).isActive = true
         loginField.translatesAutoresizingMaskIntoConstraints = false
@@ -217,7 +224,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         // password Label
         
         let passwordLabel = UILabel()
-        passwordLabel.font =  UIFont(name: "RobotoCondensed-Regular", size: 22)
+        passwordLabel.font =  UIFont(name: "Montserrat-Regular", size: 22)
         passwordLabel.text = "Info about correct password"
         box.addSubview(passwordLabel)
         passwordLabel.leftAnchor.constraint(equalTo: passwordIcon.rightAnchor, constant: 10).isActive = true
@@ -249,7 +256,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         let resetButton = UIButton()
         resetButton.setTitle("Forgot password?", for: .normal)
-        resetButton.titleLabel?.font = UIFont(name: "RobotoCondensed-Regular", size: 22)
+        resetButton.titleLabel?.font = UIFont(name: "Montserrat-Regular", size: 22)
         resetButton.setTitleColor(UIColor(red: 0.898, green: 0.227, blue: 0.349, alpha: 1), for: .normal)
         resetButton.addTarget(self,action:#selector(reset),
                               for:.touchUpInside)
@@ -261,7 +268,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         // confirmButton
         let confirmButton = UIButton()
         confirmButton.setTitle("Sign in", for: .normal)
-        confirmButton.titleLabel?.font = UIFont(name: "RobotoCondensed-Bold", size: 25)
+        confirmButton.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 25)
         confirmButton.setTitleColor(UIColor.white, for: .normal)
         confirmButton.backgroundColor = UIColor(red: 0, green: 0.591, blue: 0.721, alpha: 1)
         confirmButton.layer.cornerRadius = 10

@@ -12,7 +12,7 @@ import UIKit
 
 class InitialViewController: UIViewController {
     
-
+    
     var logoImage: UIImageView = {
         let image = UIImageView()
         image.frame = CGRect(x: 0, y: 0, width: 200, height: 73)
@@ -24,24 +24,20 @@ class InitialViewController: UIViewController {
         let label = UILabel()
         label.frame = CGRect(x: 0, y: 0, width: 169, height: 75)
         label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        label.font = UIFont(name: "RobotoCondensed-Bold", size: 64)
-        label.text = "Create"
         return label
     }()
+    
     var amazeLabel: UILabel = {
         let label = UILabel()
         label.frame = CGRect(x: 0, y: 0, width: 174, height: 75)
         label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        label.font = UIFont(name: "RobotoCondensed-Bold", size: 64)
-        label.text = "Amaze"
         return label
     }()
+    
     var empowerLabel: UILabel = {
         let label = UILabel()
         label.frame = CGRect(x: 0, y: 0, width: 235, height: 75)
         label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        label.font = UIFont(name: "RobotoCondensed-Bold", size: 64)
-        label.text = "Empower"
         return label
     }()
     
@@ -70,10 +66,9 @@ class InitialViewController: UIViewController {
     }()
     
     var signUp: UIButton = {
-        let button = UIButton()
-        button.frame = CGRect.zero
+        let button = UIButton(frame: .zero)
         button.setTitle("Sign up", for: .normal)
-        button.titleLabel?.font = UIFont(name: "RobotoCondensed-Regular", size: 24)
+        button.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 24)
         button.setTitleColor(UIColor.black, for: .normal)
         button.addTarget(self,action:#selector(signUpButton),
                          for:.touchUpInside)
@@ -81,10 +76,9 @@ class InitialViewController: UIViewController {
     }()
     
     var signIn: UIButton = {
-        let button = UIButton()
-        button.frame = CGRect.zero
+        let button = UIButton(frame: .zero)
         button.setTitle("Sign in", for: .normal)
-        button.titleLabel?.font = UIFont(name: "RobotoCondensed-Regular", size: 24)
+        button.titleLabel?.font = UIFont(name: "Montserrat-Regular", size: 24)
         button.setTitleColor(UIColor.black, for: .normal)
         button.addTarget(self,action:#selector(signInButton),
                          for:.touchUpInside)
@@ -104,24 +98,16 @@ class InitialViewController: UIViewController {
         apearAnimation()
     }
    
-
-    @IBAction func signUp(_ sender: Any) {
-        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "signup") else {
-            return
-        }
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: false, completion: nil)
-    }
-    
-    @IBAction func signIn(_ sender: Any) {
-        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "login") else {
-            return
-        }
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: false, completion: nil)
-    }
     
     func setUI() {
+        
+        guard let parent = self.view else { return }
+        parent.addSubview(redView)
+        parent.sendSubviewToBack(redView)
+        parent.addSubview(blueView)
+        parent.sendSubviewToBack(blueView)
+        parent.addSubview(greenView)
+        parent.sendSubviewToBack(greenView)
         
         // logo
         view.addSubview(logoImage)
@@ -130,64 +116,55 @@ class InitialViewController: UIViewController {
         logoImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
         logoImage.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 32).isActive = true
         logoImage.translatesAutoresizingMaskIntoConstraints = false
-       
-        
-        // redView
-
-        var parent = self.view!
-        parent.addSubview(redView)
-        redView.translatesAutoresizingMaskIntoConstraints = false
-        redView.widthAnchor.constraint(equalToConstant: 49).isActive = true
-        redView.heightAnchor.constraint(equalToConstant: 66).isActive = true
-        redView.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 24).isActive = true
-        redView.topAnchor.constraint(equalTo: parent.topAnchor, constant: 251).isActive = true
-        
-        // BlueView
-
-        parent.addSubview(blueView)
-        blueView.translatesAutoresizingMaskIntoConstraints = false
-        blueView.widthAnchor.constraint(equalToConstant: 96).isActive = true
-        blueView.heightAnchor.constraint(equalToConstant: 66).isActive = true
-        blueView.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 24).isActive = true
-        blueView.topAnchor.constraint(equalTo: parent.topAnchor, constant: 346).isActive = true
-        
-        // GreenView
-
-        parent.addSubview(greenView)
-        greenView.translatesAutoresizingMaskIntoConstraints = false
-        greenView.widthAnchor.constraint(equalToConstant: 96).isActive = true
-        greenView.heightAnchor.constraint(equalToConstant: 66).isActive = true
-        greenView.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 24).isActive = true
-        greenView.topAnchor.constraint(equalTo: parent.topAnchor, constant: 438).isActive = true
 
         // CreateLabel
         
         parent.addSubview(createLabel)
         createLabel.translatesAutoresizingMaskIntoConstraints = false
-        createLabel.widthAnchor.constraint(equalToConstant: 169).isActive = true
         createLabel.heightAnchor.constraint(equalToConstant: 75).isActive = true
-        createLabel.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 31).isActive = true
-        createLabel.topAnchor.constraint(equalTo: parent.topAnchor, constant: 248).isActive = true
+        createLabel.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 28).isActive = true
+        view.addConstraint(NSLayoutConstraint(item: createLabel, attribute: .centerY, relatedBy: .equal, toItem: redView, attribute: .centerY, multiplier: 1, constant: 0))
         
         // AmazeLabel
         
         parent.addSubview(amazeLabel)
         amazeLabel.translatesAutoresizingMaskIntoConstraints = false
-        amazeLabel.widthAnchor.constraint(equalToConstant: 174).isActive = true
         amazeLabel.heightAnchor.constraint(equalToConstant: 75).isActive = true
         amazeLabel.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 31).isActive = true
-        amazeLabel.topAnchor.constraint(equalTo: parent.topAnchor, constant: 341).isActive = true
+        view.addConstraint(NSLayoutConstraint(item: amazeLabel, attribute: .centerY, relatedBy: .equal, toItem: blueView, attribute: .centerY, multiplier: 1, constant: 0))
         
         // EmpowerLabel
         
         parent.addSubview(empowerLabel)
         empowerLabel.translatesAutoresizingMaskIntoConstraints = false
-        empowerLabel.widthAnchor.constraint(equalToConstant: 235).isActive = true
         empowerLabel.heightAnchor.constraint(equalToConstant: 75).isActive = true
         empowerLabel.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 31).isActive = true
-        empowerLabel.topAnchor.constraint(equalTo: parent.topAnchor, constant: 434).isActive = true
+        view.addConstraint(NSLayoutConstraint(item: empowerLabel, attribute: .centerY, relatedBy: .equal, toItem: greenView, attribute: .centerY, multiplier: 1, constant: 0))
+        
+        // redView
+        
+        redView.translatesAutoresizingMaskIntoConstraints = false
+        redView.widthAnchor.constraint(equalTo: createLabel.widthAnchor, multiplier: 0.25).isActive = true
+        redView.heightAnchor.constraint(equalToConstant: 66).isActive = true
+        redView.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 24).isActive = true
+        self.view.addConstraint(NSLayoutConstraint(item: redView, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 0.6, constant: 0))
         
         
+        // BlueView
+        
+        blueView.translatesAutoresizingMaskIntoConstraints = false
+        blueView.widthAnchor.constraint(equalTo: amazeLabel.widthAnchor, multiplier: 0.53).isActive = true
+        blueView.heightAnchor.constraint(equalToConstant: 66).isActive = true
+        blueView.topAnchor.constraint(equalTo: redView.bottomAnchor, constant: 45).isActive = true
+        blueView.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 24).isActive = true
+        
+        // GreenView
+        
+        greenView.translatesAutoresizingMaskIntoConstraints = false
+        greenView.widthAnchor.constraint(equalTo: empowerLabel.widthAnchor, multiplier: 0.37).isActive = true
+        greenView.heightAnchor.constraint(equalToConstant: 66).isActive = true
+        greenView.topAnchor.constraint(equalTo: blueView.bottomAnchor, constant: 45).isActive = true
+        greenView.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 24).isActive = true
         
         // StackView with two buttons
         
@@ -217,10 +194,9 @@ class InitialViewController: UIViewController {
         
         let descriptionText = UILabel()
         descriptionText.frame = CGRect(x: 0, y: 0, width: 358, height: 84)
-        descriptionText.backgroundColor = .white
 
         descriptionText.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        descriptionText.font = UIFont(name: "RobotoCondensed-Regular", size: 22)
+        descriptionText.font = UIFont(name: "Montserrat-Regular", size: 20)
         descriptionText.numberOfLines = 0
         descriptionText.lineBreakMode = .byWordWrapping
         let paragraphStyle = NSMutableParagraphStyle()
@@ -231,7 +207,7 @@ class InitialViewController: UIViewController {
 
         parent.addSubview(descriptionText)
         descriptionText.translatesAutoresizingMaskIntoConstraints = false
-        descriptionText.topAnchor.constraint(equalTo: empowerLabel.bottomAnchor, constant: 50).isActive = true
+        descriptionText.topAnchor.constraint(equalTo: empowerLabel.bottomAnchor, constant: 32).isActive = true
         descriptionText.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 32).isActive = true
         descriptionText.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16).isActive = true
        
@@ -246,10 +222,6 @@ class InitialViewController: UIViewController {
             UIView.animate(withDuration: 0.2, animations: {
                 sender.alpha = 1
                 sender.transform = CGAffineTransform(scaleX: 1, y: 1)
-            },completion: { _ in
-                let view = SignUpViewController()
-                view.modalPresentationStyle = .fullScreen
-                self.present(view, animated: true, completion: nil)
             })
         })
         
@@ -261,9 +233,14 @@ class InitialViewController: UIViewController {
             sender.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
             sender.alpha = 0.5
         }, completion: { _ in
-            let view = LoginViewController()
-            view.modalPresentationStyle = .fullScreen
-            self.present(view, animated: true, completion: nil)
+            UIView.animate(withDuration: 0.2, animations: {
+                sender.transform = CGAffineTransform(scaleX: 1, y: 1)
+                sender.alpha = 1
+            },completion: { _ in
+                let view = LoginViewController()
+                view.modalPresentationStyle = .fullScreen
+                self.present(view, animated: true, completion: nil)
+            })
         })
     }
 }

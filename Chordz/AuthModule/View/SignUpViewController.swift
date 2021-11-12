@@ -9,7 +9,7 @@ import UIKit
 
 class SignUpViewController: UIViewController {
     
-    let model = Model()
+    let model = FirebaseNetworkService.shared
     
     private let logo: UIImageView = {
         let imageView = UIImageView()
