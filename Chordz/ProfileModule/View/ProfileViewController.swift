@@ -9,6 +9,8 @@ import UIKit
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    var presenter: ProfilePresenter?
+    
     let tableView = UITableView()
     
     private var songs = [Song]()
@@ -44,7 +46,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         let label = UILabel()
         //fixme
         label.text = "@nickname"
-        label.font = .boldSystemFont(ofSize: 20)
+        label.font =  UIFont(name: "Montserrat-Bold", size: 20)
         return label
     }()
     
@@ -52,7 +54,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         let label = UILabel()
         //fixme
         label.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-        label.font = .boldSystemFont(ofSize: 13)
+        label.font =  UIFont(name: "Montserrat-Regular", size: 13)
         label.numberOfLines = 0
         return label
     }()
@@ -61,21 +63,21 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         let button = UIButton()
         button.setTitle("My Songs", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 15, weight: .bold)
+        button.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 15)
 //        button.addTarget(self,action:#selector(signInButton),for:.touchUpInside)
         return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let nib = UINib(nibName: "FeedTableViewCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "feedCell")
+        presenter = ProfilePresenter(view: self, service: FirebaseNetworkService.shared)
+        let nib = UINib(nibName: "SongView", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "songView")
         
         tableView.showsVerticalScrollIndicator = false
         tableView.separatorStyle = .none
         
         self.tableView.rowHeight = UITableView.automaticDimension
-        self.tableView.estimatedRowHeight = 350
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -90,7 +92,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "feedCell") as? FeedTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "songView") as? SongView
         cell?.configure(with: Song(artist: "Radiohead", name: "Fake Plastic Trees", album: "The Bends 1995", description: "The Bends is the second studio album by the English rock band Radiohead, released on 8 March 1995 by Parlophone.", nick: "nickname", tags: ["kshdad"], image: "radiohead", likes: 69, comments: nil))
         return cell!
     }
@@ -130,8 +132,17 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         profileImage.widthAnchor.constraint(equalToConstant: 120).isActive = true
         profileImage.topAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: 23).isActive = true
         profileImage.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 32).isActive = true
-        profileImage.layer.cornerRadius = profileImage.frame.height/2
         profileImage.translatesAutoresizingMaskIntoConstraints = false
+        
+        // тут должен быть мем "оно не работает, и я не знаю почему. оно работает, и я не знаю почему"
+        // оно реально не работает и я реально не знаю почему...(((
+        profileImage.layer.cornerRadius = profileImage.bounds.width / 2
+        
+        profileImage.isUserInteractionEnabled = true
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapChangeProfilePicture))
+        gesture.numberOfTouchesRequired = 1
+        gesture.numberOfTapsRequired = 1
+        profileImage.addGestureRecognizer(gesture)
         
         // some user info
         view.addSubview(nickLabel)
@@ -159,5 +170,59 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
         tableView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    @objc private func didTapChangeProfilePicture() {
+        presentPictureActionSheet()
+    }
+}
+
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func presentPictureActionSheet() {
+        let actionSheet = UIAlertController(title: "Profile picture",
+                                            message: "How would you like to set a profile picture?",
+                                            preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Cancel",
+                                            style: .cancel,
+                                            handler: nil))
+//        actionSheet.addAction(UIAlertAction(title: "Take photo",
+//                                            style: .default,
+//                                            handler: { [weak self] _ in
+//                                                self?.presentCamera()
+//                                            }))
+        actionSheet.addAction(UIAlertAction(title: "Select from camera roll",
+                                            style: .default,
+                                            handler: { [weak self] _ in
+                                                self?.presentPicturePicker()
+                                            }))
+        present(actionSheet, animated: true)
+    }
+    
+//    func presentCamera() {
+//        let vc = UIImagePickerController()
+//        vc.sourceType = .camera
+//        vc.delegate = self
+//        vc.allowsEditing = true
+//        present(vc, animated: true)
+//    }
+    
+    func presentPicturePicker() {
+        let vc = UIImagePickerController()
+        vc.sourceType = .photoLibrary
+        vc.delegate = self
+        vc.allowsEditing = true
+        present(vc, animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        guard let selectedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
+            return
+        }
+        self.profileImage.image = selectedImage
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
 }

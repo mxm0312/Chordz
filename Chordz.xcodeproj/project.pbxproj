@@ -25,6 +25,9 @@
 		5EBF990427177490005B1B77 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBF990327177490005B1B77 /* AuthManager.swift */; };
 		5EF79941272B296600E6FF92 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF79940272B296600E6FF92 /* NetworkService.swift */; };
 		6D0CC7552741483C00E48AD8 /* RobotoCondensed-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D0CC7542741483C00E48AD8 /* RobotoCondensed-Bold.ttf */; };
+		6D0CC761274152D700E48AD8 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0CC760274152D700E48AD8 /* ProfilePresenter.swift */; };
+		6D0CC766274155F900E48AD8 /* SongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0CC765274155F900E48AD8 /* SongView.swift */; };
+		6D0CC768274156F000E48AD8 /* SongView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D0CC767274156F000E48AD8 /* SongView.xib */; };
 		6D170FA5273FCA530034AC01 /* SignUpViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D170FA4273FCA530034AC01 /* SignUpViewPresenter.swift */; };
 		6D170FAA273FCBB30034AC01 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D170FA9273FCBB30034AC01 /* ProfileViewController.swift */; };
 		6D170FB02741383A0034AC01 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D170FAF2741383A0034AC01 /* Montserrat-Bold.ttf */; };
@@ -62,6 +65,9 @@
 		5EBF990327177490005B1B77 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		5EF79940272B296600E6FF92 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		6D0CC7542741483C00E48AD8 /* RobotoCondensed-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoCondensed-Bold.ttf"; sourceTree = "<group>"; };
+		6D0CC760274152D700E48AD8 /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
+		6D0CC765274155F900E48AD8 /* SongView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongView.swift; sourceTree = "<group>"; };
+		6D0CC767274156F000E48AD8 /* SongView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SongView.xib; sourceTree = "<group>"; };
 		6D170FA4273FCA530034AC01 /* SignUpViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewPresenter.swift; sourceTree = "<group>"; };
 		6D170FA9273FCBB30034AC01 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		6D170FAF2741383A0034AC01 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
@@ -228,10 +234,27 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
+		6D0CC75F274152C500E48AD8 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				6D0CC760274152D700E48AD8 /* ProfilePresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		6D0CC762274152FF00E48AD8 /* SongView */ = {
+			isa = PBXGroup;
+			children = (
+				6D0CC765274155F900E48AD8 /* SongView.swift */,
+				6D0CC767274156F000E48AD8 /* SongView.xib */,
+			);
+			path = SongView;
+			sourceTree = "<group>";
+		};
 		6D170FA6273FCB670034AC01 /* ProfileModule */ = {
 			isa = PBXGroup;
 			children = (
-				6D170FA8273FCB800034AC01 /* Presenter */,
+				6D0CC75F274152C500E48AD8 /* Presenter */,
 				6D170FA7273FCB780034AC01 /* View */,
 			);
 			path = ProfileModule;
@@ -240,16 +263,10 @@
 		6D170FA7273FCB780034AC01 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6D0CC762274152FF00E48AD8 /* SongView */,
 				6D170FA9273FCBB30034AC01 /* ProfileViewController.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		6D170FA8273FCB800034AC01 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Presenter;
 			sourceTree = "<group>";
 		};
 		A81F8B1CE743EE14835DC7E0 /* Pods */ = {
@@ -327,6 +344,7 @@
 				6D170FB5274139040034AC01 /* Montserrat-Thin.ttf in Resources */,
 				6D170FB4274139040034AC01 /* Montserrat-Regular.ttf in Resources */,
 				6D92B51A27345D5B001519EC /* GoogleService-Info.plist in Resources */,
+				6D0CC768274156F000E48AD8 /* SongView.xib in Resources */,
 				6D170FB02741383A0034AC01 /* Montserrat-Bold.ttf in Resources */,
 				5EAB7E99273D341900D1A3F4 /* FeedTableViewCell.xib in Resources */,
 				5E162D3C2707242D00BF44B8 /* Main.storyboard in Resources */,
@@ -393,10 +411,12 @@
 				6D170FAA273FCBB30034AC01 /* ProfileViewController.swift in Sources */,
 				5EAB7E9B273D341900D1A3F4 /* FeedViewController.swift in Sources */,
 				5E8F748D2710C98400B6E85F /* Song.swift in Sources */,
+				6D0CC766274155F900E48AD8 /* SongView.swift in Sources */,
 				5EF79941272B296600E6FF92 /* NetworkService.swift in Sources */,
 				6D92B51C27345D9E001519EC /* Extensions.swift in Sources */,
 				5EBF990127177019005B1B77 /* LoadManager.swift in Sources */,
 				5E162D352707242D00BF44B8 /* AppDelegate.swift in Sources */,
+				6D0CC761274152D700E48AD8 /* ProfilePresenter.swift in Sources */,
 				6D170FA5273FCA530034AC01 /* SignUpViewPresenter.swift in Sources */,
 				5E162D372707242D00BF44B8 /* SceneDelegate.swift in Sources */,
 				5EAB7E9F273D343700D1A3F4 /* LoginViewPresenter.swift in Sources */,
