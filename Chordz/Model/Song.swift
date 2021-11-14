@@ -9,7 +9,7 @@ import Foundation
 
 
 /// структура песни
-struct Song {
+struct Song: Codable {
     /// Имя артиста
     var artist: String?
     /// Название песни
@@ -35,7 +35,7 @@ struct Song {
 }
 
 /// Структура комментария
-struct Comment {
+struct Comment: Codable {
     var nick: String?
     var text: String?
 }

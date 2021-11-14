@@ -13,7 +13,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     let tableView = UITableView()
     
-    private var songs = [Song]()
+    var songs: [Song] = [
+        Song(artist: "Radiohead", name: "Fake Plastic Trees", album: "The Bends 1995", description: "The Bends is the second studio album by the English rock band Radiohead, released on 8 March 1995 by Parlophone.", nick: "nickname", tags: ["kshdad"], image: "radiohead", likes: 69, comments: nil),
+        Song(artist: "Radiohead", name: "My Iron Lung", album: "The Bends 1995", description: "The Bends is the second studio album by the English rock band Radiohead, released on 8 March 1995 by Parlophone.", nick: "nickname", tags: ["kshdad"], image: "radiohead", likes: 69, comments: nil),
+        Song(artist: "Radiohead", name: "High and Dry", album: "The Bends 1995", description: "The Bends is the second studio album by the English rock band Radiohead, released on 8 March 1995 by Parlophone.", nick: "nickname", tags: ["kshdad"], image: "radiohead", likes: 69, comments: nil),
+    ]
     
     private let logoImage: UIImageView = {
         let imageView = UIImageView()
@@ -88,12 +92,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return songs.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "songView") as? SongView
-        cell?.configure(with: Song(artist: "Radiohead", name: "Fake Plastic Trees", album: "The Bends 1995", description: "The Bends is the second studio album by the English rock band Radiohead, released on 8 March 1995 by Parlophone.", nick: "nickname", tags: ["kshdad"], image: "radiohead", likes: 69, comments: nil))
+        let song = songs[indexPath.row]
+        cell?.configure(with: song)
         return cell!
     }
     
