@@ -13,6 +13,7 @@ extension UIImage {
     static let emailIcon = UIImage(named: "email-icon")
     static let passwordIcon = UIImage(named: "password-icon")
     static let infoIcon = UIImage(named: "warning-icon")
+    static let settingsIcon = UIImage(named: "settings")
 }
 
 extension UIColor {

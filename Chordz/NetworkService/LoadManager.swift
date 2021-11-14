@@ -32,18 +32,18 @@ protocol LoadManagerProtocol {
 
 
 class FirestoreLoadManager: LoadManagerProtocol {
-    
+
     let db = Firestore.firestore()
     let userRef: CollectionReference?
     let songRef: CollectionReference?
-   
+
     static let shared = FirestoreLoadManager()
-    
+
     private init() {
         userRef = db.collection("User")
         songRef = db.collection("Song")
     }
-    
+
     func loadUser(uid: String, complitionHandler: @escaping (User?) -> Void) {
         userRef?.document("ZOxQT2SqnrjZa36UXbJ0").getDocument(completion: { snap, error in
             if error == nil {
@@ -51,7 +51,7 @@ class FirestoreLoadManager: LoadManagerProtocol {
             }
         })
     }
-    
+
     func loadUser(nick: String, complitionHandler: @escaping (User?) -> Void) {
         userRef?.whereField("nick", isEqualTo: nick).getDocuments(completion: { snap, error in
             if error == nil {
@@ -59,19 +59,19 @@ class FirestoreLoadManager: LoadManagerProtocol {
             }
         })
     }
-    
+
     func loadSongs(name: String, complitionHandler: @escaping ([Song]?) -> Void) {
         return
     }
-    
+
     func loadSongs(artist: String, complitionHandler: @escaping ([Song]?) -> Void) {
         return
     }
-    
+
     func loadSongs(uid: String, complitionHandler: @escaping ([Song]?) -> Void) {
         return
     }
-    
+
     func loadSongs(tag: String, complitionHandler: @escaping ([Song]?) -> Void) {
         return
     }
