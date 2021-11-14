@@ -9,7 +9,7 @@ import UIKit
 
 class SignUpViewController: UIViewController {
     
-    let model = FirebaseNetworkService.shared
+    var presenter: SignUpViewPresenterProtocol?
     
     private let logo: UIImageView = {
         let imageView = UIImageView()
@@ -28,6 +28,7 @@ class SignUpViewController: UIViewController {
     private let usernameLabel: UILabel = {
         let label = UILabel()
         label.text = "info about correct usernames"
+        label.font =  UIFont(name: "Montserrat-Regular", size: 18)
         return label
     }()
     
@@ -38,6 +39,7 @@ class SignUpViewController: UIViewController {
         field.returnKeyType = .continue
         field.layer.cornerRadius = 10
         field.placeholder = "username"
+        field.font =  UIFont(name: "Montserrat-Regular", size: 18)
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 0))
         field.leftViewMode = .always
         field.backgroundColor = .textFieldBgColor
@@ -55,6 +57,7 @@ class SignUpViewController: UIViewController {
     private let emailLabel: UILabel = {
         let label = UILabel()
         label.text = "info about correct emails"
+        label.font =  UIFont(name: "Montserrat-Regular", size: 18)
         return label
     }()
     
@@ -65,6 +68,7 @@ class SignUpViewController: UIViewController {
         field.returnKeyType = .continue
         field.layer.cornerRadius = 10
         field.placeholder = "email"
+        field.font =  UIFont(name: "Montserrat-Regular", size: 18)
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 0))
         field.leftViewMode = .always
         field.backgroundColor = .textFieldBgColor
@@ -82,6 +86,7 @@ class SignUpViewController: UIViewController {
     private let passwordLabel: UILabel = {
         let label = UILabel()
         label.text = "info about correct passwords"
+        label.font =  UIFont(name: "Montserrat-Regular", size: 18)
         return label
     }()
     
@@ -92,6 +97,7 @@ class SignUpViewController: UIViewController {
         field.returnKeyType = .continue
         field.layer.cornerRadius = 10
         field.placeholder = "password"
+        field.font =  UIFont(name: "Montserrat-Regular", size: 18)
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 0))
         field.leftViewMode = .always
         field.backgroundColor = .textFieldBgColor
@@ -107,6 +113,7 @@ class SignUpViewController: UIViewController {
         field.returnKeyType = .continue
         field.layer.cornerRadius = 10
         field.placeholder = "password again"
+        field.font =  UIFont(name: "Montserrat-Regular", size: 18)
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 0))
         field.leftViewMode = .always
         field.backgroundColor = .textFieldBgColor
@@ -120,8 +127,8 @@ class SignUpViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.setTitle("Sign Up", for: .normal)
         button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 25)
         button.backgroundColor = .buttonColor
-        button.titleLabel?.font = .systemFont(ofSize: 25, weight: .bold)
         button.addTarget(self,action: #selector(signupButtonTapped),for: .touchUpInside)
         return button
     }()
@@ -130,7 +137,7 @@ class SignUpViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Sign up", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 25, weight: .bold)
+        button.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 25)
         button.addTarget(self,action:#selector(signUpButton),for:.touchUpInside)
         return button
     }()
@@ -139,7 +146,7 @@ class SignUpViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Sign in", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 25)
+        button.titleLabel?.font = UIFont(name: "Montserrat-Regular", size: 25)
         button.addTarget(self,action:#selector(signInButton),for:.touchUpInside)
         return button
     }()
@@ -166,6 +173,7 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter = SignUpViewPresenter(view: self, service: FirebaseNetworkService.shared)
         usernameField.delegate = self
         emailField.delegate = self
         passwordField.delegate = self
@@ -196,11 +204,13 @@ class SignUpViewController: UIViewController {
         
         let stackView = UIStackView()
         stackView.heightAnchor.constraint(equalToConstant: 45).isActive = true
-        stackView.spacing = 20
+        stackView.spacing = 45
         stackView.addArrangedSubview(signupTopButton)
-        justView.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        justView.widthAnchor.constraint(equalToConstant: 4).isActive = true
-        stackView.addArrangedSubview(justView)
+        // пока убрала, потому что для идентичности нужно добавить на начальный экран и экран логина
+        // есть ощущение, что можно это вынести в отдельный элемент, чтобы не дублировать код
+//        justView.heightAnchor.constraint(equalToConstant: 20).isActive = true
+//        justView.widthAnchor.constraint(equalToConstant: 4).isActive = true
+//        stackView.addArrangedSubview(justView)
         stackView.addArrangedSubview(signinTopButton)
         box.addSubview(stackView)
         stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -341,25 +351,13 @@ class SignUpViewController: UIViewController {
             UIView.animate(withDuration: 0.2, animations: {
                 sender.alpha = 1
                 sender.transform = CGAffineTransform(scaleX: 1, y: 1)
-            },completion: { _ in
-                UIView.animate(withDuration: 0.2, animations: {
-                    sender.transform = CGAffineTransform(scaleX: 1, y: 1)
-                    sender.alpha = 1
-                })
             })
         })
     }
     
     // MARK: Кнопка войти
-    @objc func signInButton(sender:UIButton) {
-        UIView.animate(withDuration: 0.1, animations: {
-            sender.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
-            sender.alpha = 0.5
-        }, completion: { _ in
-            let view = LoginViewController()
-            view.modalPresentationStyle = .fullScreen
-            self.present(view, animated: true, completion: nil)
-        })
+    @objc func signInButton() {
+        presenter?.navigateToSignIn()
     }
     
     @objc private func signupButtonTapped() {
@@ -387,18 +385,22 @@ class SignUpViewController: UIViewController {
             return
         }
         
-        model.signUp(email: emailField.text!, password: passwordField.text!, complition: { err in
-            if err == nil {
-                print("Success!")
-                // todo: переход на главный экран
-            } else {
-                // fixme: пофиксить текст ошибки
-                let alert = UIAlertController(title: "Oops", message: "Something went wrong" + err.debugDescription, preferredStyle: .alert)
-                let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
-                alert.addAction(action)
-                self.present(alert, animated: true, completion: nil)
-            }
-        })
+        presenter?.signupButtonTapped(enteredEmail: emailField.text!, enteredPassword: passwordField.text!)
+    }
+    
+    //fixme
+    func success() {
+        let alert = UIAlertController(title: "Yoohoo!", message: "Successfully created new user", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func signUpProblem(error: Error) {
+        let alert = UIAlertController(title: "Oops", message: "Something went wrong: " + error.localizedDescription, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
     }
 }
 

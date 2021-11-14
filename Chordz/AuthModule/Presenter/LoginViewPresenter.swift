@@ -9,6 +9,7 @@ import Foundation
 
 protocol LoginViewPresenterProtocol: AnyObject {
     func logInButtonTapped(enteredEmail: String, enteredPassword: String)
+    func navigateToSignUp()
     init(view: LoginViewController, service: NetworkServiceProtocol)
 }
 
@@ -31,6 +32,10 @@ class LoginViewPresenter: LoginViewPresenterProtocol {
             }
         })
     }
+    
+    func navigateToSignUp() {
+        let view = SignUpViewController()
+        view.modalPresentationStyle = .fullScreen
+        self.view?.present(view, animated: true, completion: nil)
+    }
 }
-
-

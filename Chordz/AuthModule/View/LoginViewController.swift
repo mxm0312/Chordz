@@ -14,6 +14,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     var loginField: UITextField = {
         let field = UITextField()
+        field.autocapitalizationType = .none
+        field.autocorrectionType = .no
         field.layer.cornerRadius = 10
         field.placeholder = "email"
         field.textContentType = .emailAddress
@@ -27,8 +29,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     var passwordField: UITextField = {
         let field = UITextField()
+        field.autocapitalizationType = .none
+        field.autocorrectionType = .no
         field.layer.cornerRadius = 10
-        field.font = UIFont(name: "Montserrat-Regular", size: 22)
+        field.font = UIFont(name: "Montserrat-Regular", size: 18)
         field.isSecureTextEntry = true
         field.placeholder = "password"
         field.textAlignment = .center
@@ -49,7 +53,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let button = UIButton()
         button.frame = CGRect.zero
         button.setTitle("Sign up", for: .normal)
-        button.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 24)
+        button.titleLabel?.font = UIFont(name: "Montserrat-Regular", size: 24)
         button.setTitleColor(UIColor.black, for: .normal)
         button.addTarget(self,action:#selector(signUpButton),
                          for:.touchUpInside)
@@ -59,8 +63,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     var signIn: UIButton = {
         let button = UIButton()
         button.frame = CGRect.zero
-        button.setTitle("Sign up", for: .normal)
-        button.titleLabel?.font = UIFont(name: "Montserrat-Regular", size: 24)
+        button.setTitle("Sign in", for: .normal)
+        button.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 24)
         button.setTitleColor(UIColor.black, for: .normal)
         button.addTarget(self,action:#selector(signInButton),
                          for:.touchUpInside)
@@ -110,15 +114,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func signUpButton(sender:UIButton) {
-        UIView.animate(withDuration: 0.1, animations: {
-            sender.alpha = 0.5
-            sender.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
-        }, completion: { _ in
-            UIView.animate(withDuration: 0.2, animations: {
-                sender.alpha = 1
-                sender.transform = CGAffineTransform(scaleX: 1, y: 1)
-            })
-        })
+        presenter?.navigateToSignUp()
     }
     
     @objc func signInButton(sender:UIButton) {
@@ -191,8 +187,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         // email Label
         let emailLabel = UILabel()
-        emailLabel.font =  UIFont(name: "Montserrat-Regular", size: 22)
-        emailLabel.text = "Info about correct email"
+        emailLabel.font =  UIFont(name: "Montserrat-Regular", size: 18)
+        emailLabel.text = "info about correct email"
         box.addSubview(emailLabel)
         emailLabel.leftAnchor.constraint(equalTo: emailImage.rightAnchor, constant: 10).isActive = true
         emailLabel.centerYAnchor.constraint(equalTo: emailImage.centerYAnchor).isActive = true
@@ -203,7 +199,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         box.addSubview(loginField)
         view.addConstraint(NSLayoutConstraint(item: loginField, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 0.85, constant: 0))
         loginField.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 8).isActive = true
-        loginField.font = UIFont(name: "Montserrat-Regular", size: 22)
+        loginField.font = UIFont(name: "Montserrat-Regular", size: 18)
         loginField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         loginField.heightAnchor.constraint(equalToConstant: 45).isActive = true
         loginField.translatesAutoresizingMaskIntoConstraints = false
@@ -224,8 +220,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         // password Label
         
         let passwordLabel = UILabel()
-        passwordLabel.font =  UIFont(name: "Montserrat-Regular", size: 22)
-        passwordLabel.text = "Info about correct password"
+        passwordLabel.font =  UIFont(name: "Montserrat-Regular", size: 18)
+        passwordLabel.text = "info about correct password"
         box.addSubview(passwordLabel)
         passwordLabel.leftAnchor.constraint(equalTo: passwordIcon.rightAnchor, constant: 10).isActive = true
         passwordLabel.centerYAnchor.constraint(equalTo: passwordIcon.centerYAnchor).isActive = true
@@ -255,8 +251,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         // resetButton
         
         let resetButton = UIButton()
-        resetButton.setTitle("Forgot password?", for: .normal)
-        resetButton.titleLabel?.font = UIFont(name: "Montserrat-Regular", size: 22)
+        resetButton.setTitle("forgot password?", for: .normal)
+        resetButton.titleLabel?.font = UIFont(name: "Montserrat-Regular", size: 18)
         resetButton.setTitleColor(UIColor(red: 0.898, green: 0.227, blue: 0.349, alpha: 1), for: .normal)
         resetButton.addTarget(self,action:#selector(reset),
                               for:.touchUpInside)
@@ -267,7 +263,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         // confirmButton
         let confirmButton = UIButton()
-        confirmButton.setTitle("Sign in", for: .normal)
+        confirmButton.setTitle("Sign In", for: .normal)
         confirmButton.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 25)
         confirmButton.setTitleColor(UIColor.white, for: .normal)
         confirmButton.backgroundColor = UIColor(red: 0, green: 0.591, blue: 0.721, alpha: 1)
@@ -275,7 +271,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         confirmButton.addTarget(self, action:#selector(submitButton),
                               for: .touchUpInside)
         box.addSubview(confirmButton)
-        confirmButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -85).isActive = true
+        confirmButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
         view.addConstraint(NSLayoutConstraint(item: confirmButton, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 0.85, constant: 0))
         confirmButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         confirmButton.heightAnchor.constraint(equalToConstant: 60).isActive = true

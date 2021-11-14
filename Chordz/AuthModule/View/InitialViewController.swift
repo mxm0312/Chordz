@@ -68,7 +68,7 @@ class InitialViewController: UIViewController {
     var signUp: UIButton = {
         let button = UIButton(frame: .zero)
         button.setTitle("Sign up", for: .normal)
-        button.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 24)
+        button.titleLabel?.font = UIFont(name: "Montserrat-Regular", size: 24)
         button.setTitleColor(UIColor.black, for: .normal)
         button.addTarget(self,action:#selector(signUpButton),
                          for:.touchUpInside)
@@ -216,12 +216,17 @@ class InitialViewController: UIViewController {
     // MARK: Кнопка зарегестрироваться
     @objc func signUpButton(sender:UIButton) {
         UIView.animate(withDuration: 0.1, animations: {
-            sender.alpha = 0.5
             sender.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+            sender.alpha = 0.5
         }, completion: { _ in
             UIView.animate(withDuration: 0.2, animations: {
-                sender.alpha = 1
                 sender.transform = CGAffineTransform(scaleX: 1, y: 1)
+                sender.alpha = 1
+            },completion: { _ in
+//                let view = ProfileViewController()
+                let view = SignUpViewController()
+                view.modalPresentationStyle = .fullScreen
+                self.present(view, animated: true, completion: nil)
             })
         })
         
