@@ -1,0 +1,12 @@
+# User settings
+xcuserdata/
+
+# Xcode
+build
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcworkspace/contents.xcworkspacedata
+
+
+# CocoaPods
+Pods/
