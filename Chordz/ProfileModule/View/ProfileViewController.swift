@@ -23,6 +23,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         let imageView = UIImageView()
         imageView.image = .logoIcon
         imageView.frame = CGRect(x: 0, y: 0, width: 200, height: 73)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
@@ -32,6 +33,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         button.setImage(.settingsIcon, for: .normal)
         button.addTarget(self,action:#selector(settingsButtonTapped),
                          for:.touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -43,6 +45,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 2
         imageView.layer.borderColor = UIColor.lightGray.cgColor
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
@@ -51,6 +54,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         //fixme
         label.text = "@nickname"
         label.font =  UIFont(name: "Montserrat-Bold", size: 20)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -60,6 +64,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         label.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
         label.font =  UIFont(name: "Montserrat-Regular", size: 13)
         label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -69,6 +74,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 15)
 //        button.addTarget(self,action:#selector(signInButton),for:.touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -92,7 +98,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return songs.count
+        songs.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -114,7 +120,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         view.addSubview(logoImage)
         logoImage.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 32).isActive = true
         logoImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8).isActive = true
-        logoImage.translatesAutoresizingMaskIntoConstraints = false
         
         // settings
         let searchView = UIView()
@@ -137,7 +142,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         profileImage.widthAnchor.constraint(equalToConstant: 120).isActive = true
         profileImage.topAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: 23).isActive = true
         profileImage.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 32).isActive = true
-        profileImage.translatesAutoresizingMaskIntoConstraints = false
         
         // тут должен быть мем "оно не работает, и я не знаю почему. оно работает, и я не знаю почему"
         // оно реально не работает и я реально не знаю почему...(((
@@ -153,20 +157,16 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         view.addSubview(nickLabel)
         nickLabel.leftAnchor.constraint(equalTo: profileImage.rightAnchor, constant: 16).isActive = true
         nickLabel.topAnchor.constraint(equalTo: profileImage.topAnchor, constant: 10).isActive = true
-        nickLabel.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(statusLabel)
         statusLabel.leftAnchor.constraint(equalTo: profileImage.rightAnchor, constant: 16).isActive = true
         statusLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -100).isActive = true
         statusLabel.topAnchor.constraint(equalTo: nickLabel.bottomAnchor, constant: 10).isActive = true
-        statusLabel.translatesAutoresizingMaskIntoConstraints = false
         
         // buttons
         view.addSubview(mySongsButton)
         mySongsButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 32).isActive = true
         mySongsButton.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 26).isActive = true
-        mySongsButton.translatesAutoresizingMaskIntoConstraints = false
-        
         
         // tableView
         view.addSubview(tableView)

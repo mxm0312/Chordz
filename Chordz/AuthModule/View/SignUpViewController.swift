@@ -15,6 +15,7 @@ class SignUpViewController: UIViewController {
         let imageView = UIImageView()
         imageView.image = .logoIcon
         imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
@@ -22,13 +23,15 @@ class SignUpViewController: UIViewController {
         let imageView = UIImageView()
         imageView.image = .usernameIcon
         imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
     private let usernameLabel: UILabel = {
         let label = UILabel()
         label.text = "info about correct usernames"
-        label.font =  UIFont(name: "Montserrat-Regular", size: 18)
+        label.font =  UIFont(name: "Montserrat-Regular", size: Constants.smallTextSize)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -39,11 +42,12 @@ class SignUpViewController: UIViewController {
         field.returnKeyType = .continue
         field.layer.cornerRadius = 10
         field.placeholder = "username"
-        field.font =  UIFont(name: "Montserrat-Regular", size: 18)
+        field.font =  UIFont(name: "Montserrat-Regular", size: Constants.smallTextSize)
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 0))
         field.leftViewMode = .always
         field.backgroundColor = .textFieldBgColor
         field.returnKeyType = .continue
+        field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()
     
@@ -51,13 +55,15 @@ class SignUpViewController: UIViewController {
         let imageView = UIImageView()
         imageView.image = .emailIcon
         imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
     private let emailLabel: UILabel = {
         let label = UILabel()
         label.text = "info about correct emails"
-        label.font =  UIFont(name: "Montserrat-Regular", size: 18)
+        label.font =  UIFont(name: "Montserrat-Regular", size: Constants.smallTextSize)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -68,11 +74,12 @@ class SignUpViewController: UIViewController {
         field.returnKeyType = .continue
         field.layer.cornerRadius = 10
         field.placeholder = "email"
-        field.font =  UIFont(name: "Montserrat-Regular", size: 18)
+        field.font =  UIFont(name: "Montserrat-Regular", size: Constants.smallTextSize)
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 0))
         field.leftViewMode = .always
         field.backgroundColor = .textFieldBgColor
         field.returnKeyType = .continue
+        field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()
     
@@ -80,13 +87,15 @@ class SignUpViewController: UIViewController {
         let imageView = UIImageView()
         imageView.image = .passwordIcon
         imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
     private let passwordLabel: UILabel = {
         let label = UILabel()
         label.text = "info about correct passwords"
-        label.font =  UIFont(name: "Montserrat-Regular", size: 18)
+        label.font =  UIFont(name: "Montserrat-Regular", size: Constants.smallTextSize)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -97,12 +106,13 @@ class SignUpViewController: UIViewController {
         field.returnKeyType = .continue
         field.layer.cornerRadius = 10
         field.placeholder = "password"
-        field.font =  UIFont(name: "Montserrat-Regular", size: 18)
+        field.font =  UIFont(name: "Montserrat-Regular", size: Constants.smallTextSize)
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 0))
         field.leftViewMode = .always
         field.backgroundColor = .textFieldBgColor
         field.isSecureTextEntry = true
         field.returnKeyType = .continue
+        field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()
     
@@ -113,12 +123,13 @@ class SignUpViewController: UIViewController {
         field.returnKeyType = .continue
         field.layer.cornerRadius = 10
         field.placeholder = "password again"
-        field.font =  UIFont(name: "Montserrat-Regular", size: 18)
+        field.font =  UIFont(name: "Montserrat-Regular", size: Constants.smallTextSize)
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 0))
         field.leftViewMode = .always
         field.backgroundColor = .textFieldBgColor
         field.isSecureTextEntry = true
         field.returnKeyType = .done
+        field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()
     
@@ -127,9 +138,10 @@ class SignUpViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.setTitle("Sign Up", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 25)
+        button.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: Constants.buttonsTextSize)
         button.backgroundColor = .buttonColor
         button.addTarget(self,action: #selector(signupButtonTapped),for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -137,8 +149,9 @@ class SignUpViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Sign up", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 25)
+        button.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: Constants.buttonsTextSize)
         button.addTarget(self,action:#selector(signUpButton),for:.touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -146,8 +159,9 @@ class SignUpViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Sign in", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont(name: "Montserrat-Regular", size: 25)
+        button.titleLabel?.font = UIFont(name: "Montserrat-Regular", size: Constants.buttonsTextSize)
         button.addTarget(self,action:#selector(signInButton),for:.touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -161,6 +175,7 @@ class SignUpViewController: UIViewController {
         let imageView = UIImageView()
         imageView.image = .infoIcon
         imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
@@ -168,6 +183,7 @@ class SignUpViewController: UIViewController {
         let label = UILabel()
         label.text = "by signing up you agree with our policy"
         label.textColor = .gray
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -189,7 +205,6 @@ class SignUpViewController: UIViewController {
         logo.widthAnchor.constraint(equalToConstant: 200).isActive = true
         logo.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
         logo.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 32).isActive = true
-        logo.translatesAutoresizingMaskIntoConstraints = false
         
         let box = UIView()
         box.frame = CGRect.zero
@@ -204,7 +219,7 @@ class SignUpViewController: UIViewController {
         
         let stackView = UIStackView()
         stackView.heightAnchor.constraint(equalToConstant: 45).isActive = true
-        stackView.spacing = 45
+        stackView.spacing = Constants.stackViewSpacing
         stackView.addArrangedSubview(signupTopButton)
         // пока убрала, потому что для идентичности нужно добавить на начальный экран и экран логина
         // есть ощущение, что можно это вынести в отдельный элемент, чтобы не дублировать код
@@ -217,6 +232,7 @@ class SignUpViewController: UIViewController {
         stackView.topAnchor.constraint(equalTo: box.topAnchor, constant: 32).isActive = true
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
+        
         //username
         
         box.addSubview(usernameIcon)
@@ -224,13 +240,11 @@ class SignUpViewController: UIViewController {
         usernameIcon.widthAnchor.constraint(equalToConstant: 20).isActive = true
         usernameIcon.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 38).isActive = true
         usernameIcon.leftAnchor.constraint(equalTo: box.leftAnchor, constant: 32).isActive = true
-        usernameIcon.translatesAutoresizingMaskIntoConstraints = false
         
         box.addSubview(usernameLabel)
         usernameLabel.leftAnchor.constraint(equalTo: usernameIcon.rightAnchor, constant: 10).isActive = true
         usernameLabel.centerYAnchor.constraint(equalTo: usernameIcon.centerYAnchor).isActive = true
-        usernameLabel.translatesAutoresizingMaskIntoConstraints = false
-        
+       
         box.addSubview(usernameField)
         view.addConstraint(NSLayoutConstraint(item: usernameField,
                                               attribute: .width,
@@ -242,7 +256,6 @@ class SignUpViewController: UIViewController {
         usernameField.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 8).isActive = true
         usernameField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         usernameField.heightAnchor.constraint(equalToConstant: 45).isActive = true
-        usernameField.translatesAutoresizingMaskIntoConstraints = false
         
         
         //email
@@ -270,7 +283,6 @@ class SignUpViewController: UIViewController {
         emailField.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 8).isActive = true
         emailField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         emailField.heightAnchor.constraint(equalToConstant: 45).isActive = true
-        emailField.translatesAutoresizingMaskIntoConstraints = false
         
         
         //password
@@ -280,12 +292,10 @@ class SignUpViewController: UIViewController {
         passwordIcon.widthAnchor.constraint(equalToConstant: 20).isActive = true
         passwordIcon.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: 38).isActive = true
         passwordIcon.leftAnchor.constraint(equalTo: box.leftAnchor, constant: 32).isActive = true
-        passwordIcon.translatesAutoresizingMaskIntoConstraints = false
         
         box.addSubview(passwordLabel)
         passwordLabel.leftAnchor.constraint(equalTo: passwordIcon.rightAnchor, constant: 10).isActive = true
         passwordLabel.centerYAnchor.constraint(equalTo: passwordIcon.centerYAnchor).isActive = true
-        passwordLabel.translatesAutoresizingMaskIntoConstraints = false
         
         box.addSubview(passwordField)
         view.addConstraint(NSLayoutConstraint(item: passwordField,
@@ -298,7 +308,6 @@ class SignUpViewController: UIViewController {
         passwordField.topAnchor.constraint(equalTo: passwordLabel.bottomAnchor, constant: 8).isActive = true
         passwordField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         passwordField.heightAnchor.constraint(equalToConstant: 45).isActive = true
-        passwordField.translatesAutoresizingMaskIntoConstraints = false
         
         box.addSubview(password2Field)
         view.addConstraint(NSLayoutConstraint(item: password2Field,
@@ -311,7 +320,6 @@ class SignUpViewController: UIViewController {
         password2Field.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 8).isActive = true
         password2Field.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         password2Field.heightAnchor.constraint(equalToConstant: 45).isActive = true
-        password2Field.translatesAutoresizingMaskIntoConstraints = false
         
         
         //signup button
@@ -327,19 +335,16 @@ class SignUpViewController: UIViewController {
                                               constant: 0))
         signupButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         signupButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        signupButton.translatesAutoresizingMaskIntoConstraints = false
         
         box.addSubview(infoIcon)
         infoIcon.heightAnchor.constraint(equalToConstant: 20).isActive = true
         infoIcon.widthAnchor.constraint(equalToConstant: 20).isActive = true
         infoIcon.bottomAnchor.constraint(equalTo: signupButton.topAnchor, constant: -8).isActive = true
         infoIcon.leftAnchor.constraint(equalTo: box.leftAnchor, constant: 32).isActive = true
-        infoIcon.translatesAutoresizingMaskIntoConstraints = false
-        
+   
         box.addSubview(infoLabel)
         infoLabel.leftAnchor.constraint(equalTo: infoIcon.rightAnchor, constant: 10).isActive = true
         infoLabel.centerYAnchor.constraint(equalTo: infoIcon.centerYAnchor).isActive = true
-        infoLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     
     // MARK: Кнопка зарегестрироваться
