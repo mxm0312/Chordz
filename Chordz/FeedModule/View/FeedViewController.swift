@@ -11,8 +11,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
 
 
     let tableView = UITableView()
+    var presenter: FeedViewPresenterProtocol?
     
-    var songs = [Song]()
     
     let logoImage: UIImageView = {
         let imageView = UIImageView()
@@ -33,6 +33,10 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        presenter = FeedViewPresenter(view: self, service: FirebaseNetworkService.shared)
+        presenter?.loadContent()
+        
         let nib = UINib(nibName: "FeedTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "feedCell")
         
@@ -55,14 +59,20 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return presenter?.content.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "feedCell") as? FeedTableViewCell
-        cell?.configure(with: Song(artist: "ajkshdjksahdkj", name: "kajshd", album: "JOPA", description: "фывоырворывлорыловр ыолврлфоырв", nick: "nepexom", tags: ["kshdad"], image: "radiohead", likes: 228, comments: nil))
-        return cell!
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "feedCell") as? FeedTableViewCell else {
+            return .init()
+        }
+        guard let presenter = presenter else {
+            return .init()
+        }
+        cell.configure(with: presenter.content[indexPath.row])
+        return cell
     }
+    
     
     
     func setUI() {
