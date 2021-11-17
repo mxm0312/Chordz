@@ -1,6 +1,0 @@
-framework module Pods_Chordz {
-  umbrella header "Pods-Chordz-umbrella.h"
-
-  export *
-  module * { export * }
-}
