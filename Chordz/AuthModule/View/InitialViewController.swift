@@ -223,8 +223,7 @@ class InitialViewController: UIViewController {
                 sender.transform = CGAffineTransform(scaleX: 1, y: 1)
                 sender.alpha = 1
             },completion: { _ in
-                let view = ProfileViewController()
-//                let view = SignUpViewController()
+                let view = SignUpViewController()
                 view.modalPresentationStyle = .fullScreen
                 self.present(view, animated: true, completion: nil)
             })
