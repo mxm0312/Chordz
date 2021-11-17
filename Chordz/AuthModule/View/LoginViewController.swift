@@ -95,9 +95,24 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func showFeedView() {
-        let view = FeedViewController()
-        view.modalPresentationStyle = .fullScreen
-        self.present(view, animated: true, completion: nil)
+        let tabBarVC = UITabBarController()
+        
+        let feed = FeedViewController()
+        let feedItem = UITabBarItem()
+        feedItem.title = "feed"
+        feedItem.image = UIImage(named: "home_icon")
+        feed.tabBarItem = feedItem
+        
+        let profile = ProfileViewController()
+        let profileItem = UITabBarItem()
+        profileItem.title = "profile"
+        profileItem.image = UIImage(named: "home_icon")
+        profile.tabBarItem = profileItem
+        
+        
+        tabBarVC.setViewControllers([feed,profile], animated: false)
+        tabBarVC.modalPresentationStyle = .fullScreen
+        self.present(tabBarVC, animated: true, completion: nil)
     }
     
     func signInProblem() {

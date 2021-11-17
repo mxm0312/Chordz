@@ -395,10 +395,28 @@ class SignUpViewController: UIViewController {
     
     //fixme
     func success() {
-        let alert = UIAlertController(title: "Yoohoo!", message: "Successfully created new user", preferredStyle: .alert)
+        let tabBarVC = UITabBarController()
+        
+        let feed = FeedViewController()
+        let feedItem = UITabBarItem()
+        feedItem.title = "feed"
+        feedItem.image = UIImage(named: "home_icon")
+        feed.tabBarItem = feedItem
+        
+        let profile = ProfileViewController()
+        let profileItem = UITabBarItem()
+        profileItem.title = "profile"
+        profileItem.image = UIImage(named: "home_icon")
+        profile.tabBarItem = profileItem
+        
+        
+        tabBarVC.setViewControllers([feed,profile], animated: false)
+        tabBarVC.modalPresentationStyle = .fullScreen
+        self.present(tabBarVC, animated: true, completion: nil)
+        /*let alert = UIAlertController(title: "Yoohoo!", message: "Successfully created new user", preferredStyle: .alert)
         let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
         alert.addAction(action)
-        self.present(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)*/
     }
     
     func signUpProblem(error: Error) {
