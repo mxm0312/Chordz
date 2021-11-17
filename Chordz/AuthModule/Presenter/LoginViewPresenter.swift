@@ -36,6 +36,6 @@ class LoginViewPresenter: LoginViewPresenterProtocol {
     func navigateToSignUp() {
         let view = SignUpViewController()
         view.modalPresentationStyle = .fullScreen
-        self.view?.present(view, animated: true, completion: nil)
+        self.view?.present(view, animated: false, completion: nil)
     }
 }
