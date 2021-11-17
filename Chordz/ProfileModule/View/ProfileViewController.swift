@@ -91,6 +91,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.allowsSelection = false
         
         view.backgroundColor = .white
         tableView.backgroundColor = .white

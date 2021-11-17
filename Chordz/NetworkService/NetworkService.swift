@@ -15,12 +15,15 @@ protocol NetworkServiceProtocol {
     //MARK: Load methods for User
     func getUser(by uid: String, complition: @escaping (Any?) -> Void)
     func getUser(with nick: String, complition: @escaping (Any?) -> Void)
+    func getUID() -> String?
     //MARK: Load methods for Song
-    
+    func loadSongs(by nick: String, complition: @escaping ([Song]?) -> Void)
+    func loadAllSongs(complition: @escaping ([Song]?) -> Void)
 }
 
 
 class FirebaseNetworkService: NetworkServiceProtocol {
+
     
     static let shared = FirebaseNetworkService()
     private init() {}
@@ -43,6 +46,16 @@ class FirebaseNetworkService: NetworkServiceProtocol {
     func getUser(with nick: String, complition: @escaping (Any?) -> Void) {
         loadManager.loadUser(nick: nick, complitionHandler: complition)
     }
+    func loadSongs(by nick: String, complition: @escaping ([Song]?) -> Void) {
+        loadManager.loadSongs(by: nick, complitionHandler: complition)
+    }
+    func getUID() -> String? {
+        return loadManager.getUID()
+    }
+    func loadAllSongs(complition: @escaping ([Song]?) -> Void) {
+        loadManager.loadAllSongs(complitionHandler: complition)
+    }
+    
 }
 
 
