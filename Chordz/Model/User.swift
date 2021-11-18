@@ -9,7 +9,9 @@ import Foundation
 
 
 /// структура пользователя
-struct User {
+struct User: Codable {
+    /// Идентификатор пользователя
+    var uid: String?
     /// Ник пользователя
     var nick: String?
     /// Массив из id песен пользователя

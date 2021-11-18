@@ -390,7 +390,7 @@ class SignUpViewController: UIViewController {
             return
         }
         
-        presenter?.signupButtonTapped(enteredEmail: emailField.text!, enteredPassword: passwordField.text!)
+        presenter?.signupButtonTapped(enteredEmail: emailField.text!, enteredPassword: passwordField.text!, nick: usernameField.text!)
     }
     
     //fixme

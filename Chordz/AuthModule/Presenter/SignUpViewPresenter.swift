@@ -8,7 +8,7 @@
 import Foundation
 
 protocol SignUpViewPresenterProtocol: AnyObject {
-    func signupButtonTapped(enteredEmail: String, enteredPassword: String)
+    func signupButtonTapped(enteredEmail: String, enteredPassword: String, nick: String)
     func navigateToSignIn()
     init(view: SignUpViewController, service: NetworkServiceProtocol)
 }
@@ -22,10 +22,21 @@ class SignUpViewPresenter: SignUpViewPresenterProtocol {
         self.service = service
     }
     
-    func signupButtonTapped(enteredEmail: String, enteredPassword: String) {
+    func signupButtonTapped(enteredEmail: String, enteredPassword: String, nick: String) {
         service?.signUp(email: enteredEmail, password: enteredPassword, complition: { err in
             if err == nil {
-                self.view?.success()
+                let uid = self.service?.getUID() ?? ""
+                self.service?.saveUser(uid: uid, nick: nick, completionHandler: {
+                    let user = User(uid: uid, nick: nick, songs: nil, followingUsers: nil, followingTags: nil)
+                    let encoder = JSONEncoder()
+                    if let encoded = try? encoder.encode(user) {
+                        let defaults = UserDefaults.standard
+                        defaults.set(encoded, forKey: "currentUser")
+                    }
+                    
+                    self.view?.success()
+                })
+                
             } else {
                 self.view?.signUpProblem(error: err as! Error)
             }
