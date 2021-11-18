@@ -9,6 +9,7 @@ import Foundation
 
 protocol ProfilePresenterProtocol: AnyObject {
     func loadContent(complitionHandler: @escaping ([Song]) -> Void)
+    func loadInfo()
 }
 
 class ProfilePresenter: ProfilePresenterProtocol {
@@ -24,4 +25,16 @@ class ProfilePresenter: ProfilePresenterProtocol {
     func loadContent(complitionHandler: @escaping ([Song]) -> Void) {
         
     }
+    
+    func loadInfo() {
+        let defaults = UserDefaults.standard
+        if let currentUser = defaults.object(forKey: "currentUser") as? Data {
+            let decoder = JSONDecoder()
+            if let loadedPerson = try? decoder.decode(User.self, from: currentUser) {
+                view?.setNick(nick: loadedPerson.nick)
+            }
+        }
+    }
+    
+    
 }

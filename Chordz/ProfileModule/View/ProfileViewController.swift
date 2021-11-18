@@ -96,6 +96,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         view.backgroundColor = .white
         tableView.backgroundColor = .white
         setUI()
+        
+        presenter?.loadInfo()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -230,5 +232,12 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func setNick(nick: String?) {
+        guard let nick = nick else {
+            return
+        }
+        nickLabel.text = nick
     }
 }

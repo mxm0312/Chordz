@@ -37,7 +37,7 @@ class FeedTableViewCell: UITableViewCell {
         albumLabel.text = song.album
         descriptionText.text = song.description
         likesLabel.text = String(song.likes ?? 0)
-        albumImage.image = UIImage(named: song.image ?? "none")
+        albumImage.backgroundColor = .systemPink
     }
     
 }

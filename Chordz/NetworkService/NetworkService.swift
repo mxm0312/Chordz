@@ -12,6 +12,7 @@ protocol NetworkServiceProtocol {
     func signUp(email: String, password: String, complition: @escaping (Any?) -> Void)
     func signIn(email: String, password: String, complition: @escaping (Any?) -> Void)
     func resetPassword(email: String, password: String, complition: @escaping (Any?) -> Void)
+    func saveUser(uid: String, nick: String, completionHandler: @escaping () -> Void)
     //MARK: Load methods for User
     func getUser(by uid: String, complition: @escaping (Any?) -> Void)
     func getUser(with nick: String, complition: @escaping (Any?) -> Void)
@@ -55,6 +56,10 @@ class FirebaseNetworkService: NetworkServiceProtocol {
     func loadAllSongs(complition: @escaping ([Song]?) -> Void) {
         loadManager.loadAllSongs(complitionHandler: complition)
     }
+    func saveUser(uid: String, nick: String, completionHandler: @escaping () -> Void) {
+        authManager.saveUser(uid: uid, nick: nick, completionHandler: completionHandler)
+    }
+    
     
 }
 

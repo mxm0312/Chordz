@@ -6,20 +6,23 @@
 //
 
 import Foundation
-import FirebaseAuth
+import Firebase
 
 
 // MARK: Протокол клиента для работы с регистрацией
 protocol AuthManagerProtocol {
     
-    /* Функция создания нового пользователя. При успешном завершении возвращает true */
+    /// Функция создания нового пользователя. При успешном завершении возвращает true
     func createUser(email: String, password: String, completionHandler: @escaping (Any?) -> Void)
     
-    /* Функция входа. При успешном выполнении возвращает true */
+    /// Функция входа. При успешном выполнении возвращает true
     func signIn(email: String, password: String, completionHandler: @escaping (Any?) -> Void)
     
-    /* Функция сброса пароля. При успешном выполнении возвращает true */
+    /// Функция сброса пароля. При успешном выполнении возвращает true
     func resetPassword(email: String, completionHandler: @escaping (Any?) -> Void)
+    
+    /// Функция сохраняет пользователя
+    func saveUser(uid: String, nick: String, completionHandler: @escaping () -> Void)
     
 }
 
@@ -46,6 +49,18 @@ class FirebaseAuthManager: AuthManagerProtocol {
         Auth.auth().sendPasswordReset(withEmail: email, completion: { (error) in
             completionHandler(error)
         })
+    }
+    
+    func saveUser(uid: String, nick: String, completionHandler: @escaping () -> Void) {
+        let db = Firestore.firestore()
+        db.collection("Users").document(uid).setData(["nick": nick, "uid": uid]) { err in
+            if err == nil {
+                completionHandler()
+                // сохранил
+            } else {
+                
+            }
+        }
     }
 }
 
