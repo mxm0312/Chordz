@@ -20,22 +20,52 @@ class InitialViewController: UIViewController {
         return image
     }()
     
-    var createLabel: UILabel = {
+    var cLabel: UILabel = {
         let label = UILabel()
+        label.text = "C"
+        label.font = UIFont(name: "RobotoCondensed-Bold", size: 64)
+        label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        return label
+    }()
+    
+    var amLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Am"
+        label.font = UIFont(name: "RobotoCondensed-Bold", size: 64)
+        label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        return label
+    }()
+    
+    var emLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Em"
+        label.font = UIFont(name: "RobotoCondensed-Bold", size: 64)
+        label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        return label
+    }()
+    
+    var reateLabel: UILabel = {
+        let label = UILabel()
+        label.text = "reate"
+        label.font = UIFont(name: "RobotoCondensed-Bold", size: 64)
         label.frame = CGRect(x: 0, y: 0, width: 169, height: 75)
         label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         return label
     }()
     
-    var amazeLabel: UILabel = {
+    var azeLabel: UILabel = {
         let label = UILabel()
+        label.text = "aze"
+        label.font = UIFont(name: "RobotoCondensed-Bold", size: 64)
         label.frame = CGRect(x: 0, y: 0, width: 174, height: 75)
         label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         return label
     }()
     
-    var empowerLabel: UILabel = {
+    var powerLabel: UILabel = {
         let label = UILabel()
+        label.text = "power"
+        label.font = UIFont(name: "RobotoCondensed-Bold", size: 64)
         label.frame = CGRect(x: 0, y: 0, width: 235, height: 75)
         label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         return label
@@ -94,7 +124,6 @@ class InitialViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        setLabels()
         apearAnimation()
     }
    
@@ -110,41 +139,25 @@ class InitialViewController: UIViewController {
         parent.sendSubviewToBack(greenView)
         
         // logo
+        
         view.addSubview(logoImage)
         logoImage.heightAnchor.constraint(equalToConstant: 73).isActive = true
         logoImage.widthAnchor.constraint(equalToConstant: 200).isActive = true
         logoImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
         logoImage.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 32).isActive = true
         logoImage.translatesAutoresizingMaskIntoConstraints = false
+        
+        redView.addSubview(cLabel)
+        blueView.addSubview(amLabel)
+        greenView.addSubview(emLabel)
+        view.addSubview(reateLabel)
+        view.addSubview(azeLabel)
+        view.addSubview(powerLabel)
 
-        // CreateLabel
-        
-        parent.addSubview(createLabel)
-        createLabel.translatesAutoresizingMaskIntoConstraints = false
-        createLabel.heightAnchor.constraint(equalToConstant: 75).isActive = true
-        createLabel.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 28).isActive = true
-        view.addConstraint(NSLayoutConstraint(item: createLabel, attribute: .centerY, relatedBy: .equal, toItem: redView, attribute: .centerY, multiplier: 1, constant: 0))
-        
-        // AmazeLabel
-        
-        parent.addSubview(amazeLabel)
-        amazeLabel.translatesAutoresizingMaskIntoConstraints = false
-        amazeLabel.heightAnchor.constraint(equalToConstant: 75).isActive = true
-        amazeLabel.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 31).isActive = true
-        view.addConstraint(NSLayoutConstraint(item: amazeLabel, attribute: .centerY, relatedBy: .equal, toItem: blueView, attribute: .centerY, multiplier: 1, constant: 0))
-        
-        // EmpowerLabel
-        
-        parent.addSubview(empowerLabel)
-        empowerLabel.translatesAutoresizingMaskIntoConstraints = false
-        empowerLabel.heightAnchor.constraint(equalToConstant: 75).isActive = true
-        empowerLabel.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 31).isActive = true
-        view.addConstraint(NSLayoutConstraint(item: empowerLabel, attribute: .centerY, relatedBy: .equal, toItem: greenView, attribute: .centerY, multiplier: 1, constant: 0))
-        
         // redView
         
         redView.translatesAutoresizingMaskIntoConstraints = false
-        redView.widthAnchor.constraint(equalTo: createLabel.widthAnchor, multiplier: 0.25).isActive = true
+        redView.widthAnchor.constraint(equalToConstant: 50).isActive = true
         redView.heightAnchor.constraint(equalToConstant: 66).isActive = true
         redView.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 24).isActive = true
         self.view.addConstraint(NSLayoutConstraint(item: redView, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 0.6, constant: 0))
@@ -153,7 +166,7 @@ class InitialViewController: UIViewController {
         // BlueView
         
         blueView.translatesAutoresizingMaskIntoConstraints = false
-        blueView.widthAnchor.constraint(equalTo: amazeLabel.widthAnchor, multiplier: 0.53).isActive = true
+        blueView.widthAnchor.constraint(equalToConstant: 96).isActive = true
         blueView.heightAnchor.constraint(equalToConstant: 66).isActive = true
         blueView.topAnchor.constraint(equalTo: redView.bottomAnchor, constant: 45).isActive = true
         blueView.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 24).isActive = true
@@ -161,10 +174,36 @@ class InitialViewController: UIViewController {
         // GreenView
         
         greenView.translatesAutoresizingMaskIntoConstraints = false
-        greenView.widthAnchor.constraint(equalTo: empowerLabel.widthAnchor, multiplier: 0.37).isActive = true
+        greenView.widthAnchor.constraint(equalToConstant: 96).isActive = true
         greenView.heightAnchor.constraint(equalToConstant: 66).isActive = true
         greenView.topAnchor.constraint(equalTo: blueView.bottomAnchor, constant: 45).isActive = true
         greenView.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 24).isActive = true
+        
+        // Labels
+        
+        cLabel.centerXAnchor.constraint(equalTo: redView.centerXAnchor).isActive = true
+        cLabel.centerYAnchor.constraint(equalTo: redView.centerYAnchor).isActive = true
+        cLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        amLabel.centerXAnchor.constraint(equalTo: blueView.centerXAnchor).isActive = true
+        amLabel.centerYAnchor.constraint(equalTo: blueView.centerYAnchor).isActive = true
+        amLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        emLabel.centerXAnchor.constraint(equalTo: greenView.centerXAnchor).isActive = true
+        emLabel.centerYAnchor.constraint(equalTo: greenView.centerYAnchor).isActive = true
+        emLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        reateLabel.centerYAnchor.constraint(equalTo: redView.centerYAnchor).isActive = true
+        reateLabel.leftAnchor.constraint(equalTo: redView.rightAnchor, constant: 2).isActive = true
+        reateLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        azeLabel.centerYAnchor.constraint(equalTo: blueView.centerYAnchor).isActive = true
+        azeLabel.leftAnchor.constraint(equalTo: blueView.rightAnchor, constant: 2).isActive = true
+        azeLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        powerLabel.centerYAnchor.constraint(equalTo: greenView.centerYAnchor).isActive = true
+        powerLabel.leftAnchor.constraint(equalTo: greenView.rightAnchor, constant: 2).isActive = true
+        powerLabel.translatesAutoresizingMaskIntoConstraints = false
         
         // StackView with two buttons
         
@@ -184,8 +223,8 @@ class InitialViewController: UIViewController {
         view.addSubview(handImage)
         view.sendSubviewToBack(handImage)
         handImage.frame = CGRect.zero
-        handImage.heightAnchor.constraint(equalToConstant: 440).isActive = true
-        handImage.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        handImage.heightAnchor.constraint(equalToConstant: view.frame.height*0.45).isActive = true
+        handImage.widthAnchor.constraint(equalToConstant: view.frame.height*0.45*0.45).isActive = true
         handImage.translatesAutoresizingMaskIntoConstraints = false
         self.view.addConstraint(NSLayoutConstraint(item: handImage, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 0.8, constant: 0))
         handImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
@@ -207,7 +246,7 @@ class InitialViewController: UIViewController {
 
         parent.addSubview(descriptionText)
         descriptionText.translatesAutoresizingMaskIntoConstraints = false
-        descriptionText.topAnchor.constraint(equalTo: empowerLabel.bottomAnchor, constant: 32).isActive = true
+        descriptionText.topAnchor.constraint(equalTo: emLabel.bottomAnchor, constant: 32).isActive = true
         descriptionText.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 32).isActive = true
         descriptionText.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16).isActive = true
        
@@ -252,66 +291,34 @@ class InitialViewController: UIViewController {
 
 extension InitialViewController {
     
-    // MARK: Функция отрисовки лэйблов
-    func setLabels() {
-        // Create Label
-        var attrs1 = [NSAttributedString.Key.font : UIFont(name: "RobotoCondensed-Bold", size: 64), NSAttributedString.Key.foregroundColor : UIColor.white]
 
-        var attrs2 = [NSAttributedString.Key.font : UIFont(name: "RobotoCondensed-Bold", size: 64), NSAttributedString.Key.foregroundColor : UIColor.black]
-
-        var attributedString1 = NSMutableAttributedString(string:"C", attributes:attrs1)
-
-        var attributedString2 = NSMutableAttributedString(string:"reate", attributes:attrs2)
-
-        attributedString1.append(attributedString2)
-        self.createLabel.attributedText = attributedString1
-        
-        
-        // Amaze Label
-        attrs1 = [NSAttributedString.Key.font : UIFont(name: "RobotoCondensed-Bold", size: 64), NSAttributedString.Key.foregroundColor : UIColor.white]
-
-        attrs2 = [NSAttributedString.Key.font : UIFont(name: "RobotoCondensed-Bold", size: 64), NSAttributedString.Key.foregroundColor : UIColor.black]
-
-        attributedString1 = NSMutableAttributedString(string:"Am", attributes:attrs1)
-
-        attributedString2 = NSMutableAttributedString(string:"aze", attributes:attrs2)
-
-        attributedString1.append(attributedString2)
-        self.amazeLabel.attributedText = attributedString1
-        
-        // Empower Label
-        attrs1 = [NSAttributedString.Key.font : UIFont(name: "RobotoCondensed-Bold", size: 64), NSAttributedString.Key.foregroundColor : UIColor.white]
-
-        attrs2 = [NSAttributedString.Key.font : UIFont(name: "RobotoCondensed-Bold", size: 64), NSAttributedString.Key.foregroundColor : UIColor.black]
-
-        attributedString1 = NSMutableAttributedString(string:"Em", attributes:attrs1)
-
-        attributedString2 = NSMutableAttributedString(string:"power", attributes:attrs2)
-
-        attributedString1.append(attributedString2)
-        self.empowerLabel.attributedText = attributedString1
-    }
     
     // MARK: Анимация появления текста
     func apearAnimation() {
         redView.transform = CGAffineTransform(scaleX: 0, y: 0)
         blueView.transform = CGAffineTransform(scaleX: 0, y: 0)
         greenView.transform = CGAffineTransform(scaleX: 0, y: 0)
-        createLabel.alpha = 0
-        amazeLabel.alpha = 0
-        empowerLabel.alpha = 0
+        cLabel.alpha = 0
+        amLabel.alpha = 0
+        emLabel.alpha = 0
+        reateLabel.alpha = 0
+        azeLabel.alpha = 0
+        powerLabel.alpha = 0
         
         UIView.animate(withDuration: 0.4, animations: {
             self.redView.transform = CGAffineTransform(scaleX: 1, y: 1)
-            self.createLabel.alpha = 1
+            self.cLabel.alpha = 1
+            self.reateLabel.alpha = 1
         }, completion: { _ in
             UIView.animate(withDuration: 0.4, animations: {
                 self.blueView.transform = CGAffineTransform(scaleX: 1, y: 1)
-                self.amazeLabel.alpha = 1
+                self.amLabel.alpha = 1
+                self.azeLabel.alpha = 1
             }, completion: { _ in
                 UIView.animate(withDuration: 0.4, animations: {
                     self.greenView.transform = CGAffineTransform(scaleX: 1, y: 1)
-                    self.empowerLabel.alpha = 1
+                    self.emLabel.alpha = 1
+                    self.powerLabel.alpha = 1
                 }, completion: nil)
             })
         })
