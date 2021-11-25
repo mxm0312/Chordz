@@ -254,37 +254,20 @@ class InitialViewController: UIViewController {
     
     // MARK: Кнопка зарегестрироваться
     @objc func signUpButton(sender:UIButton) {
-        UIView.animate(withDuration: 0.1, animations: {
-            sender.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
-            sender.alpha = 0.5
-        }, completion: { _ in
-            UIView.animate(withDuration: 0.2, animations: {
-                sender.transform = CGAffineTransform(scaleX: 1, y: 1)
-                sender.alpha = 1
-            },completion: { _ in
-                let view = SignUpViewController()
-                view.modalPresentationStyle = .fullScreen
-                self.present(view, animated: true, completion: nil)
-            })
-        })
-        
+        sender.tapAnimation {
+            let view = SignUpViewController()
+            view.modalPresentationStyle = .fullScreen
+            self.present(view, animated: true, completion: nil)
+        }
     }
     
     // MARK: Кнопка войти
     @objc func signInButton(sender:UIButton) {
-        UIView.animate(withDuration: 0.1, animations: {
-            sender.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
-            sender.alpha = 0.5
-        }, completion: { _ in
-            UIView.animate(withDuration: 0.2, animations: {
-                sender.transform = CGAffineTransform(scaleX: 1, y: 1)
-                sender.alpha = 1
-            },completion: { _ in
-                let view = LoginViewController()
-                view.modalPresentationStyle = .fullScreen
-                self.present(view, animated: true, completion: nil)
-            })
-        })
+        sender.tapAnimation {
+            let view = LoginViewController()
+            view.modalPresentationStyle = .fullScreen
+            self.present(view, animated: true, completion: nil)
+        }
     }
 }
 

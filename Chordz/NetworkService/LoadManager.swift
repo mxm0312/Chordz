@@ -175,7 +175,7 @@ class FirestoreDataParser {
         if let content = dict?["content"] as? String {
             song.content = content
         }
-        if let date = dict?["date"] as? String {
+        if let date = dict?["date"] as? Int {
             song.date = date
         }
         return song

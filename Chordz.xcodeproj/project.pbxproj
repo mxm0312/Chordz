@@ -124,8 +124,6 @@
 		5E162D332707242D00BF44B8 /* Chordz */ = {
 			isa = PBXGroup;
 			children = (
-				6D170FA6273FCB670034AC01 /* ProfileModule */,
-				6D92B51B27345D9E001519EC /* Extensions.swift */,
 				6D92B51927345D5B001519EC /* GoogleService-Info.plist */,
 				5E162D342707242D00BF44B8 /* AppDelegate.swift */,
 				5E162D362707242D00BF44B8 /* SceneDelegate.swift */,
@@ -133,12 +131,14 @@
 				5E8F74882710C92000B6E85F /* Model */,
 				5EAB7E8C273D339000D1A3F4 /* AuthModule */,
 				5EAB7E8D273D339800D1A3F4 /* FeedModule */,
+				6D170FA6273FCB670034AC01 /* ProfileModule */,
+				6D92B51B27345D9E001519EC /* Extensions.swift */,
+				6D3FF39627456F2A00C8C95D /* Constants.swift */,
 				5E162D3A2707242D00BF44B8 /* Main.storyboard */,
 				5E162D3D2707242E00BF44B8 /* Assets.xcassets */,
 				5E162D3F2707242E00BF44B8 /* LaunchScreen.storyboard */,
 				5E395DD92721ADBE00229563 /* Fonts */,
 				5E162D422707242E00BF44B8 /* Info.plist */,
-				6D3FF39627456F2A00C8C95D /* Constants.swift */,
 			);
 			path = Chordz;
 			sourceTree = "<group>";

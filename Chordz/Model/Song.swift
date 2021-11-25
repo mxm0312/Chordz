@@ -31,11 +31,12 @@ struct Song: Codable {
     /// Текст разбора песни
     var content: String?
     /// Дата разбора
-    var date: String?
+    var date: Int?
 }
 
 /// Структура комментария
 struct Comment: Codable {
     var nick: String?
     var text: String?
+    var date: Int?
 }
