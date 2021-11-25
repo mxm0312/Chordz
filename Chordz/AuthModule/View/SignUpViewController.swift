@@ -348,21 +348,15 @@ class SignUpViewController: UIViewController {
     }
     
     // MARK: Кнопка зарегестрироваться
-    @objc func signUpButton(sender:UIButton) {
-        UIView.animate(withDuration: 0.1, animations: {
-            sender.alpha = 0.5
-            sender.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
-        }, completion: { _ in
-            UIView.animate(withDuration: 0.2, animations: {
-                sender.alpha = 1
-                sender.transform = CGAffineTransform(scaleX: 1, y: 1)
-            })
-        })
+    @objc func signUpButton(_ sender:UIButton) {
+        sender.tapAnimation {}
     }
     
     // MARK: Кнопка войти
-    @objc func signInButton() {
-        presenter?.navigateToSignIn()
+    @objc func signInButton(_ sender: UIButton) {
+        sender.tapAnimation {
+            self.presenter?.navigateToSignIn()
+        }
     }
     
     @objc private func signupButtonTapped() {
@@ -400,19 +394,30 @@ class SignUpViewController: UIViewController {
         let feed = FeedViewController()
         let feedItem = UITabBarItem()
         feedItem.title = "feed"
-        feedItem.image = UIImage(named: "home_icon")
+        feedItem.image = UIImage.feedTapBarIcon
         feed.tabBarItem = feedItem
         
         let profile = ProfileViewController()
         let profileItem = UITabBarItem()
+        profileItem.image = UIImage.profileTabBarIcon
         profileItem.title = "profile"
-        profileItem.image = UIImage(named: "home_icon")
         profile.tabBarItem = profileItem
         
+        tabBarVC.setViewControllers([feed, profile], animated: false)
+        tabBarVC.tabBar.tintColor = .black
+        let navContrtoller = UINavigationController(rootViewController: tabBarVC)
         
-        tabBarVC.setViewControllers([feed,profile], animated: false)
-        tabBarVC.modalPresentationStyle = .fullScreen
-        self.present(tabBarVC, animated: true, completion: nil)
+        let title = UILabel()
+        title.text = "Chordz"
+        title.textColor = .black
+        title.font = UIFont(name: "Montserrat-Bold", size: 22)
+        
+        tabBarVC.navigationItem.titleView = title
+        tabBarVC.tabBar.barTintColor = .white
+        navContrtoller.navigationBar.barTintColor = .white
+        
+        navContrtoller.modalPresentationStyle = .fullScreen
+        self.present(navContrtoller, animated: true, completion: nil)
         /*let alert = UIAlertController(title: "Yoohoo!", message: "Successfully created new user", preferredStyle: .alert)
         let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
         alert.addAction(action)

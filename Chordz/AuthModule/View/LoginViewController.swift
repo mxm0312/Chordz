@@ -20,9 +20,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         field.placeholder = "email"
         field.textContentType = .emailAddress
         field.borderStyle = .none
-        field.textAlignment = .center
         field.textContentType = .emailAddress
         field.tintColor = .black
+        field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 0))
+        field.leftViewMode = .always
         field.backgroundColor = UIColor(red: 0.769, green: 0.769, blue: 0.769, alpha: 0.2)
         return field
     }()
@@ -35,8 +36,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         field.font = UIFont(name: "Montserrat-Regular", size: 18)
         field.isSecureTextEntry = true
         field.placeholder = "password"
-        field.textAlignment = .center
         field.tintColor = .black
+        field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 0))
+        field.leftViewMode = .always
         field.borderStyle = .none
         return field
     }()
@@ -76,7 +78,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         presenter = LoginViewPresenter(view: self, service: FirebaseNetworkService.shared)
-        
+        overrideUserInterfaceStyle = .light
         loginField.delegate = self
         passwordField.delegate = self
         setUI()
@@ -95,24 +97,36 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func showFeedView() {
+        
         let tabBarVC = UITabBarController()
         
         let feed = FeedViewController()
         let feedItem = UITabBarItem()
         feedItem.title = "feed"
-        feedItem.image = UIImage(named: "home_icon")
+        feedItem.image = UIImage.feedTapBarIcon
         feed.tabBarItem = feedItem
         
         let profile = ProfileViewController()
         let profileItem = UITabBarItem()
+        profileItem.image = UIImage.profileTabBarIcon
         profileItem.title = "profile"
-        profileItem.image = UIImage(named: "home_icon")
         profile.tabBarItem = profileItem
         
+        tabBarVC.setViewControllers([feed, profile], animated: false)
+        tabBarVC.tabBar.tintColor = .black
+        let navContrtoller = UINavigationController(rootViewController: tabBarVC)
         
-        tabBarVC.setViewControllers([feed,profile], animated: false)
-        tabBarVC.modalPresentationStyle = .fullScreen
-        self.present(tabBarVC, animated: true, completion: nil)
+        let title = UILabel()
+        title.text = "Chordz"
+        title.textColor = .black
+        title.font = UIFont(name: "Montserrat-Bold", size: 22)
+        
+        tabBarVC.navigationItem.titleView = title
+        tabBarVC.tabBar.barTintColor = .white
+        navContrtoller.navigationBar.barTintColor = .white
+        
+        navContrtoller.modalPresentationStyle = .fullScreen
+        self.present(navContrtoller, animated: true, completion: nil)
     }
     
     func signInProblem() {
@@ -129,23 +143,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func signUpButton(sender:UIButton) {
-        presenter?.navigateToSignUp()
+        sender.tapAnimation {
+            self.presenter?.navigateToSignUp()
+        }
     }
     
     @objc func signInButton(sender:UIButton) {
-        UIView.animate(withDuration: 0.1, animations: {
-            sender.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
-            sender.alpha = 0.5
-        }, completion: { _ in
-            UIView.animate(withDuration: 0.2, animations: {
-                sender.transform = CGAffineTransform(scaleX: 1, y: 1)
-                sender.alpha = 1
-            })
-        })
+        sender.tapAnimation {}
     }
     
     @objc func reset(sender:UIButton) {
-        
+        sender.tapAnimation {
+            
+        }
     }
     
     
@@ -203,6 +213,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         // email Label
         let emailLabel = UILabel()
         emailLabel.font =  UIFont(name: "Montserrat-Regular", size: 18)
+        emailLabel.textColor = .black
         emailLabel.text = "info about correct email"
         box.addSubview(emailLabel)
         emailLabel.leftAnchor.constraint(equalTo: emailImage.rightAnchor, constant: 10).isActive = true
@@ -235,6 +246,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         // password Label
         
         let passwordLabel = UILabel()
+        passwordLabel.textColor = .black
         passwordLabel.font =  UIFont(name: "Montserrat-Regular", size: 18)
         passwordLabel.text = "info about correct password"
         box.addSubview(passwordLabel)
