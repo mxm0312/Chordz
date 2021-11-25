@@ -38,6 +38,10 @@ class FeedTableViewCell: UITableViewCell {
         descriptionText.text = song.description
         likesLabel.text = String(song.likes ?? 0)
         albumImage.backgroundColor = .systemPink
+        guard let nick = song.nick else {
+            return
+        }
+        nickLabel.text = "@" + nick
     }
     
 }

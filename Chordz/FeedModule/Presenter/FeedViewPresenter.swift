@@ -13,6 +13,7 @@ protocol FeedViewPresenterProtocol: AnyObject {
     var searchFieldIsShown: Bool { get }
     func loadContent()
     func searchButtonTapped()
+    func search(by nick: String)
 }
 
 class FeedViewPresenter: FeedViewPresenterProtocol {
@@ -43,6 +44,16 @@ class FeedViewPresenter: FeedViewPresenterProtocol {
             view?.hideSearch()
         }
         
+    }
+    
+    func search(by nick: String) {
+        service?.loadSongs(by: nick, complition: { songs in
+            guard var songs = songs else { return }
+            songs.sort(by: { firstSong, secondSong in
+                return firstSong.date ?? 0 > secondSong.date ?? 0
+            })
+            self.content = songs
+        })
     }
     
     func loadContent() {

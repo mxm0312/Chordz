@@ -86,8 +86,8 @@ class FirestoreLoadManager: LoadManagerProtocol {
     func loadSongs(by nick: String, complitionHandler: @escaping ([Song]?) -> Void) {
         songRef?.whereField("nick", isEqualTo: nick).getDocuments(completion: { snaps, err in
             var songs = [Song]()
-            if err == nil {
-                
+            if err != nil {
+                print(err)
             } else {
                 guard let snaps = snaps else {
                     return

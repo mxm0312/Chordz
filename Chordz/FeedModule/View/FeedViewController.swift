@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
 
     let tableView = UITableView()
@@ -18,14 +18,14 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         let field = UITextField(frame: CGRect(x: 0, y: 0, width: 0, height: 45))
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
-        field.returnKeyType = .continue
+        field.returnKeyType = .search
         field.layer.cornerRadius = 10
         field.placeholder = "Введите ник для поиска"
         field.font =  UIFont(name: "Montserrat-Regular", size: Constants.smallTextSize)
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 45))
         field.leftViewMode = .always
         field.backgroundColor = .textFieldBgColor
-        field.returnKeyType = .continue
+        field.tintColor = .black
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()
@@ -45,6 +45,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         tableView.showsVerticalScrollIndicator = false
         tableView.separatorStyle = .none
+        
+        searchField.delegate = self
         
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 350
@@ -82,6 +84,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             return
         }
         searchFieldTopConstraint.constant = 8
+        searchField.becomeFirstResponder()
         UIView.animate(withDuration: 0.2, animations: {
             self.tableView.alpha = 0
             self.view.layoutIfNeeded()
@@ -96,7 +99,6 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         searchFieldTopConstraint.constant = -100
         UIView.animate(withDuration: 0.2, animations: {
             self.tableView.alpha = 1
-            self.searchField.text = ""
             self.view.layoutIfNeeded()
         })
     }
@@ -131,7 +133,25 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @objc func searchTapped() {
         presenter?.searchButtonTapped()
+        searchField.resignFirstResponder()
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField.text != "" {
+            presenter?.search(by: searchField.text ?? "")
+        }
+        searchTapped()
+        searchField.resignFirstResponder()
+        return true
+    }
+    
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        if textField.text == "" {
+            presenter?.loadContent()
+            searchTapped()
+            searchField.resignFirstResponder()
+        }
+    }
     
 }
