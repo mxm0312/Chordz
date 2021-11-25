@@ -7,7 +7,14 @@
 
 import UIKit
 
-class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+protocol FeedView {
+    var tableView: UITableView { get }
+    func showSearch()
+    func hideSearch()
+    func searchTapped()
+}
+
+class FeedViewController: UIViewController, FeedView, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
 
     let tableView = UITableView()

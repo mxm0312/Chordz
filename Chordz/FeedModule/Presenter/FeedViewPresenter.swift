@@ -20,7 +20,7 @@ class FeedViewPresenter: FeedViewPresenterProtocol {
     
     var searchFieldIsShown: Bool = false
 
-    let view: FeedViewController?
+    let view: FeedView?
     let service: NetworkServiceProtocol?
     var content: [Song] {
         didSet {
