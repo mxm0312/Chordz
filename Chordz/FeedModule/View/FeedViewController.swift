@@ -7,29 +7,40 @@
 
 import UIKit
 
-class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+/// Протокол ленты песен
+protocol FeedViewProtocol: AnyObject {
+    /// Таблица с песнями
+    var tableView: UITableView { get }
+    /// Отобразить поисковую строку
+    func showSearch()
+    /// Спрятать поисковую строку
+    func hideSearch()
+    /// Сообщить presenter'у, что была нажата кнопка поиска
+    func searchTapped()
+}
 
+class FeedViewController: UIViewController, FeedViewProtocol, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
     let tableView = UITableView()
-    var presenter: FeedViewPresenterProtocol?
+    private var presenter: FeedViewPresenterProtocol?
     
-    
-    let logoImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "logo")
-        imageView.frame = CGRect(x: 0, y: 0, width: 200, height: 73)
-        return imageView
+    private let searchField: UITextField = {
+        let field = UITextField(frame: CGRect(x: 0, y: 0, width: 0, height: 45))
+        field.autocapitalizationType = .none
+        field.autocorrectionType = .no
+        field.returnKeyType = .search
+        field.layer.cornerRadius = 10
+        field.placeholder = "Введите ник для поиска"
+        field.font =  UIFont(name: "Montserrat-Regular", size: Constants.smallTextSize)
+        field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 45))
+        field.leftViewMode = .always
+        field.backgroundColor = .textFieldBgColor
+        field.tintColor = .black
+        field.translatesAutoresizingMaskIntoConstraints = false
+        return field
     }()
     
-    let searchButton: UIButton = {
-        let button = UIButton()
-        button.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        button.setImage(UIImage(named: "search"), for: .normal)
-        button.addTarget(self,action:#selector(searchButtonTapped),
-                         for:.touchUpInside)
-        return button
-    }()
-    
+    private var searchFieldTopConstraint: NSLayoutConstraint?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +54,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.showsVerticalScrollIndicator = false
         tableView.separatorStyle = .none
         
+        searchField.delegate = self
+        
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 350
         
@@ -52,6 +65,10 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         view.backgroundColor = .white
         tableView.backgroundColor = .white
         setUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        overrideUserInterfaceStyle = .light
     }
 
     @objc func searchButtonTapped(sender: UIButton) {
@@ -73,37 +90,80 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         return cell
     }
     
+    // Отобразить всё для поиска
+    func showSearch() {
+        guard var searchFieldTopConstraint = searchFieldTopConstraint else {
+            return
+        }
+        searchFieldTopConstraint.constant = 8
+        searchField.becomeFirstResponder()
+        UIView.animate(withDuration: 0.2, animations: {
+            self.tableView.alpha = 0
+            self.view.layoutIfNeeded()
+        })
+    }
     
+    // Отобразить всё для поиска
+    func hideSearch() {
+        guard var searchFieldTopConstraint = searchFieldTopConstraint else {
+            return
+        }
+        searchFieldTopConstraint.constant = -100
+        UIView.animate(withDuration: 0.2, animations: {
+            self.tableView.alpha = 1
+            self.view.layoutIfNeeded()
+        })
+    }
     
     func setUI() {
         
-        // HEADER
-        view.addSubview(logoImage)
-        logoImage.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 32).isActive = true
-        logoImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8).isActive = true
-        logoImage.translatesAutoresizingMaskIntoConstraints = false
-        
-        let searchView = UIView()
-        view.addSubview(searchView)
-        searchButton.backgroundColor = UIColor(red: 0.949, green: 0.949, blue: 0.949, alpha: 1)
-        searchButton.layer.cornerRadius = searchButton.frame.height / 2
-        searchView.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        searchView.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        searchView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -22).isActive = true
-        searchView.centerYAnchor.constraint(equalTo: logoImage.centerYAnchor).isActive = true
-        searchView.translatesAutoresizingMaskIntoConstraints = false
-        
-        searchView.addSubview(searchButton)
-        searchButton.centerXAnchor.constraint(equalTo: searchView.centerXAnchor).isActive = true
-        searchButton.centerYAnchor.constraint(equalTo: searchView.centerYAnchor).isActive = true
-        
         // tableView
         view.addSubview(tableView)
-        tableView.topAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: 20).isActive = true
+        tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
         tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
+        // Добавление поиска в navigationBar
+        guard let tabBar = self.parent as? UITabBarController else {
+            return
+        }
+        tabBar.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage.searchIcon, style: .plain, target: self, action: #selector(searchTapped))
+        
+        // searchField
+        view.addSubview(searchField)
+        searchField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        searchField.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        searchField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.85).isActive = true
+        searchFieldTopConstraint = NSLayoutConstraint(item: searchField, attribute: .top, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: -2*searchField.frame.height) // изначально поисковая строка вне зоны видимости
+        view.addConstraint(searchFieldTopConstraint!)
+        searchField.translatesAutoresizingMaskIntoConstraints = false
+        
+        
     }
+    
+    @objc func searchTapped() {
+        presenter?.searchButtonTapped()
+        searchField.resignFirstResponder()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField.text != "" {
+            presenter?.search(by: searchField.text ?? "")
+        }
+        searchTapped()
+        searchField.resignFirstResponder()
+        return true
+    }
+    
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        if textField.text == "" {
+            presenter?.loadContent()
+            searchTapped()
+            searchField.resignFirstResponder()
+        }
+    }
+    
 }
