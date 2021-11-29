@@ -28,7 +28,7 @@ class FeedViewPresenter: FeedViewPresenterProtocol {
     
     var searchFieldIsShown: Bool = false
 
-    let view: FeedViewProtocol?
+    weak var view: FeedViewProtocol?
     let service: NetworkServiceProtocol?
     var content: [Song] {
         didSet {

@@ -8,7 +8,7 @@
 import UIKit
 
 /// Протокол ленты песен
-protocol FeedViewProtocol {
+protocol FeedViewProtocol: AnyObject {
     /// Таблица с песнями
     var tableView: UITableView { get }
     /// Отобразить поисковую строку
@@ -22,7 +22,7 @@ protocol FeedViewProtocol {
 class FeedViewController: UIViewController, FeedViewProtocol, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
     let tableView = UITableView()
-    private weak var presenter: FeedViewPresenterProtocol?
+    private var presenter: FeedViewPresenterProtocol?
     
     private let searchField: UITextField = {
         let field = UITextField(frame: CGRect(x: 0, y: 0, width: 0, height: 45))
