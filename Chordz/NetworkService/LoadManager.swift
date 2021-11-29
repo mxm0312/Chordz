@@ -43,6 +43,7 @@ class FirestoreLoadManager: LoadManagerProtocol {
     let db = Firestore.firestore()
     let userRef: CollectionReference?
     let songRef: CollectionReference?
+    var output: LoadErrorOutputDelegate?
    
     static let shared = FirestoreLoadManager()
     
@@ -86,17 +87,17 @@ class FirestoreLoadManager: LoadManagerProtocol {
     func loadSongs(by nick: String, complitionHandler: @escaping ([Song]?) -> Void) {
         songRef?.whereField("nick", isEqualTo: nick).getDocuments(completion: { snaps, err in
             var songs = [Song]()
-            if err != nil {
-                print(err)
-            } else {
-                guard let snaps = snaps else {
-                    return
-                }
-                for snap in snaps.documents {
-                    songs.append(FirestoreDataParser.shared.parseToSong(this: snap.data()))
-                }
-                complitionHandler(songs)
+            guard err == nil else {
+                self.output?.loadMistake(messsage: err?.localizedDescription)
+                return
             }
+            guard let snaps = snaps else {
+                return
+            }
+            for snap in snaps.documents {
+                songs.append(FirestoreDataParser.shared.parseToSong(this: snap.data()))
+            }
+            complitionHandler(songs)
         })
     }
     
@@ -118,6 +119,15 @@ class FirestoreLoadManager: LoadManagerProtocol {
             }
         })
     }
+}
+
+/// Протокол вывода ошибок из LoadManager
+protocol LoadErrorOutputDelegate: AnyObject {
+    /// Ошибка загрузки песни
+    ///
+    /// - Parameters:
+    ///   - message: Тело ошибки
+    func loadMistake(messsage: String?)
 }
 
 class FirestoreDataParser {

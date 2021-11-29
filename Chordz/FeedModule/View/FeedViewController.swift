@@ -7,19 +7,22 @@
 
 import UIKit
 
-protocol FeedView {
+/// Протокол ленты песен
+protocol FeedViewProtocol {
+    /// Таблица с песнями
     var tableView: UITableView { get }
+    /// Отобразить поисковую строку
     func showSearch()
+    /// Спрятать поисковую строку
     func hideSearch()
+    /// Сообщить presenter'у, что была нажата кнопка поиска
     func searchTapped()
 }
 
-class FeedViewController: UIViewController, FeedView, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
-
+class FeedViewController: UIViewController, FeedViewProtocol, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
     let tableView = UITableView()
-    
-    private var presenter: FeedViewPresenterProtocol?
+    private weak var presenter: FeedViewPresenterProtocol?
     
     private let searchField: UITextField = {
         let field = UITextField(frame: CGRect(x: 0, y: 0, width: 0, height: 45))
@@ -42,8 +45,6 @@ class FeedViewController: UIViewController, FeedView, UITableViewDelegate, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        overrideUserInterfaceStyle = .light
-        
         presenter = FeedViewPresenter(view: self, service: FirebaseNetworkService.shared)
         presenter?.loadContent()
         
@@ -64,6 +65,10 @@ class FeedViewController: UIViewController, FeedView, UITableViewDelegate, UITab
         view.backgroundColor = .white
         tableView.backgroundColor = .white
         setUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        overrideUserInterfaceStyle = .light
     }
 
     @objc func searchButtonTapped(sender: UIButton) {
