@@ -9,6 +9,7 @@ import Foundation
 
 protocol ProfilePresenterProtocol: AnyObject {
     func loadContent(complitionHandler: @escaping ([Song]) -> Void)
+    func navigateToSettings()
     func loadInfo()
 }
 
@@ -36,5 +37,9 @@ class ProfilePresenter: ProfilePresenterProtocol {
         }
     }
     
-    
+    func navigateToSettings() {
+        let view = SettingsViewController()
+        view.modalPresentationStyle = .fullScreen
+        self.view?.present(view, animated: false, completion: nil)
+    }
 }

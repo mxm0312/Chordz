@@ -112,10 +112,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @objc func settingsButtonTapped(sender: UIButton) {
-        let alert = UIAlertController(title: "Yoohoo!", message: "Settings button was tapped", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
-        alert.addAction(action)
-        self.present(alert, animated: true, completion: nil)
+//        let alert = UIAlertController(title: "Yoohoo!", message: "Settings button was tapped", preferredStyle: .alert)
+//        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+//        alert.addAction(action)
+//        self.present(alert, animated: true, completion: nil)
+        presenter?.navigateToSettings()
     }
     
     func setUI() {
