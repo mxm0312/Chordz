@@ -7,27 +7,9 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: UIViewController, UINavigationBarDelegate {
     
     var presenter: SettingsPresenterProtocol?
-    
-    private let settingsLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Settings"
-        label.font =  UIFont(name: "Montserrat-Bold", size: Constants.buttonsTextSize)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let goBackButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Back", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: Constants.buttonsTextSize)
-        button.addTarget(self,action: #selector(goBackButtonTapped),for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
     
     private let logoutButton: UIButton = {
         let button = UIButton()
@@ -40,7 +22,7 @@ class SettingsViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,13 +30,24 @@ class SettingsViewController: UIViewController {
         
         view.backgroundColor = .white
         
-        view.addSubview(settingsLabel)
-        settingsLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        settingsLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 70).isActive = true
+        let height: CGFloat = 75
+        //шо-то до меня не дошло, как сделать так, чтобы оно нормально расположилось
+        let navbar = UINavigationBar(frame: CGRect(x: 0, y: 40, width: UIScreen.main.bounds.width, height: 75))
+        navbar.backgroundColor = UIColor.white
+        navbar.delegate = self
         
-        view.addSubview(goBackButton)
-        goBackButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 70).isActive = true
-        goBackButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
+        let navItem = UINavigationItem()
+        navItem.title = "Settings"
+        navItem.leftBarButtonItem = UIBarButtonItem(title: "Back",
+                                                    style: .done,
+                                                    target: self,
+                                                    action: #selector(goBackButtonTapped))
+        
+        navbar.items = [navItem]
+        
+        view.addSubview(navbar)
+        
+        self.view.frame = CGRect(x: 0, y: height, width: UIScreen.main.bounds.width, height: (UIScreen.main.bounds.height - height))
         
         view.addSubview(logoutButton)
         logoutButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
@@ -70,7 +63,14 @@ class SettingsViewController: UIViewController {
     }
     
     @objc private func logoutButtonTapped() {
-        presenter?.logoutButtonTapped()
+        let alert = UIAlertController(title: "Log out?", message: nil, preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+            self.presenter?.logoutButtonTapped()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+        }))
     }
     
     @objc private func goBackButtonTapped() {

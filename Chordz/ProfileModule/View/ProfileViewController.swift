@@ -8,17 +8,13 @@
 import UIKit
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
     var presenter: ProfilePresenter?
     
     let tableView = UITableView()
     
-    var songs: [Song] = [
-        Song(artist: "Radiohead", name: "Fake Plastic Trees", album: "The Bends 1995", description: "The Bends is the second studio album by the English rock band Radiohead, released on 8 March 1995 by Parlophone.", nick: "nickname", tags: ["kshdad"], image: "radiohead", likes: 69, comments: nil),
-        Song(artist: "Radiohead", name: "My Iron Lung", album: "The Bends 1995", description: "The Bends is the second studio album by the English rock band Radiohead, released on 8 March 1995 by Parlophone.", nick: "nickname", tags: ["kshdad"], image: "radiohead", likes: 69, comments: nil),
-        Song(artist: "Radiohead", name: "High and Dry", album: "The Bends 1995", description: "The Bends is the second studio album by the English rock band Radiohead, released on 8 March 1995 by Parlophone.", nick: "nickname", tags: ["kshdad"], image: "radiohead", likes: 69, comments: nil),
-    ]
-    
+    var songs: [Song] = []
+
     private let logoImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = .logoIcon
@@ -51,8 +47,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     private let nickLabel: UILabel = {
         let label = UILabel()
-        //fixme
-        label.text = "@nickname"
         label.font =  UIFont(name: "Montserrat-Bold", size: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -73,14 +67,17 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         button.setTitle("My Songs", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 15)
-//        button.addTarget(self,action:#selector(signInButton),for:.touchUpInside)
+        //        button.addTarget(self,action:#selector(signInButton),for:.touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         presenter = ProfilePresenter(view: self, service: FirebaseNetworkService.shared)
+        songs = presenter?.loadSongs() ?? []
+        
         let nib = UINib(nibName: "SongView", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "songView")
         
@@ -106,17 +103,32 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "songView") as? SongView
+        cell?.deleteButton.tag = indexPath.row
+        cell?.deleteButton.addTarget(self,action:#selector(deleteButtonTapped),for:.touchUpInside)
         let song = songs[indexPath.row]
         cell?.configure(with: song)
         return cell!
     }
     
     @objc func settingsButtonTapped(sender: UIButton) {
-//        let alert = UIAlertController(title: "Yoohoo!", message: "Settings button was tapped", preferredStyle: .alert)
-//        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
-//        alert.addAction(action)
-//        self.present(alert, animated: true, completion: nil)
         presenter?.navigateToSettings()
+    }
+    
+    @objc func deleteButtonTapped(sender: UIButton) {
+        let alert = UIAlertController(title: "Delete the song?", message: nil, preferredStyle: UIAlertController.Style.alert)
+
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+            self.presenter?.deleteSong(songId: sender.tag)
+            self.songs = self.presenter?.loadSongs() ?? []
+
+            self.tableView.reloadData()
+        }))
+
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+              
+        }))
+
+        present(alert, animated: true, completion: nil)
     }
     
     func setUI() {
@@ -149,6 +161,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         // тут должен быть мем "оно не работает, и я не знаю почему. оно работает, и я не знаю почему"
         // оно реально не работает и я реально не знаю почему...(((
+        profileImage.layoutIfNeeded()
         profileImage.layer.cornerRadius = profileImage.bounds.width / 2
         
         profileImage.isUserInteractionEnabled = true
@@ -194,11 +207,11 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         actionSheet.addAction(UIAlertAction(title: "Cancel",
                                             style: .cancel,
                                             handler: nil))
-//        actionSheet.addAction(UIAlertAction(title: "Take photo",
-//                                            style: .default,
-//                                            handler: { [weak self] _ in
-//                                                self?.presentCamera()
-//                                            }))
+        //        actionSheet.addAction(UIAlertAction(title: "Take photo",
+        //                                            style: .default,
+        //                                            handler: { [weak self] _ in
+        //                                                self?.presentCamera()
+        //                                            }))
         actionSheet.addAction(UIAlertAction(title: "Select from camera roll",
                                             style: .default,
                                             handler: { [weak self] _ in
@@ -207,13 +220,13 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         present(actionSheet, animated: true)
     }
     
-//    func presentCamera() {
-//        let vc = UIImagePickerController()
-//        vc.sourceType = .camera
-//        vc.delegate = self
-//        vc.allowsEditing = true
-//        present(vc, animated: true)
-//    }
+    //    func presentCamera() {
+    //        let vc = UIImagePickerController()
+    //        vc.sourceType = .camera
+    //        vc.delegate = self
+    //        vc.allowsEditing = true
+    //        present(vc, animated: true)
+    //    }
     
     func presentPicturePicker() {
         let vc = UIImagePickerController()
