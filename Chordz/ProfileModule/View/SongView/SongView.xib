@@ -83,18 +83,18 @@ Here is my fresh take on it... </string>
                             <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </state>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CSd-IS-1ii">
-                        <rect key="frame" x="336" y="206" width="86" height="46"/>
-                        <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="25"/>
-                        <state key="normal" title="Delete">
-                            <color key="titleColor" red="0.89865273239999999" green="0.2297007143" blue="0.35005116460000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </state>
-                    </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="20V-X1-X9D">
                         <rect key="frame" x="10" y="206" width="121" height="46"/>
                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="25"/>
                         <state key="normal" title="Statistics">
                             <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CSd-IS-1ii">
+                        <rect key="frame" x="336" y="206" width="86" height="46"/>
+                        <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="25"/>
+                        <state key="normal" title="Delete">
+                            <color key="titleColor" red="0.89865273239999999" green="0.2297007143" blue="0.35005116460000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                     </button>
                 </subviews>
@@ -122,6 +122,7 @@ Here is my fresh take on it... </string>
                 <outlet property="albumNameLabel" destination="pxu-rN-iJs" id="OQT-Er-mtx"/>
                 <outlet property="artistNameLabel" destination="B4Y-IH-BwI" id="2ZZ-iH-Qsa"/>
                 <outlet property="containerView" destination="RjS-HM-FtE" id="1r8-Vb-H0R"/>
+                <outlet property="deleteButton" destination="CSd-IS-1ii" id="NZQ-MC-dLk"/>
                 <outlet property="descriptionLabel" destination="X5A-JR-qWb" id="L2I-0y-8H4"/>
                 <outlet property="songNameLabel" destination="Fog-tB-GAP" id="1zB-t0-LLR"/>
             </connections>

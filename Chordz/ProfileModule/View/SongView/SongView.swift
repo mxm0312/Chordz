@@ -14,7 +14,8 @@ class SongView: UITableViewCell {
     @IBOutlet var albumNameLabel: UILabel!
     @IBOutlet var albumImage: UIImageView!
     @IBOutlet var descriptionLabel: UILabel!
-
+    @IBOutlet var deleteButton: UIButton!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
