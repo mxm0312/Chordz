@@ -17,6 +17,8 @@ extension UIImage {
     static let profileTabBarIcon = UIImage(named: "profileTabBar")
     static let feedTapBarIcon = UIImage(named: "feedTapBar")
     static let searchIcon = UIImage(named: "search")
+    static let createIcon = UIImage(named: "add")
+    static let account = UIImage(named: "account")
 }
 
 extension UIColor {

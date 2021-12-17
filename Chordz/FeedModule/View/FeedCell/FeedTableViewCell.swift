@@ -19,12 +19,15 @@ class FeedTableViewCell: UITableViewCell {
     @IBOutlet var likesLabel: UILabel!
     @IBOutlet var addButton: UIButton!
     @IBOutlet var containerView: UIView!
+    @IBOutlet var likeButton: UIButton!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
         containerView.layer.cornerRadius = 10
         albumImage.layer.cornerRadius = 5
         albumImage.clipsToBounds = true
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -37,11 +40,16 @@ class FeedTableViewCell: UITableViewCell {
         albumLabel.text = song.album
         descriptionText.text = song.description
         likesLabel.text = String(song.likes ?? 0)
-        albumImage.backgroundColor = .systemPink
+        albumImage.backgroundColor = .none
         guard let nick = song.nick else {
             return
         }
         nickLabel.text = "@" + nick
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        albumImage.image = .none
     }
     
 }

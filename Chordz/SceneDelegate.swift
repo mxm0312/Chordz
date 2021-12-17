@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -16,7 +17,58 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        window?.overrideUserInterfaceStyle = .dark
+        let window: UIWindow = UIWindow(windowScene: windowScene)
+        self.window = window
+        
+        
+        let vc: UIViewController
+        
+        if Auth.auth().currentUser?.isAnonymous == false {
+            let tabBarVC = UITabBarController()
+            
+            let feed = FeedViewController()
+            let feedItem = UITabBarItem()
+            feedItem.title = "feed"
+            feedItem.image = UIImage.feedTapBarIcon
+            feed.tabBarItem = feedItem
+            
+            let profile = ProfileViewController()
+            let profileItem = UITabBarItem()
+            profileItem.image = UIImage.profileTabBarIcon
+            profileItem.title = "profile"
+            profile.tabBarItem = profileItem
+            
+            let create = CreateViewController(nibName: "CreateViewController", bundle: nil)
+            let createItem = UITabBarItem()
+            createItem.image = UIImage.createIcon
+            createItem.title = "create"
+            create.tabBarItem = createItem
+            
+            tabBarVC.setViewControllers([feed, create, profile], animated: false)
+            tabBarVC.tabBar.tintColor = .black
+            let navContrtoller = UINavigationController(rootViewController: tabBarVC)
+            
+            let title = UILabel()
+            title.text = "Chordz"
+            title.textColor = .black
+            title.font = UIFont(name: "Montserrat-Bold", size: 22)
+            
+            tabBarVC.navigationItem.titleView = title
+            tabBarVC.tabBar.barTintColor = .white
+            navContrtoller.navigationBar.barTintColor = .white
+            
+            navContrtoller.modalPresentationStyle = .fullScreen
+            
+            vc = navContrtoller
+        } else {
+            vc = InitialViewController()
+        }
+        
+        window.rootViewController = vc
+        window.makeKeyAndVisible()
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

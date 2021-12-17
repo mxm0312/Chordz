@@ -11,38 +11,46 @@ import Firebase
 // MARK: Протокол работы с БД
 protocol LoadManagerProtocol {
     
-    /* Загрузка пользователя по uid */
+    /// Загрузка пользователя по uid
     func loadUser(uid: String, complitionHandler: @escaping (User?) -> Void)
     
-    /* Загрузка пользователя по niсk */
+    /// Загрузка пользователя по niсk
     func loadUser(nick: String, complitionHandler: @escaping (User?) -> Void)
     
-    /* Загрузка всех песен с таким названием */
+    /// Загрузка всех песен с таким названием
     func loadSongs(name: String, complitionHandler: @escaping ([Song]?) -> Void)
     
-    /* Загрузка всех песен с таким исполнителем */
+    /// Загрузка всех песен с таким исполнителем
     func loadSongs(artist: String, complitionHandler: @escaping ([Song]?) -> Void)
     
-    /* Загрузка всех песен конкретного пользователя */
+    /// Загрузка всех песен конкретного пользователя
     func loadSongs(uid: String, complitionHandler: @escaping ([Song]?) -> Void)
     
-    /* Загрузка всех песен c данным тэгом */
+    /// Загрузка всех песен c данным тэгом
     func loadSongs(tag: String, complitionHandler: @escaping ([Song]?) -> Void)
     
-    // загрузить песни чела с таким ником
+    /// загрузить песни чела с таким ником
     func loadSongs(by nick: String, complitionHandler: @escaping ([Song]?) -> Void)
     
+    /// загрузить песню по её айди
+    func loadSong(id: String, complition: @escaping ((Song?) -> Void))
+    
+    /// получить uid пользователя
     func getUID() -> String?
     
+    /// загрузить все песни
     func loadAllSongs(complitionHandler: @escaping ([Song]?) -> Void)
+    
 }
 
 
 class FirestoreLoadManager: LoadManagerProtocol {
     
     let db = Firestore.firestore()
+    let storage = Storage.storage()
     let userRef: CollectionReference?
     let songRef: CollectionReference?
+    var profileImageRef: StorageReference?
     var output: LoadErrorOutputDelegate?
    
     static let shared = FirestoreLoadManager()
@@ -50,12 +58,13 @@ class FirestoreLoadManager: LoadManagerProtocol {
     private init() {
         userRef = db.collection("Users")
         songRef = db.collection("Songs")
+        profileImageRef = storage.reference(withPath: "userProfileImages")
     }
     
     func loadUser(uid: String, complitionHandler: @escaping (User?) -> Void) {
-        userRef?.document("ZOxQT2SqnrjZa36UXbJ0").getDocument(completion: { snap, error in
+        userRef?.whereField("uid", isEqualTo: uid).getDocuments(completion: { snap, error in
             if error == nil {
-                complitionHandler(FirestoreDataParser.shared.parseToUser(this: snap?.data()))
+                complitionHandler(FirestoreDataParser.shared.parseToUser(this: snap?.documents[0].data()))
             }
         })
     }
@@ -84,8 +93,28 @@ class FirestoreLoadManager: LoadManagerProtocol {
         return
     }
     
+    
+    func loadSong(id: String, complition: @escaping ((Song?) -> Void)) {
+        songRef?.whereField("id", isEqualTo: id).getDocuments(completion: { snaps, err in
+            
+            guard err == nil else {
+                self.output?.loadMistake(messsage: err?.localizedDescription)
+                return
+            }
+            guard let snaps = snaps else {
+                return
+            }
+            if snaps.documents.isEmpty {
+                return
+            }
+            print("я в лоудере \(snaps)")
+            complition(FirestoreDataParser.shared.parseToSong(this: snaps.documents[0].data()))
+        })
+    }
+    
     func loadSongs(by nick: String, complitionHandler: @escaping ([Song]?) -> Void) {
         songRef?.whereField("nick", isEqualTo: nick).getDocuments(completion: { snaps, err in
+            
             var songs = [Song]()
             guard err == nil else {
                 self.output?.loadMistake(messsage: err?.localizedDescription)
@@ -102,11 +131,12 @@ class FirestoreLoadManager: LoadManagerProtocol {
     }
     
     func getUID() -> String? {
+        print(Auth.auth().currentUser?.uid)
         return Auth.auth().currentUser?.uid
     }
     
     func loadAllSongs(complitionHandler: @escaping ([Song]?) -> Void) {
-        songRef?.getDocuments(completion: { snaps, err in
+        songRef?.addSnapshotListener { snaps, err in
             var songs = [Song]()
             if err == nil {
                 guard let snaps = snaps else {
@@ -117,7 +147,7 @@ class FirestoreLoadManager: LoadManagerProtocol {
                 }
                 complitionHandler(songs)
             }
-        })
+        }
     }
 }
 
@@ -150,6 +180,7 @@ class FirestoreDataParser {
         if let followingTags = dict?["followingTags"] as? [String] {
             user.followingTags = followingTags
         }
+        
         return user
     }
     
@@ -187,6 +218,9 @@ class FirestoreDataParser {
         }
         if let date = dict?["date"] as? Int {
             song.date = date
+        }
+        if let id = dict?["id"] as? String {
+            song.id = id
         }
         return song
     }

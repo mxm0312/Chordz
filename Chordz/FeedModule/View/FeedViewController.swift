@@ -65,6 +65,9 @@ class FeedViewController: UIViewController, FeedViewProtocol, UITableViewDelegat
         view.backgroundColor = .white
         tableView.backgroundColor = .white
         setUI()
+        
+        overrideUserInterfaceStyle = .light
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -83,11 +86,60 @@ class FeedViewController: UIViewController, FeedViewProtocol, UITableViewDelegat
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "feedCell") as? FeedTableViewCell else {
             return .init()
         }
+        
         guard let presenter = presenter else {
             return .init()
         }
         cell.configure(with: presenter.content[indexPath.row])
+        presenter.loadAlbumImage(songID: presenter.content[indexPath.row].id ?? "", complition: { data in
+            if let data = data {
+                cell.albumImage.image = UIImage(data: data)
+            } else {
+                cell.albumImage.image = .none
+            }
+        })
+        let likedSongsID = UserDefaults.standard.array(forKey: "likedSongs") ?? []
+        if likedSongsID.contains(where: { id in
+            guard let id = id as? String else {
+                return false
+            }
+            if id == presenter.content[indexPath.row].id {
+                return true
+            } else {
+                return false
+            }
+        }) {
+            cell.likeButton.tintColor = .red
+            cell.likesLabel.textColor = .red
+        } else {
+            cell.likeButton.tintColor = .gray
+            cell.likesLabel.textColor = .gray
+        }
+        
+        let addedSongs = UserDefaults.standard.array(forKey: "addedSongs") ?? []
+        
+        if addedSongs.contains(where: { id in
+            guard let id = id as? String else {
+                return false
+            }
+            if id == presenter.content[indexPath.row].id {
+                return true
+            } else {
+                return false
+            }
+        }) {
+            cell.addButton.isHidden = true
+        } else {
+            cell.addButton.isHidden = false
+        }
+        
+        
         return cell
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("back")
+        tableView.reloadData()
     }
     
     // Отобразить всё для поиска
@@ -108,7 +160,7 @@ class FeedViewController: UIViewController, FeedViewProtocol, UITableViewDelegat
         guard var searchFieldTopConstraint = searchFieldTopConstraint else {
             return
         }
-        searchFieldTopConstraint.constant = -100
+        searchFieldTopConstraint.constant = -200
         UIView.animate(withDuration: 0.2, animations: {
             self.tableView.alpha = 1
             self.view.layoutIfNeeded()
@@ -116,7 +168,6 @@ class FeedViewController: UIViewController, FeedViewProtocol, UITableViewDelegat
     }
     
     func setUI() {
-        
         // tableView
         view.addSubview(tableView)
         tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
@@ -133,14 +184,13 @@ class FeedViewController: UIViewController, FeedViewProtocol, UITableViewDelegat
         
         // searchField
         view.addSubview(searchField)
+        view.sendSubviewToBack(searchField)
         searchField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         searchField.heightAnchor.constraint(equalToConstant: 45).isActive = true
         searchField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.85).isActive = true
         searchFieldTopConstraint = NSLayoutConstraint(item: searchField, attribute: .top, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: -2*searchField.frame.height) // изначально поисковая строка вне зоны видимости
         view.addConstraint(searchFieldTopConstraint!)
         searchField.translatesAutoresizingMaskIntoConstraints = false
-        
-        
     }
     
     @objc func searchTapped() {
@@ -157,6 +207,17 @@ class FeedViewController: UIViewController, FeedViewProtocol, UITableViewDelegat
         return true
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = SongViewingViewController(nibName: "SongViewingViewController", bundle: nil)
+        vc.modalPresentationStyle = .fullScreen
+        let presenter = SongViewingPresenter(view: vc, service: FirebaseNetworkService.shared)
+        presenter.song = self.presenter?.content[indexPath.row]
+        vc.presenter = presenter
+        guard let tabBar = self.parent as? UITabBarController else {
+            return
+        }
+        tabBar.navigationController?.pushViewController(vc, animated: true)
+    }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
         if textField.text == "" {
@@ -165,5 +226,4 @@ class FeedViewController: UIViewController, FeedViewProtocol, UITableViewDelegat
             searchField.resignFirstResponder()
         }
     }
-    
 }

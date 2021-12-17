@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 /// Класс логики представления ленты
 protocol FeedViewPresenterProtocol: AnyObject {
@@ -22,6 +23,7 @@ protocol FeedViewPresenterProtocol: AnyObject {
     /// - Parameters:
     ///   - nick: Ник пользователя, песни которого мы хотим загрузить
     func search(by nick: String)
+    func loadAlbumImage(songID: String, complition: @escaping (Data?) -> Void)
 }
 
 class FeedViewPresenter: FeedViewPresenterProtocol {
@@ -61,6 +63,10 @@ class FeedViewPresenter: FeedViewPresenterProtocol {
             guard let self = self else { return }
             self.content = songs
         })
+    }
+    
+    func loadAlbumImage(songID: String, complition: @escaping (Data?) -> Void) {
+        service?.loadAlbumImage(songID: songID, complition: complition)
     }
     
     func loadContent() {

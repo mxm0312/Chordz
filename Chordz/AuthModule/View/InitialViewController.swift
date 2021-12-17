@@ -120,6 +120,8 @@ class InitialViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
+        overrideUserInterfaceStyle = .light
+        view.backgroundColor = .white
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -33,7 +33,12 @@ class SongView: UITableViewCell {
         artistNameLabel.text = song.artist
         albumNameLabel.text = song.album
         descriptionLabel.text = song.description
-//        albumImage.image = UIImage(named: song.image ?? "none")
-        albumImage.backgroundColor = .systemPink
+        albumImage.backgroundColor = .none
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        albumImage.image = .none
+    }
+    
 }

@@ -112,7 +112,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         profileItem.title = "profile"
         profile.tabBarItem = profileItem
         
-        tabBarVC.setViewControllers([feed, profile], animated: false)
+        let create = CreateViewController(nibName: "CreateViewController", bundle: nil)
+        let createItem = UITabBarItem()
+        createItem.image = UIImage.createIcon
+        createItem.title = "create"
+        create.tabBarItem = createItem
+        
+        tabBarVC.setViewControllers([feed, create, profile], animated: false)
         tabBarVC.tabBar.tintColor = .black
         let navContrtoller = UINavigationController(rootViewController: tabBarVC)
         

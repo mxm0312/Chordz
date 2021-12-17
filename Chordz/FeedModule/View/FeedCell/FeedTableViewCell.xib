@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -91,6 +91,7 @@
                             <constraint firstAttribute="width" constant="25" id="h05-yf-py0"/>
                             <constraint firstAttribute="height" constant="25" id="lkb-Bv-3Z5"/>
                         </constraints>
+                        <color key="tintColor" red="0.64313725489999995" green="0.62745098040000002" blue="0.60784313729999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <state key="normal" image="like"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Zx-3O-x1N">
@@ -175,6 +176,7 @@ Here is my fresh take on it... </string>
                 <outlet property="artistLabel" destination="EaS-Mq-oCa" id="HT3-DC-gKF"/>
                 <outlet property="containerView" destination="X0I-Xh-aMk" id="5in-Hw-M3g"/>
                 <outlet property="descriptionText" destination="csE-Ge-cu3" id="qmc-7Q-rJA"/>
+                <outlet property="likeButton" destination="ZQh-O8-HdG" id="xGi-9K-6ct"/>
                 <outlet property="likesLabel" destination="vWE-Nb-IJh" id="KSR-SL-AzO"/>
                 <outlet property="nickLabel" destination="wVJ-XS-QrO" id="9W9-d9-fq0"/>
                 <outlet property="profileImage" destination="ULr-SS-txP" id="a7b-CT-fgl"/>

@@ -47,6 +47,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     private let nickLabel: UILabel = {
         let label = UILabel()
+        label.text = "nick"
+        label.textColor = .black
         label.font =  UIFont(name: "Montserrat-Bold", size: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -69,14 +71,41 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         button.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 15)
         //        button.addTarget(self,action:#selector(signInButton),for:.touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self,action:#selector(mySongsTapped),
+                         for:.touchUpInside)
         return button
     }()
+    
+    private let savedSongsButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Saved songs", for: .normal)
+        button.setTitleColor(UIColor(red: 0.718, green: 0.718, blue: 0.718, alpha: 1), for: .normal)
+        button.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 15)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self,action:#selector(savedSongsTapped),
+                         for:.touchUpInside)
+        return button
+    }()
+    
+    @objc func mySongsTapped(sender: UIButton) {
+        songs = []
+        savedSongsButton.setTitleColor(UIColor(red: 0.718, green: 0.718, blue: 0.718, alpha: 1), for: .normal)
+        mySongsButton.setTitleColor(.black, for: .normal)
+        presenter?.loadMySongs()
+    }
+    
+    @objc func savedSongsTapped(sender: UIButton) {
+        songs = []
+        mySongsButton.setTitleColor(UIColor(red: 0.718, green: 0.718, blue: 0.718, alpha: 1), for: .normal)
+        savedSongsButton.setTitleColor(.black, for: .normal)
+        presenter?.loadSavedSongs()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         presenter = ProfilePresenter(view: self, service: FirebaseNetworkService.shared)
-        songs = presenter?.loadSongs() ?? []
+        overrideUserInterfaceStyle = .light
         
         let nib = UINib(nibName: "SongView", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "songView")
@@ -88,13 +117,14 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.allowsSelection = false
+        tableView.allowsSelection = true
         
         view.backgroundColor = .white
         tableView.backgroundColor = .white
         setUI()
         
         presenter?.loadInfo()
+        presenter?.loadMyProfileImage()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -102,12 +132,31 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "songView") as? SongView
-        cell?.deleteButton.tag = indexPath.row
-        cell?.deleteButton.addTarget(self,action:#selector(deleteButtonTapped),for:.touchUpInside)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "songView") as? SongView else {
+            return .init()
+        }
+        cell.deleteButton.tag = indexPath.row
+        cell.deleteButton.addTarget(self,action:#selector(deleteButtonTapped),for:.touchUpInside)
+        cell.selectionStyle = .none
         let song = songs[indexPath.row]
-        cell?.configure(with: song)
-        return cell!
+        cell.configure(with: song)
+        presenter?.loadAlbumImage(songID: songs[indexPath.row].id ?? "", complition: { data in
+            if let data = data {
+                cell.albumImage.image = UIImage(data: data)
+            } else {
+                cell.albumImage.image = .none
+            }
+        })
+        return cell
+    }
+    
+    func setMyProfileImage(data: Data?) {
+        guard let data = data else {
+            profileImage.image = UIImage.account
+            return
+        }
+        profileImage.image = UIImage(data: data)
+
     }
     
     @objc func settingsButtonTapped(sender: UIButton) {
@@ -119,7 +168,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
             self.presenter?.deleteSong(songId: sender.tag)
-            self.songs = self.presenter?.loadSongs() ?? []
+            //self.songs = self.presenter?.loadSongs() ?? []
 
             self.tableView.reloadData()
         }))
@@ -170,20 +219,25 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         gesture.numberOfTapsRequired = 1
         profileImage.addGestureRecognizer(gesture)
         
-        // some user info
-        view.addSubview(nickLabel)
-        nickLabel.leftAnchor.constraint(equalTo: profileImage.rightAnchor, constant: 16).isActive = true
-        nickLabel.topAnchor.constraint(equalTo: profileImage.topAnchor, constant: 10).isActive = true
         
         view.addSubview(statusLabel)
         statusLabel.leftAnchor.constraint(equalTo: profileImage.rightAnchor, constant: 16).isActive = true
-        statusLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -100).isActive = true
-        statusLabel.topAnchor.constraint(equalTo: nickLabel.bottomAnchor, constant: 10).isActive = true
+        statusLabel.centerYAnchor.constraint(equalTo: profileImage.centerYAnchor).isActive = true
+        statusLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
+        
+        // some user info
+        view.addSubview(nickLabel)
+        nickLabel.bottomAnchor.constraint(equalTo: statusLabel.topAnchor, constant: -10).isActive = true
+        nickLabel.leftAnchor.constraint(equalTo: profileImage.rightAnchor, constant: 10).isActive = true
         
         // buttons
         view.addSubview(mySongsButton)
         mySongsButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 32).isActive = true
         mySongsButton.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 26).isActive = true
+        
+        view.addSubview(savedSongsButton)
+        savedSongsButton.leftAnchor.constraint(equalTo: mySongsButton.rightAnchor, constant: 32).isActive = true
+        savedSongsButton.centerYAnchor.constraint(equalTo: mySongsButton.centerYAnchor).isActive = true
         
         // tableView
         view.addSubview(tableView)
@@ -196,6 +250,17 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @objc private func didTapChangeProfilePicture() {
         presentPictureActionSheet()
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = SongViewingViewController(nibName: "SongViewingViewController", bundle: nil)
+        vc.modalPresentationStyle = .fullScreen
+        let presenter = SongViewingPresenter(view: vc, service: FirebaseNetworkService.shared)
+        presenter.song = self.songs[indexPath.row]
+        vc.presenter = presenter
+        guard let tabBar = self.parent as? UITabBarController else {
+            return
+        }
+        tabBar.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -236,11 +301,23 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         present(vc, animated: true)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("Прячу нав бар")
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)
         guard let selectedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
             return
         }
+        presenter?.changeMyProfileImage(data: selectedImage.jpegData(compressionQuality: 0.5)!)
         self.profileImage.image = selectedImage
     }
     

@@ -27,26 +27,27 @@ class SettingsViewController: UIViewController, UINavigationBarDelegate {
         super.viewDidLoad()
         
         presenter = SettingsPresenter(view: self)
+        overrideUserInterfaceStyle = .light
         
         view.backgroundColor = .white
         
         let height: CGFloat = 75
         //шо-то до меня не дошло, как сделать так, чтобы оно нормально расположилось
-        let navbar = UINavigationBar(frame: CGRect(x: 0, y: 40, width: UIScreen.main.bounds.width, height: 75))
-        navbar.backgroundColor = UIColor.white
-        navbar.delegate = self
-        
-        let navItem = UINavigationItem()
-        navItem.title = "Settings"
-        navItem.leftBarButtonItem = UIBarButtonItem(title: "Back",
-                                                    style: .done,
-                                                    target: self,
-                                                    action: #selector(goBackButtonTapped))
-        
-        navbar.items = [navItem]
-        
-        view.addSubview(navbar)
-        
+//        let navbar = UINavigationBar(frame: CGRect(x: 0, y: 40, width: UIScreen.main.bounds.width, height: 75))
+//        navbar.backgroundColor = UIColor.white
+//        navbar.delegate = self
+//        
+//        let navItem = UINavigationItem()
+//        navItem.title = "Settings"
+//        navItem.leftBarButtonItem = UIBarButtonItem(title: "Back",
+//                                                    style: .done,
+//                                                    target: self,
+//                                                    action: #selector(goBackButtonTapped))
+//        
+//        navbar.items = [navItem]
+//        
+//        view.addSubview(navbar)
+//        
         self.view.frame = CGRect(x: 0, y: height, width: UIScreen.main.bounds.width, height: (UIScreen.main.bounds.height - height))
         
         view.addSubview(logoutButton)
@@ -71,6 +72,11 @@ class SettingsViewController: UIViewController, UINavigationBarDelegate {
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
         }))
+        
+        
+        let view = InitialViewController()
+        view.modalPresentationStyle = .fullScreen
+        self.present(view, animated: true, completion: nil)
     }
     
     @objc private func goBackButtonTapped() {

@@ -32,6 +32,8 @@ struct Song: Codable {
     var content: String?
     /// Дата разбора
     var date: Int?
+    /// айдишник песни
+    var id: String?
 }
 
 /// Структура комментария
